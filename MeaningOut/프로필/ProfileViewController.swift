@@ -12,13 +12,19 @@ enum ProfileViewType: String {
     case edit = "EDIT PROFILE"
 }
 
-class ProfileViewController: UIViewController {
+protocol ImageUpdateDelegate: AnyObject {
+    func didUpdateImage(_ image: String)
+}
+
+class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     var profileType: ProfileViewType = .edit
     
-    let profileImageView: UIImageView = {
+    let profileName = "profile_\(Int.random(in: 0...11))"
+    
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "profile_\(Int.random(in: 0...11))")
+        imageView.image = UIImage(named: profileName)
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -71,6 +77,8 @@ class ProfileViewController: UIViewController {
         setUpAddTarget()
     }
     
+   
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
@@ -102,6 +110,12 @@ class ProfileViewController: UIViewController {
     
     @objc func profileTapped() {
         print(#function)
+        navigationItem.backButtonTitle = ""
+        let vc = ProfileImageViewController()
+        vc.navibartitle = profileType.rawValue
+        vc.profileImage = profileName
+        vc.delegate = self
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     @objc func doneButtonTapped() {
@@ -116,13 +130,16 @@ class ProfileViewController: UIViewController {
         
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-        let rootViewController = UINavigationController(rootViewController: SearchViewController())
+        let rootViewController = UINavigationController(rootViewController: TabBarController())
         
         sceneDelegate?.window?.rootViewController = rootViewController
         sceneDelegate?.window?.makeKeyAndVisible()
-        
-        
     }
+    
+    func didUpdateImage(_ image: String) {
+        profileImageView.image = UIImage(named: image)
+    }
+    
     
     func configureHierarchy() {
         view.addSubview(profileImageView)

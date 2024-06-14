@@ -27,6 +27,10 @@
 		B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */; };
 		B0924C512C1C0B2400D3F22B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C502C1C0B2400D3F22B /* SearchViewController.swift */; };
 		B0924C532C1C0B8300D3F22B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C522C1C0B8300D3F22B /* SettingViewController.swift */; };
+		B0924C552C1C12A400D3F22B /* ProfileImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C542C1C12A400D3F22B /* ProfileImageViewController.swift */; };
+		B0924C572C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */; };
+		B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */; };
+		B0ECBBC12C1C2A3600B86E80 /* ProfileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B0924C502C1C0B2400D3F22B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B0924C522C1C0B8300D3F22B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		B0924C542C1C12A400D3F22B /* ProfileImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageViewController.swift; sourceTree = "<group>"; };
+		B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseProtocol.swift; sourceTree = "<group>"; };
+		B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,13 +95,12 @@
 				B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */,
 				B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */,
 				B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */,
-				B0924C472C1BD36900D3F22B /* ProfileViewController.swift */,
-				B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */,
-				B0924C522C1C0B8300D3F22B /* SettingViewController.swift */,
-				B0924C502C1C0B2400D3F22B /* SearchViewController.swift */,
+				B0ECBBBE2C1C283A00B86E80 /* 프로필 */,
+				B0ECBBBF2C1C286100B86E80 /* 검색 */,
 				B0924C322C1BC57900D3F22B /* Enum */,
 				B0924C2F2C1BC4C100D3F22B /* CustomView */,
 				B0924C352C1BC71D00D3F22B /* Extension */,
+				B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */,
 				B0924C242C1BBF3600D3F22B /* Assets.xcassets */,
 				B0924C262C1BBF3600D3F22B /* LaunchScreen.storyboard */,
 				B0924C212C1BBF3400D3F22B /* Main.storyboard */,
@@ -122,9 +129,32 @@
 			isa = PBXGroup;
 			children = (
 				B0924C362C1BC73500D3F22B /* UIColor+Extension.swift */,
+				B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */,
 				B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B0ECBBBE2C1C283A00B86E80 /* 프로필 */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C472C1BD36900D3F22B /* ProfileViewController.swift */,
+				B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */,
+				B0924C542C1C12A400D3F22B /* ProfileImageViewController.swift */,
+				B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */,
+				B0924C522C1C0B8300D3F22B /* SettingViewController.swift */,
+			);
+			name = "프로필";
+			path = "프로필";
+			sourceTree = "<group>";
+		};
+		B0ECBBBF2C1C286100B86E80 /* 검색 */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C502C1C0B2400D3F22B /* SearchViewController.swift */,
+			);
+			name = "검색";
+			path = "검색";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0924C552C1C12A400D3F22B /* ProfileImageViewController.swift in Sources */,
 				B0924C512C1C0B2400D3F22B /* SearchViewController.swift in Sources */,
 				B0924C532C1C0B8300D3F22B /* SettingViewController.swift in Sources */,
 				B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */,
@@ -221,10 +252,13 @@
 				B0924C4D2C1BE1B700D3F22B /* UIImageView+Extension.swift in Sources */,
 				B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */,
 				B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */,
+				B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */,
 				B0924C372C1BC73500D3F22B /* UIColor+Extension.swift in Sources */,
+				B0924C572C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift in Sources */,
 				B0924C342C1BC59000D3F22B /* Resource.swift in Sources */,
 				B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */,
 				B0924C482C1BD36900D3F22B /* ProfileViewController.swift in Sources */,
+				B0ECBBC12C1C2A3600B86E80 /* ProfileImageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
