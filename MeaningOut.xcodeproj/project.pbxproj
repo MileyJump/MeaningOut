@@ -9,21 +9,43 @@
 /* Begin PBXBuildFile section */
 		B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */; };
 		B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */; };
-		B0924C202C1BBF3400D3F22B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1F2C1BBF3400D3F22B /* ViewController.swift */; };
+		B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */; };
 		B0924C232C1BBF3400D3F22B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B0924C222C1BBF3400D3F22B /* Base */; };
 		B0924C252C1BBF3600D3F22B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0924C242C1BBF3600D3F22B /* Assets.xcassets */; };
 		B0924C282C1BBF3600D3F22B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B0924C272C1BBF3600D3F22B /* Base */; };
+		B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C302C1BC50300D3F22B /* NextButton.swift */; };
+		B0924C342C1BC59000D3F22B /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C332C1BC59000D3F22B /* Resource.swift */; };
+		B0924C372C1BC73500D3F22B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C362C1BC73500D3F22B /* UIColor+Extension.swift */; };
+		B0924C3A2C1BCA6700D3F22B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C392C1BCA6700D3F22B /* IQKeyboardManagerSwift */; };
+		B0924C3D2C1BCA7000D3F22B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C3C2C1BCA7000D3F22B /* Alamofire */; };
+		B0924C402C1BCA7800D3F22B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C3F2C1BCA7800D3F22B /* Kingfisher */; };
+		B0924C432C1BCA8800D3F22B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C422C1BCA8800D3F22B /* Toast */; };
+		B0924C462C1BCA9700D3F22B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C452C1BCA9700D3F22B /* SnapKit */; };
+		B0924C482C1BD36900D3F22B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C472C1BD36900D3F22B /* ProfileViewController.swift */; };
+		B0924C4B2C1BDDF000D3F22B /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C4A2C1BDDF000D3F22B /* TextFieldEffects */; };
+		B0924C4D2C1BE1B700D3F22B /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */; };
+		B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */; };
+		B0924C512C1C0B2400D3F22B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C502C1C0B2400D3F22B /* SearchViewController.swift */; };
+		B0924C532C1C0B8300D3F22B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C522C1C0B8300D3F22B /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B0924C182C1BBF3400D3F22B /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B0924C1F2C1BBF3400D3F22B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		B0924C222C1BBF3400D3F22B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0924C242C1BBF3600D3F22B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0924C272C1BBF3600D3F22B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0924C292C1BBF3600D3F22B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0924C302C1BC50300D3F22B /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		B0924C332C1BC59000D3F22B /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		B0924C362C1BC73500D3F22B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		B0924C472C1BD36900D3F22B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
+		B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		B0924C502C1C0B2400D3F22B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		B0924C522C1C0B8300D3F22B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +53,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0924C432C1BCA8800D3F22B /* Toast in Frameworks */,
+				B0924C402C1BCA7800D3F22B /* Kingfisher in Frameworks */,
+				B0924C3A2C1BCA6700D3F22B /* IQKeyboardManagerSwift in Frameworks */,
+				B0924C4B2C1BDDF000D3F22B /* TextFieldEffects in Frameworks */,
+				B0924C3D2C1BCA7000D3F22B /* Alamofire in Frameworks */,
+				B0924C462C1BCA9700D3F22B /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +86,45 @@
 			children = (
 				B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */,
 				B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */,
-				B0924C1F2C1BBF3400D3F22B /* ViewController.swift */,
-				B0924C212C1BBF3400D3F22B /* Main.storyboard */,
+				B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */,
+				B0924C472C1BD36900D3F22B /* ProfileViewController.swift */,
+				B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */,
+				B0924C522C1C0B8300D3F22B /* SettingViewController.swift */,
+				B0924C502C1C0B2400D3F22B /* SearchViewController.swift */,
+				B0924C322C1BC57900D3F22B /* Enum */,
+				B0924C2F2C1BC4C100D3F22B /* CustomView */,
+				B0924C352C1BC71D00D3F22B /* Extension */,
 				B0924C242C1BBF3600D3F22B /* Assets.xcassets */,
 				B0924C262C1BBF3600D3F22B /* LaunchScreen.storyboard */,
+				B0924C212C1BBF3400D3F22B /* Main.storyboard */,
 				B0924C292C1BBF3600D3F22B /* Info.plist */,
 			);
 			path = MeaningOut;
+			sourceTree = "<group>";
+		};
+		B0924C2F2C1BC4C100D3F22B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C302C1BC50300D3F22B /* NextButton.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		B0924C322C1BC57900D3F22B /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C332C1BC59000D3F22B /* Resource.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		B0924C352C1BC71D00D3F22B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C362C1BC73500D3F22B /* UIColor+Extension.swift */,
+				B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +143,14 @@
 			dependencies = (
 			);
 			name = MeaningOut;
+			packageProductDependencies = (
+				B0924C392C1BCA6700D3F22B /* IQKeyboardManagerSwift */,
+				B0924C3C2C1BCA7000D3F22B /* Alamofire */,
+				B0924C3F2C1BCA7800D3F22B /* Kingfisher */,
+				B0924C422C1BCA8800D3F22B /* Toast */,
+				B0924C452C1BCA9700D3F22B /* SnapKit */,
+				B0924C4A2C1BDDF000D3F22B /* TextFieldEffects */,
+			);
 			productName = MeaningOut;
 			productReference = B0924C182C1BBF3400D3F22B /* MeaningOut.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +179,14 @@
 				Base,
 			);
 			mainGroup = B0924C0F2C1BBF3400D3F22B;
+			packageReferences = (
+				B0924C382C1BCA6700D3F22B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				B0924C3B2C1BCA7000D3F22B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B0924C3E2C1BCA7800D3F22B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B0924C412C1BCA8800D3F22B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				B0924C442C1BCA9700D3F22B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B0924C492C1BDDF000D3F22B /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
+			);
 			productRefGroup = B0924C192C1BBF3400D3F22B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,9 +214,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0924C202C1BBF3400D3F22B /* ViewController.swift in Sources */,
+				B0924C512C1C0B2400D3F22B /* SearchViewController.swift in Sources */,
+				B0924C532C1C0B8300D3F22B /* SettingViewController.swift in Sources */,
+				B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */,
 				B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */,
+				B0924C4D2C1BE1B700D3F22B /* UIImageView+Extension.swift in Sources */,
+				B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */,
+				B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */,
+				B0924C372C1BC73500D3F22B /* UIColor+Extension.swift in Sources */,
+				B0924C342C1BC59000D3F22B /* Resource.swift in Sources */,
 				B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */,
+				B0924C482C1BD36900D3F22B /* ProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,8 +381,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,9 +391,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miley.MeaningOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -324,8 +413,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -333,9 +423,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miley.MeaningOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -361,6 +455,90 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B0924C382C1BCA6700D3F22B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.3;
+			};
+		};
+		B0924C3B2C1BCA7000D3F22B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		B0924C3E2C1BCA7800D3F22B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		B0924C412C1BCA8800D3F22B /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		B0924C442C1BCA9700D3F22B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		B0924C492C1BDDF000D3F22B /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raulriera/TextFieldEffects.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B0924C392C1BCA6700D3F22B /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0924C382C1BCA6700D3F22B /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		B0924C3C2C1BCA7000D3F22B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0924C3B2C1BCA7000D3F22B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		B0924C3F2C1BCA7800D3F22B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0924C3E2C1BCA7800D3F22B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		B0924C422C1BCA8800D3F22B /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0924C412C1BCA8800D3F22B /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+		B0924C452C1BCA9700D3F22B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0924C442C1BCA9700D3F22B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		B0924C4A2C1BDDF000D3F22B /* TextFieldEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0924C492C1BDDF000D3F22B /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
+			productName = TextFieldEffects;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B0924C102C1BBF3400D3F22B /* Project object */;
 }
