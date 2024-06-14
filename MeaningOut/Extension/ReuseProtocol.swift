@@ -15,12 +15,15 @@ extension UIViewController: ReuseProtocol {
     static var identifier: String {
         return String(describing: self)
     }
-    
-    
-    
 }
 
 extension UICollectionViewCell: ReuseProtocol {
+    static var identifier: String {
+        return String(describing: self)
+    }
+}
+
+extension UITableViewCell: ReuseProtocol {
     static var identifier: String {
         return String(describing: self)
     }

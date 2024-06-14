@@ -1,5 +1,5 @@
 //
-//  ProfileSettingViewController.swift
+//  ProfileViewController.swift
 //  MeaningOut
 //
 //  Created by 최민경 on 6/14/24.
@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     var profileType: ProfileViewType = .edit
     
-    let profileName = "profile_\(Int.random(in: 0...11))"
+    var profileName = "profile_\(Int.random(in: 0...11))"
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -77,7 +77,6 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         setUpAddTarget()
     }
     
-   
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -104,7 +103,6 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         profileImageView.addGestureRecognizer(tap)
         
         cameraButton.addTarget(self, action: #selector(profileTapped), for: .touchUpInside)
-        
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
@@ -113,15 +111,18 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         navigationItem.backButtonTitle = ""
         let vc = ProfileImageViewController()
         vc.navibartitle = profileType.rawValue
+        // 현재 랜덤 이미지를 vc 이미지뷰에도 표시
         vc.profileImage = profileName
+        // 델리게이트를 통해 프로필 이미지 받아오기
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
 
     @objc func doneButtonTapped() {
-        print(#function)
-//        UserDefaults.standard.set(nicknameTextField.text, forKey: "nicname")
-//        UserDefaults.standard.set(profileImageView.image, forKey: "profile")
+        print(#function) 
+        // 유저 닉네임, 프로필 이미지 저장
+        UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
+        UserDefaults.standard.set(profileName, forKey: "profile")
         
         // 프로필 설정 여부 저장 (온보딩, 메인화면 조건에 해당)
         UserDefaults.standard.set(true, forKey: "isUser")
@@ -130,14 +131,17 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         
-        let rootViewController = UINavigationController(rootViewController: TabBarController())
-        
-        sceneDelegate?.window?.rootViewController = rootViewController
-        sceneDelegate?.window?.makeKeyAndVisible()
+        let rootViewController = TabBarController()
+            
+            // 중요: 네비게이션 컨트롤러를 통해 TabBarController로 전환
+            sceneDelegate?.window?.rootViewController = rootViewController
+            sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     func didUpdateImage(_ image: String) {
         profileImageView.image = UIImage(named: image)
+        profileName = image
+        print("profileName: \(profileName)")
     }
     
     

@@ -23,8 +23,8 @@
                                     <constraint firstAttribute="width" secondItem="EpP-sn-6nT" secondAttribute="height" id="4k2-af-xPa"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeaningOut" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zb4-07-we6">
-                                <rect key="frame" x="82.000000000000014" y="181.66666666666666" width="229.33333333333337" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeaningOut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zb4-07-we6">
+                                <rect key="frame" x="0.0" y="181.66666666666666" width="393" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" red="0.93725490196078431" green="0.53725490196078429" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -40,12 +40,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="o9F-pJ-xbB" firstAttribute="top" secondItem="EpP-sn-6nT" secondAttribute="bottom" id="BSa-cu-VE8"/>
+                            <constraint firstItem="Zb4-07-we6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BjV-1O-oOi"/>
                             <constraint firstItem="EpP-sn-6nT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="PVs-Ob-2ZP"/>
                             <constraint firstItem="EpP-sn-6nT" firstAttribute="top" secondItem="Zb4-07-we6" secondAttribute="bottom" constant="20" id="PWo-AI-7YZ"/>
                             <constraint firstItem="EpP-sn-6nT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="QtZ-AK-KuR"/>
                             <constraint firstItem="o9F-pJ-xbB" firstAttribute="centerX" secondItem="EpP-sn-6nT" secondAttribute="centerX" id="W5R-1e-t8C"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EpP-sn-6nT" secondAttribute="trailing" constant="20" id="XzK-Ti-AvE"/>
                             <constraint firstItem="EpP-sn-6nT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="eVe-ry-jvq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zb4-07-we6" secondAttribute="trailing" id="stc-gg-vLY"/>
                             <constraint firstItem="Zb4-07-we6" firstAttribute="centerX" secondItem="EpP-sn-6nT" secondAttribute="centerX" id="vp7-Ge-HEm"/>
                         </constraints>
                     </view>

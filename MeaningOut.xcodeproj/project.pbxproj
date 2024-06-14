@@ -31,6 +31,8 @@
 		B0924C572C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */; };
 		B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */; };
 		B0ECBBC12C1C2A3600B86E80 /* ProfileImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */; };
+		B0ECBBC72C1C770D00B86E80 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ECBBC62C1C770D00B86E80 /* SearchTableViewCell.swift */; };
+		B0ECBBC92C1C782700B86E80 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ECBBC82C1C782700B86E80 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseProtocol.swift; sourceTree = "<group>"; };
 		B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageModel.swift; sourceTree = "<group>"; };
+		B0ECBBC62C1C770D00B86E80 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		B0ECBBC82C1C782700B86E80 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				B0924C302C1BC50300D3F22B /* NextButton.swift */,
+				B0ECBBC82C1C782700B86E80 /* SearchView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				B0924C502C1C0B2400D3F22B /* SearchViewController.swift */,
+				B0ECBBC62C1C770D00B86E80 /* SearchTableViewCell.swift */,
 			);
 			name = "검색";
 			path = "검색";
@@ -250,6 +256,7 @@
 				B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */,
 				B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */,
 				B0924C4D2C1BE1B700D3F22B /* UIImageView+Extension.swift in Sources */,
+				B0ECBBC92C1C782700B86E80 /* SearchView.swift in Sources */,
 				B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */,
 				B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */,
 				B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */,
@@ -257,6 +264,7 @@
 				B0924C572C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift in Sources */,
 				B0924C342C1BC59000D3F22B /* Resource.swift in Sources */,
 				B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */,
+				B0ECBBC72C1C770D00B86E80 /* SearchTableViewCell.swift in Sources */,
 				B0924C482C1BD36900D3F22B /* ProfileViewController.swift in Sources */,
 				B0ECBBC12C1C2A3600B86E80 /* ProfileImageModel.swift in Sources */,
 			);
