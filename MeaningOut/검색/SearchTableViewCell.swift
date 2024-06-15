@@ -7,14 +7,8 @@
 
 import UIKit
 
-protocol SearchTableViewCellDelegate {
-    func didDeleteButton(_ cell: SearchTableViewCell)
-}
-
 
 class SearchTableViewCell: UITableViewCell {
-  
-    var delegate: SearchTableViewCellDelegate?
     
     let clockImageView: UIImageView = {
         let imageView = UIImageView()
@@ -41,7 +35,6 @@ class SearchTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
-        setUpAddTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -50,14 +43,6 @@ class SearchTableViewCell: UITableViewCell {
     
     func configureCell(_ text: String) {
         searchLabel.text = text
-    }
-    
-    func setUpAddTarget() {
-        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc func deleteButtonTapped() {
-        delegate?.didDeleteButton(self)
     }
     
     func configureHierarchy() {

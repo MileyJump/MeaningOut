@@ -22,6 +22,8 @@ class SearchViewController: UIViewController {
         let searBarImage = UIImage()
         searchBar.backgroundImage = searBarImage
         searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
+        searchBar.autocorrectionType = .no
+        searchBar.spellCheckingType = .no
         searchBar.searchTextField.font = .systemFont(ofSize: 15)
         return searchBar
     }()
@@ -78,12 +80,25 @@ class SearchViewController: UIViewController {
         setUpAddTarget()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
     func setUpAddTarget() {
         alldeleteButton.addTarget(self, action: #selector(alldeleteButtonTapped), for: .touchUpInside)
     }
     
     @objc func alldeleteButtonTapped() {
         searchWord.removeAll()
+    }
+    
+    @objc func deleteButtonTapped(_ sender: UIButton) {
+        searchWord.remove(at: sender.tag)
     }
     
     func searchWordState() {
@@ -97,9 +112,11 @@ class SearchViewController: UIViewController {
     func configureView() {
         view.backgroundColor = .white
         
+        
         guard let nickname = nickname else { return }
         navigationItem.title = "\(nickname)님의 MEANING OUT"
-        print(nickname)
+        navigationItem.backButtonTitle = ""
+        
         
         searchTableView.separatorStyle = .none
         searchTableView.delegate = self
@@ -170,10 +187,21 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier , for: indexPath) as! SearchTableViewCell
-        cell.delegate = self
+//        cell.delegate = self
         cell.configureCell(searchWord[indexPath.row])
-        
+        cell.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        cell.deleteButton.tag = indexPath.row
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(#function)
+        
+        
+        let vc = SearchResultsViewController()
+        vc.searchResult = searchWord[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+        tableView.reloadData() // 셀 클릭 표시(?) 제거
     }
 }
 
@@ -184,20 +212,15 @@ extension SearchViewController: UISearchBarDelegate {
         guard let text = searchBar.text else { return }
         
         if !text.isEmpty {
-//            searchWord.append(text)
             searchWord.insert(text, at: 0)
             searchTableView.reloadData()
         }
+        
+        let vc = SearchResultsViewController()
+        vc.searchResult = text
+        navigationController?.pushViewController(vc, animated: true)
         searchBar.text = ""
     }
     
 }
 
-
-extension SearchViewController: SearchTableViewCellDelegate {
-    func didDeleteButton(_ cell: SearchTableViewCell) {
-        guard let indexPath = searchTableView.indexPath(for: cell) else { return }
-        searchWord.remove(at: indexPath.row)
-        searchTableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
-    }
-}

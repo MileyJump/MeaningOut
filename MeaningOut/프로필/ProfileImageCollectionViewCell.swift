@@ -29,6 +29,7 @@ class ProfileImageCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         configureHierarchy()
         configureLayout()
+        
     }
     
     required init?(coder: NSCoder) {
