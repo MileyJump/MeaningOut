@@ -76,6 +76,12 @@ class SearchResultsViewController: UIViewController {
         callRequest(query: searchResult)
     }
     
+    @objc func likeButtonTapped(_ sender: UIButton) {
+//        shoppingData[sender.tag].like.toggle()
+        
+        collectionView.reloadData()
+    }
+    
     func callRequest(query: String) {
         let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30"
         
@@ -207,6 +213,8 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultsCollectionViewCell.identifier, for: indexPath) as! SearchResultsCollectionViewCell
         cell.configureCell(shoppingData[indexPath.row])
+        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        cell.likeButton.tag = indexPath.row
         return cell
     }
     
