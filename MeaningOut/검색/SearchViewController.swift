@@ -11,7 +11,11 @@ class SearchViewController: UIViewController {
     
     var nickname = UserDefaults.standard.string(forKey: "nickname")
     
-    var searchWord: [String] = []
+    var searchWord: [String] = [] {
+        didSet {
+            searchWordState() // searchWord 변경 될때마다 호출
+        }
+    }
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -68,10 +72,25 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureView()
         configureHierarchy()
         configureLayout()
+        setUpAddTarget()
+    }
+    
+    func setUpAddTarget() {
+        alldeleteButton.addTarget(self, action: #selector(alldeleteButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func alldeleteButtonTapped() {
+        searchWord.removeAll()
+    }
+    
+    func searchWordState() {
+        let isEmpty = searchWord.isEmpty
+        emptyImageView.isHidden = !isEmpty
+        emptyLabel.isHidden = !isEmpty
+        searchTableView.reloadData()
     }
     
 
@@ -79,7 +98,7 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .white
         
         guard let nickname = nickname else { return }
-        navigationItem.title = "\(nickname)'s MEANING OUT"
+        navigationItem.title = "\(nickname)님의 MEANING OUT"
         print(nickname)
         
         searchTableView.separatorStyle = .none
@@ -88,8 +107,6 @@ class SearchViewController: UIViewController {
         searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
         
         searchBar.delegate = self
-        
-       
     }
     
     func configureHierarchy() {
@@ -124,7 +141,6 @@ class SearchViewController: UIViewController {
             make.centerY.equalTo(recentsearchLabel)
             make.width.equalTo(70)
             make.height.equalTo(30)
-            
         }
 
         emptyImageView.snp.makeConstraints { make in
@@ -144,9 +160,8 @@ class SearchViewController: UIViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-  
-
 }
+
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -155,9 +170,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier , for: indexPath) as! SearchTableViewCell
-        
-        
+        cell.delegate = self
         cell.configureCell(searchWord[indexPath.row])
+        
         return cell
     }
 }
@@ -168,8 +183,21 @@ extension SearchViewController: UISearchBarDelegate {
         print(#function)
         guard let text = searchBar.text else { return }
         
-        searchWord.append(text)
-        searchTableView.reloadData()
+        if !text.isEmpty {
+//            searchWord.append(text)
+            searchWord.insert(text, at: 0)
+            searchTableView.reloadData()
+        }
+        searchBar.text = ""
     }
     
+}
+
+
+extension SearchViewController: SearchTableViewCellDelegate {
+    func didDeleteButton(_ cell: SearchTableViewCell) {
+        guard let indexPath = searchTableView.indexPath(for: cell) else { return }
+        searchWord.remove(at: indexPath.row)
+        searchTableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+    }
 }
