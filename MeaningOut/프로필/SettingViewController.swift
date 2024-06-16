@@ -86,6 +86,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             let vc = ProfileViewController()
             vc.profileType = .edit
+            
             navigationController?.pushViewController(vc, animated: true)
         }
     }

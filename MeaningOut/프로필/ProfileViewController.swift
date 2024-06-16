@@ -18,13 +18,14 @@ protocol ImageUpdateDelegate: AnyObject {
 
 class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
-    var profileType: ProfileViewType = .edit
+    var profileType: ProfileViewType = .setting
     
-    var profileName = "profile_\(Int.random(in: 0...11))"
+    var profileName = ""
+    
+    // MARK: - UI
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: profileName)
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -69,6 +70,8 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
 
     let doneButton = NextButton(title: "완료")
     
+    // MARK: - LifeCycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -77,26 +80,55 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         setUpAddTarget()
     }
     
-    
+    // cornerRadius : 프로필, 카메라 이미지뷰 원형으로 레이아웃 잡기
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         cameraButton.layer.cornerRadius = cameraButton.frame.height / 2
     }
-                                         
+    
+    // MARK: - 타입에 따른 화면 구성
+
     func configureView() {
         view.backgroundColor = .white
-        navigationItem.title = profileType.rawValue
         nicknameTextField.delegate = self
         
+        // 완료버튼 기본으로 비활성화
         doneButton.isEnabled = false
         
-        if profileType == .setting {
-            doneButton.isHidden = false
+        // 열거형 타입에 따른 네비게이션 타이틀
+        navigationItem.title = profileType.rawValue
+        navigationItem.backButtonTitle = ""
+        
+        // UserDefaults에서 저장된 프로필 이미지 로드 또는 랜덤 이미지 설정
+        if let savedProfileName = UserDefaults.standard.string(forKey: "profile") {
+            profileName = savedProfileName
         } else {
+            profileName = "profile_\(Int.random(in: 0...11))"
+        }
+        profileImageView.image = UIImage(named: profileName)
+        
+        // 타입에 따른 화면 UI 설정
+        switch profileType {
+        case .setting:
+            doneButton.isHidden = false
+        case .edit:
             doneButton.isHidden = true
+            setUpRightBarButton()
+            if let nickName = UserDefaults.standard.string(forKey: "nickname") {
+                nicknameTextField.text = nickName
+            }
         }
     }
+    
+    func setUpRightBarButton(){
+        let save = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.rightBarButtonItem = save
+        navigationItem.rightBarButtonItem?.tintColor = .black
+        
+    }
+    
+    // MARK: - AddTarget
     
     func setUpAddTarget() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
@@ -106,9 +138,17 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
+    @objc func saveButtonTapped() {
+        // 유저 닉네임, 프로필 이미지 저장
+        UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
+        UserDefaults.standard.set(profileName, forKey: "profile")
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
     @objc func profileTapped() {
         print(#function)
-        navigationItem.backButtonTitle = ""
+        
         let vc = ProfileImageViewController()
         vc.navibartitle = profileType.rawValue
         // 현재 랜덤 이미지를 vc 이미지뷰에도 표시
@@ -127,23 +167,26 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         // 프로필 설정 여부 저장 (온보딩, 메인화면 조건에 해당)
         UserDefaults.standard.set(true, forKey: "isUser")
         
+        // rootVC 변경
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        
         let rootViewController = TabBarController()
-            
-            // 중요: 네비게이션 컨트롤러를 통해 TabBarController로 전환
-            sceneDelegate?.window?.rootViewController = rootViewController
-            sceneDelegate?.window?.makeKeyAndVisible()
+        sceneDelegate?.window?.rootViewController = rootViewController
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
+    
+    // MARK: - Delegate
+
+
     func didUpdateImage(_ image: String) {
         profileImageView.image = UIImage(named: image)
         profileName = image
         print("profileName: \(profileName)")
     }
     
+    
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         view.addSubview(profileImageView)
@@ -193,8 +236,10 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
             
         }
     }
-
 }
+
+// MARK: - 닉네임 입력 설정
+
 
 extension ProfileViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -215,7 +260,6 @@ extension ProfileViewController: UITextFieldDelegate {
         
         // 새로 입력될 전체 텍스트 계산
         let newText = (text as NSString).replacingCharacters(in: range, with: string)
-        
         
         // 조건 확인
         var errorMessage: String?
@@ -249,8 +293,6 @@ extension ProfileViewController: UITextFieldDelegate {
                }
         
         doneButton.isEnabled = isValid
-        
-        
         
         return true // 입력을 허용
     }
