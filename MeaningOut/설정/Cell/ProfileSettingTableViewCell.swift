@@ -61,12 +61,19 @@ class ProfileSettingTableViewCell: UITableViewCell {
     
     
     func configuraUI() {
+        // 저장된 프로필 표시
         guard let profileName = UserDefaults.standard.string(forKey: "profile") else { return }
         profileImageView.image = UIImage(named: "\(profileName)")
         
+        // 저장된 닉네임 표시
         guard let nickName = UserDefaults.standard.string(forKey: "nickname") else { return }
-        print("=========ddd:::: \(nickName)")
         nicknameLabel.text = nickName
+        
+        // 가입한 날짜 표시
+        
+        if let date = UserDefaults.standard.string(forKey: "JoinDate") {
+            dateLabel.text = "\(date) 가입"
+        }
     }
     
     func configureCell() {

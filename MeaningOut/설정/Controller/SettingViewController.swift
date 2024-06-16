@@ -99,6 +99,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             
             let ok = UIAlertAction(title: "확인", style: .destructive) { _ in
                 UserDefaults.standard.set(false, forKey: "isUser")
+                // 사용자 정보 초기화 및 온보딩으로 전환
+                UserDefaults.standard.removeObject(forKey: "nickname")
+                UserDefaults.standard.removeObject(forKey: "JoinDate")
+                UserDefaults.standard.removeObject(forKey: "profile")
+                
                 let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
                 let sceneDelegate = windowScene?.delegate as? SceneDelegate
                 let rootViewController = OnboardingViewController()

@@ -102,12 +102,15 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         navigationItem.backButtonTitle = ""
         
         // UserDefaults에서 저장된 프로필 이미지 로드 또는 랜덤 이미지 설정
-        if let savedProfileName = UserDefaults.standard.string(forKey: "profile") {
-            profileName = savedProfileName
-        } else {
-            profileName = "profile_\(Int.random(in: 0...11))"
+        if UserDefaults.standard.string(forKey: "profile") != "" {
+            if let savedProfileName = UserDefaults.standard.string(forKey: "profile") {
+                profileName = savedProfileName
+            }
+            else {
+                profileName = "profile_\(Int.random(in: 0...11))"
+            }
+            profileImageView.image = UIImage(named: profileName)
         }
-        profileImageView.image = UIImage(named: profileName)
         
         // 타입에 따른 화면 UI 설정
         switch profileType {
@@ -164,6 +167,13 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         // 유저 닉네임, 프로필 이미지 저장
         UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
         UserDefaults.standard.set(profileName, forKey: "profile")
+        
+        // 가입 날짜 저장하기
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let now = formatter.string(from: currentDate)
+        UserDefaults.standard.set(now, forKey: "JoinDate")
         
         // 프로필 설정 여부 저장 (온보딩, 메인화면 조건에 해당)
         UserDefaults.standard.set(true, forKey: "isUser")
@@ -273,7 +283,7 @@ extension ProfileViewController: UITextFieldDelegate {
         }
         
         // 글자 수 조건 체크
-        if newText.count < 2 || newText.count > 10 {
+        if text.count < 2 || text.count > 10 {
             errorMessage = "2글자 이상 10글자 미만으로 설정해주세요"
             isValid = false // Done 버튼 비활성화
         }
