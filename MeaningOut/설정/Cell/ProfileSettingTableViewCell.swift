@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileSettingTableViewCell: UITableViewCell {
     
+    
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
@@ -26,6 +27,21 @@ class ProfileSettingTableViewCell: UITableViewCell {
         return label
     }()
     
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2024. 06. 15 가입"
+        label.textColor = .customMediumGray
+        label.font = .boldSystemFont(ofSize: 13)
+        return label
+    }()
+    
+    let arrowImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.tintColor = .customMediumGray
+        return imageView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
@@ -40,9 +56,9 @@ class ProfileSettingTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
     }
+    
     
     func configuraUI() {
         guard let profileName = UserDefaults.standard.string(forKey: "profile") else { return }
@@ -61,6 +77,8 @@ class ProfileSettingTableViewCell: UITableViewCell {
     func configureHierarchy() {
         contentView.addSubview(profileImageView)
         contentView.addSubview(nicknameLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(arrowImageView)
         
     }
     
@@ -74,8 +92,20 @@ class ProfileSettingTableViewCell: UITableViewCell {
         }
         
         nicknameLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(profileImageView)
+            make.centerY.equalTo(profileImageView.snp.centerY).offset(-10)
             make.leading.equalTo(profileImageView.snp.trailing).offset(25)
+        }
+        
+        dateLabel.snp.makeConstraints { make in
+            make.leading.equalTo(nicknameLabel.snp.leading)
+            make.top.equalTo(nicknameLabel.snp.bottom).offset(5)
+        }
+        
+        arrowImageView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(15)
+            make.centerY.equalTo(profileImageView)
+            make.width.equalTo(15)
+            make.height.equalTo(22)
         }
     }
 }

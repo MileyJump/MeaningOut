@@ -98,6 +98,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         
         // 열거형 타입에 따른 네비게이션 타이틀
         navigationItem.title = profileType.rawValue
+        navigationController?.navigationBar.tintColor = .black
         navigationItem.backButtonTitle = ""
         
         // UserDefaults에서 저장된 프로필 이미지 로드 또는 랜덤 이미지 설정
@@ -178,11 +179,9 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     // MARK: - Delegate
 
-
     func didUpdateImage(_ image: String) {
         profileImageView.image = UIImage(named: image)
         profileName = image
-        print("profileName: \(profileName)")
     }
     
     

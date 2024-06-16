@@ -19,14 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-//        if data {
-                        window?.rootViewController = TabBarController()
-//            let rootViewContoller = UINavigationController(rootViewController: SearchResultsViewController())
-//            window?.rootViewController = rootViewContoller
-//        } else {
-//            let rootViewContoller = UINavigationController(rootViewController: OnboardingViewController())
-//            window?.rootViewController = rootViewContoller
-//        }
+        if data {
+            window?.rootViewController = TabBarController()
+        } else {
+            
+            let navigationController = UINavigationController(rootViewController: OnboardingViewController())
+            window?.rootViewController = navigationController
+            
+            
+        }
         
         window?.makeKeyAndVisible()
     }

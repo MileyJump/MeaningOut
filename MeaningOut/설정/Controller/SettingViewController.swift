@@ -8,6 +8,7 @@
 import UIKit
 
 enum SettingOptions: String, CaseIterable {
+    case profile
     case mylikeList = "나의 장바구니 목록"
     case question = "자주 묻는 질문"
     case ask = "1:1 문의"
@@ -17,9 +18,7 @@ enum SettingOptions: String, CaseIterable {
 
 class SettingViewController: UIViewController {
     
-//    var profileName = "profile_\(Int.random(in: 0...11))"
-//    var nickName = UserDefaults.standard.string(forKey: "nickname")
-//    var profileName = UserDefaults.standard.string(forKey: "profile")
+    // MARK: - UI
     
     let settingTableView: UITableView = {
         let tableView = UITableView()
@@ -30,8 +29,8 @@ class SettingViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - life Cycle
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -40,15 +39,21 @@ class SettingViewController: UIViewController {
         
     }
     
+    // MARK: - View, TableView 구성
+
     func configureView() {
         view.backgroundColor = .white
+        navigationItem.title = "SETTING"
+        navigationItem.backButtonTitle = ""
+        
         settingTableView.delegate = self
         settingTableView.dataSource = self
         settingTableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
         settingTableView.register(ProfileSettingTableViewCell.self, forCellReuseIdentifier: ProfileSettingTableViewCell.identifier)
-        
     }
     
+    // MARK: - 레이아웃 구성
+
     func configureHierarchy() {
         view.addSubview(settingTableView)
     }
@@ -61,6 +66,8 @@ class SettingViewController: UIViewController {
 }
 
 
+// MARK: - 테이블뷰 : Delegate, DataSource
+
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
@@ -68,27 +75,44 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        let settingCell = SettingOptions.allCases[indexPath.row]
+        
+        if settingCell == .profile {
             let profileCell = tableView.dequeueReusableCell(withIdentifier: ProfileSettingTableViewCell.identifier, for: indexPath) as! ProfileSettingTableViewCell
-            
             return profileCell
         } else {
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as! SettingTableViewCell
-            cell.settingLabel.text = SettingOptions.allCases[indexPath.row].rawValue
-            
-            print(#function)
+            cell.settingLabel.text = settingCell.rawValue
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        let settingCell = SettingOptions.allCases[indexPath.row]
+        
+        if settingCell == .profile {
             let vc = ProfileViewController()
             vc.profileType = .edit
-            
             navigationController?.pushViewController(vc, animated: true)
+        } else if settingCell == .secession {
+            let alert = UIAlertController(title: "탈퇴하기", message: "탈퇴를 하면 데이터가 모두 초기화됩니다. 탈퇴 하시겠습니까?", preferredStyle: .alert)
+            
+            let ok = UIAlertAction(title: "확인", style: .destructive) { _ in
+                UserDefaults.standard.set(false, forKey: "isUser")
+                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+                let sceneDelegate = windowScene?.delegate as? SceneDelegate
+                let rootViewController = OnboardingViewController()
+                sceneDelegate?.window?.rootViewController = rootViewController
+                sceneDelegate?.window?.makeKeyAndVisible()
+            }
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            alert.addAction(ok)
+            alert.addAction(cancel)
+            
+            present(alert, animated: true)
         }
+        
+        tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
     }
     
 }

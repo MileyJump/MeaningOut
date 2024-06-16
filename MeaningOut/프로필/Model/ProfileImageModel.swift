@@ -11,7 +11,6 @@ struct Profile {
     let image_name: String
 }
 
-
 struct ProfileInfo {
     let profile: [Profile] = [
         Profile(image_name: "profile_0"),

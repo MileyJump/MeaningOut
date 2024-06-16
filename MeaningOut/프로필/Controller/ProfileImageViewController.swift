@@ -7,9 +7,8 @@
 
 import UIKit
 
-
-
 class ProfileImageViewController: UIViewController {
+    
     
     var delegate: ImageUpdateDelegate?
     
@@ -18,9 +17,11 @@ class ProfileImageViewController: UIViewController {
     
     var imageData: [Profile] = ProfileInfo().profile
     
+    // MARK: - UI
+    
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: profileImage)
+        imageView.image = UIImage(named: profileImage) // profileVC 이미지뷰 표시
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -59,7 +60,8 @@ class ProfileImageViewController: UIViewController {
         return layout
     }
     
-    
+    // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -67,6 +69,7 @@ class ProfileImageViewController: UIViewController {
         configureLayout()
     }
     
+    // cornerRadius : 프로필 카메라 원형으로 레이아웃 잡기
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
@@ -74,6 +77,8 @@ class ProfileImageViewController: UIViewController {
     }
     
     
+    // MARK: - 뷰 구성, 컬렉션뷰
+
     func configureView() {
         view.backgroundColor = .white
         navigationItem.title = navibartitle
@@ -83,6 +88,7 @@ class ProfileImageViewController: UIViewController {
         collectionView.register(ProfileImageCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImageCollectionViewCell.identifier)
     }
     
+    // MARK: - 레이아웃 구성
     
     func configureHierarchy() {
         view.addSubview(profileImageView)
@@ -112,6 +118,8 @@ class ProfileImageViewController: UIViewController {
     }
 }
 
+// MARK: - 컬렉션뷰
+
 extension ProfileImageViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -125,7 +133,6 @@ extension ProfileImageViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(imageData[indexPath.row])
         
         profileImage = imageData[indexPath.row].image_name
         profileImageView.image = UIImage(named: profileImage)

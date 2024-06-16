@@ -95,6 +95,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B03BD0FE2C1F0812007FCB8D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B03BD0FF2C1F081E007FCB8D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B03BD1002C1F0A5E007FCB8D /* 설정 */ = {
+			isa = PBXGroup;
+			children = (
+				B03BD1032C1F0ADD007FCB8D /* Cell */,
+				B03BD1042C1F0AE2007FCB8D /* Controller */,
+			);
+			name = "설정";
+			path = "설정";
+			sourceTree = "<group>";
+		};
+		B03BD1012C1F0AA3007FCB8D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C472C1BD36900D3F22B /* ProfileViewController.swift */,
+				B0924C542C1C12A400D3F22B /* ProfileImageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B03BD1022C1F0AC4007FCB8D /* 온보딩 */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */,
+			);
+			name = "온보딩";
+			path = "온보딩";
+			sourceTree = "<group>";
+		};
+		B03BD1032C1F0ADD007FCB8D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B03BD0FA2C1DD30B007FCB8D /* SettingTableViewCell.swift */,
+				B03BD0FC2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B03BD1042C1F0AE2007FCB8D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C522C1C0B8300D3F22B /* SettingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		B0924C0F2C1BBF3400D3F22B = {
 			isa = PBXGroup;
 			children = (
@@ -117,9 +178,10 @@
 			children = (
 				B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */,
 				B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */,
-				B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */,
+				B03BD1022C1F0AC4007FCB8D /* 온보딩 */,
 				B0ECBBBE2C1C283A00B86E80 /* 프로필 */,
 				B0ECBBBF2C1C286100B86E80 /* 검색 */,
+				B03BD1002C1F0A5E007FCB8D /* 설정 */,
 				B0924C322C1BC57900D3F22B /* Enum */,
 				B0924C2F2C1BC4C100D3F22B /* CustomView */,
 				B0924C352C1BC71D00D3F22B /* Extension */,
@@ -164,13 +226,9 @@
 		B0ECBBBE2C1C283A00B86E80 /* 프로필 */ = {
 			isa = PBXGroup;
 			children = (
-				B0924C472C1BD36900D3F22B /* ProfileViewController.swift */,
-				B0ECBBC02C1C2A3600B86E80 /* ProfileImageModel.swift */,
-				B0924C542C1C12A400D3F22B /* ProfileImageViewController.swift */,
-				B0924C562C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift */,
-				B0924C522C1C0B8300D3F22B /* SettingViewController.swift */,
-				B03BD0FC2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift */,
-				B03BD0FA2C1DD30B007FCB8D /* SettingTableViewCell.swift */,
+				B03BD0FE2C1F0812007FCB8D /* Model */,
+				B03BD1012C1F0AA3007FCB8D /* Controller */,
+				B03BD0FF2C1F081E007FCB8D /* Cell */,
 			);
 			name = "프로필";
 			path = "프로필";
