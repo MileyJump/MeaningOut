@@ -10,6 +10,8 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
     
+    // MARK: - UI
+    
     let clockImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "clock")
@@ -31,6 +33,8 @@ class SearchTableViewCell: UITableViewCell {
         return button
     }()
     
+    // MARK: - life cycle
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
@@ -41,9 +45,13 @@ class SearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - cell 구성
+    
     func configureCell(_ text: String) {
         searchLabel.text = text
     }
+    
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         contentView.addSubview(clockImageView)

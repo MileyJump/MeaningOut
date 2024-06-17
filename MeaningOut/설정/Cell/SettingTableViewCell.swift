@@ -9,6 +9,8 @@ import UIKit
 
 class SettingTableViewCell: UITableViewCell {
     
+    // MARK: - UI
+    
     let settingLabel: UILabel = {
         let label = UILabel()
         label.text = "나의 장바구니 목록"
@@ -28,6 +30,8 @@ class SettingTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 15)
         return label
     }()
+    
+    // MARK: - life cycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,10 +44,14 @@ class SettingTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - cell 구성
+    
     func configureCell() {
         let likeCount = UserDefaults.standard.integer(forKey: "like")
         productLabel.text = "\(likeCount)개의 상품"
     }
+    
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         contentView.addSubview(settingLabel)
@@ -64,7 +72,6 @@ class SettingTableViewCell: UITableViewCell {
         }
         
         likeImageView.snp.makeConstraints { make in
-//            make.verticalEdges.equalTo(settingLabel)
             make.centerY.equalTo(settingLabel)
             make.trailing.equalTo(productLabel.snp.leading).offset(-3)
             make.size.equalTo(22)

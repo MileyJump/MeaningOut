@@ -16,38 +16,46 @@ class DetailProductViewController: UIViewController {
     var productName: String = ""
     var link = ""
     
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         callRequest()
         configureHierarchy()
         configureLayout()
+        updateLikeButtonImage()
     }
+    
+    // MARK: - view 구성
     
     func configureView() {
         view.backgroundColor = .white
-        
-        
         navigationItem.title = productName
-        var likeButtonImage = likeButtonType ? "like_selected" : "like_unselected"
-        let like = UIBarButtonItem(image: UIImage(named: likeButtonImage), style: .plain, target: self, action: #selector(likeButtonClicked))
-//        like.tintColor = .white
-        
-//        navigationItem.rightBarButtonItem?.tintColor = .white
-       
-        navigationItem.rightBarButtonItem = like
-        
     }
     
+    // MARK: - SetUpAddTarget
+    
     @objc func likeButtonClicked() {
-        print("====")
+        likeButtonType.toggle()
+        print(likeButtonType)
+        updateLikeButtonImage()
     }
+    
+    // MARK: - 기능
+    
+    func updateLikeButtonImage() {
+        let likeButtonImage = likeButtonType ? UIImage(named: "like_selected") : UIImage(named: "like_unselected")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: likeButtonImage, style: .plain, target: self, action: #selector(likeButtonClicked))
+        }
     
     func callRequest() {
         guard let url = URL(string: link) else { return }
         let request = URLRequest(url: url)
         webView.load(request)
     }
+    
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         view.addSubview(webView)

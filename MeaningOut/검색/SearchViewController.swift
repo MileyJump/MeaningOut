@@ -17,6 +17,9 @@ class SearchViewController: UIViewController {
         }
     }
     
+    // MARK: - UI
+
+    
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         let searBarImage = UIImage()
@@ -71,6 +74,8 @@ class SearchViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - life cycle
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +95,10 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
+    
+    // MARK: - SetUpAddTarget
+    
+    
     func setUpAddTarget() {
         alldeleteButton.addTarget(self, action: #selector(alldeleteButtonTapped), for: .touchUpInside)
     }
@@ -101,6 +110,9 @@ class SearchViewController: UIViewController {
     @objc func deleteButtonTapped(_ sender: UIButton) {
         searchWord.remove(at: sender.tag)
     }
+    
+    
+    // MARK: - 기능
     
     func searchWordState() {
         let isEmpty = searchWord.isEmpty
@@ -117,7 +129,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-
+    // MARK: - view 구성
     func configureView() {
         view.backgroundColor = .white
         
@@ -134,6 +146,8 @@ class SearchViewController: UIViewController {
         
         searchBar.delegate = self
     }
+    
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         view.addSubview(searchBar)
@@ -189,6 +203,9 @@ class SearchViewController: UIViewController {
 }
 
 
+// MARK: - tableViewDelegate, DataSource
+
+
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchWord.count
@@ -216,6 +233,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadData()
     }
 }
+
+// MARK: - SearchBar Delegate
 
 extension SearchViewController: UISearchBarDelegate {
     

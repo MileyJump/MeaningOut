@@ -21,7 +21,6 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     let shoppingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-        imageView.backgroundColor = .green
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         return imageView
@@ -55,6 +54,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    // MARK: - UI
+    
     lazy var likeButton: UIButton = {
         let button = UIButton()
 //        let likeImage = mylike ? "like_unselected" : "like_unselected"
@@ -63,6 +64,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         button.layer.cornerRadius = 10
         return button
     }()
+    
+    // MARK: - life cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -74,6 +77,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - 기능
     
     func didlikeButton(_ sender: UIButton) {
             guard let index = index else {return}
@@ -97,6 +102,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             }
         }
         
+    // MARK: - 셀 구성
     
     
     func configureCell(_ data: Items) {
@@ -116,6 +122,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         }
 
     }
+    
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         contentView.addSubview(shoppingImageView)

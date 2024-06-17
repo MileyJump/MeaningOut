@@ -10,6 +10,9 @@ import SnapKit
 
 class OnboardingViewController: UIViewController {
     
+    // MARK: - UI
+
+    
     let serviceName: UILabel = {
         let label = UILabel()
         label.text = "MeaningOut"
@@ -27,6 +30,9 @@ class OnboardingViewController: UIViewController {
     }()
     
     let startButton = NextButton(title: "시작하기")
+    
+    // MARK: - life cycle
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +43,8 @@ class OnboardingViewController: UIViewController {
        
     }
     
+    // MARK: - SetUpAddTarget
+
     func setUpAddTarget() {
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
@@ -48,7 +56,8 @@ class OnboardingViewController: UIViewController {
             navigationController?.pushViewController(vc, animated: true)
     }
         
-    
+    // MARK: - View 구성
+
     
     func configureView() {
         view.backgroundColor = .white
@@ -56,6 +65,9 @@ class OnboardingViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .black
         
     }
+    
+    // MARK: - 레이아웃
+
     
     func configureHierarchy() {
         view.addSubview(serviceName)

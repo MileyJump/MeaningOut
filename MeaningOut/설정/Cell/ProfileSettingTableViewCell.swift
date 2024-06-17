@@ -8,8 +8,8 @@
 import UIKit
 
 class ProfileSettingTableViewCell: UITableViewCell {
-    
-    
+
+    // MARK: - UI
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -43,6 +43,8 @@ class ProfileSettingTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    // MARK: - life cycle
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
@@ -61,6 +63,8 @@ class ProfileSettingTableViewCell: UITableViewCell {
     }
     
     
+    // MARK: - 셀 구성
+    
     func configuraUI() {
         // 저장된 프로필 표시
         guard let profileName = UserDefaults.standard.string(forKey: "profile") else { return }
@@ -77,10 +81,7 @@ class ProfileSettingTableViewCell: UITableViewCell {
         }
     }
     
-    func configureCell() {
-       
-        
-    }
+    // MARK: - 레이아웃
     
     func configureHierarchy() {
         contentView.addSubview(profileImageView)

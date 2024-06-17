@@ -11,6 +11,9 @@ class ProfileImageCollectionViewCell: UICollectionViewCell {
     
     var alphaResult: CGFloat = 0.5
     
+    // MARK: - UI
+
+    
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.lightGray.cgColor)
@@ -24,6 +27,8 @@ class ProfileImageCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    // MARK: - life cycle
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,12 +41,18 @@ class ProfileImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - 셀 구성
+
+    
     func configureCell(_ data: Profile, isSelected: Bool) {
         profileImageView.image = UIImage(named: data.image_name)
         profileImageView.alpha = isSelected ? 1.0 : 0.5 
         profileImageView.layer.borderColor = isSelected ? UIColor.orange.cgColor : UIColor.lightGray.cgColor //
     }
     
+    
+    // MARK: - 레이아웃
+
     
     func configureHierarchy() {
         contentView.addSubview(profileImageView)
