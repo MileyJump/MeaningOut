@@ -144,12 +144,12 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     @objc func saveButtonTapped() {
         // 유저 닉네임, 프로필 이미지 저장
-        UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
+        guard let name = nicknameTextField.text else { return }
+        UserDefaults.standard.set(name, forKey: "nickname")
         UserDefaults.standard.set(profileName, forKey: "profile")
         
-        print("========\(profileName)")
         if let settingVC = navigationController?.viewControllers.first(where: { $0 is SettingViewController }) as? SettingViewController { // 네비게이션 컨트롤러의 스택에 있는 모든 뷰컨 중 첫 번째로 발견되는 SettingVC 찾기
-            settingVC.updateProfileImage(profileName)
+            settingVC.updateProfileImage(profileName, nickname: name)
         }
         
         navigationController?.popViewController(animated: true)

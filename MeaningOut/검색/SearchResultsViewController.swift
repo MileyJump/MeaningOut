@@ -104,6 +104,7 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
     func updateLikedItemCount() {
         let likedItemCount = likeStatuses.filter { $0.isLiked }.count
         UserDefaults.standard.set(likedItemCount, forKey: "like")
+        
     }
     
     @objc func accuracyButtonTapped() {
@@ -308,6 +309,8 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         let vc = DetailProductViewController()
         vc.link = shoppingData[indexPath.row].link
         vc.productName = shoppingData[indexPath.row].title
+        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
+        print(vc.likeButtonType)
         navigationController?.pushViewController(vc, animated: true)
     }
     

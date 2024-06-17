@@ -136,8 +136,6 @@ extension ProfileImageViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        print("알아봅시당! :\(indexPath.row)")
-        
         profileImage = imageData[indexPath.row].image_name
         profileImageView.image = UIImage(named: profileImage)
         delegate?.didUpdateImage(profileImage)

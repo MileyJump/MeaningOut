@@ -53,11 +53,12 @@ class SettingViewController: UIViewController {
     }
     
     // updateProfileImage 메서드 추가
-    func updateProfileImage(_ imageName: String) {
+    func updateProfileImage(_ imageName: String, nickname: String) {
         // 현재 뷰컨트롤러가 보여주는 테이블뷰 셀을 업데이트
         if let profileCell = settingTableView.cellForRow(at: [0, 0]) as? ProfileSettingTableViewCell {
             profileCell.profileImageView.image = UIImage(named: imageName)
             print("업데이트 프로필 이미지 \(imageName)")
+            profileCell.nicknameLabel.text = nickname
             
         }
     }

@@ -78,6 +78,7 @@ class SearchViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         setUpAddTarget()
+        loadSearchWords()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,6 +107,14 @@ class SearchViewController: UIViewController {
         emptyImageView.isHidden = !isEmpty
         emptyLabel.isHidden = !isEmpty
         searchTableView.reloadData()
+        
+        UserDefaults.standard.set(searchWord, forKey: "keyword")
+    }
+    
+    func loadSearchWords() {
+        if let keyword = UserDefaults.standard.stringArray(forKey: "keyword") {
+            searchWord = keyword
+        }
     }
     
 
