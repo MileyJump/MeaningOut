@@ -36,8 +36,10 @@ class ProfileImageCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(_ data: Profile) {
+    func configureCell(_ data: Profile, isSelected: Bool) {
         profileImageView.image = UIImage(named: data.image_name)
+        profileImageView.alpha = isSelected ? 1.0 : 0.5 
+        profileImageView.layer.borderColor = isSelected ? UIColor.orange.cgColor : UIColor.lightGray.cgColor //
     }
     
     

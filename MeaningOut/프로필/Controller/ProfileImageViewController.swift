@@ -14,8 +14,9 @@ class ProfileImageViewController: UIViewController {
     
     var navibartitle: String = ""
     var profileImage: String = ""
-    
     var imageData: [Profile] = ProfileInfo().profile
+    
+    var selectedIndexPath: IndexPath?
     
     // MARK: - UI
     
@@ -128,17 +129,27 @@ extension ProfileImageViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCollectionViewCell.identifier , for: indexPath) as! ProfileImageCollectionViewCell
-        cell.configureCell(imageData[indexPath.row])
+        let isSelected = indexPath == selectedIndexPath
+        cell.configureCell(imageData[indexPath.row], isSelected: isSelected)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        print("알아봅시당! :\(indexPath.row)")
+        
         profileImage = imageData[indexPath.row].image_name
         profileImageView.image = UIImage(named: profileImage)
         delegate?.didUpdateImage(profileImage)
+    
+
+        // 이전에 선택된 셀이 있으면 리로드하여 원래 상태로 되돌림
+        if let previousIndexPath = selectedIndexPath {
+            collectionView.reloadData()
+        }
+        // 새로 선택된 셀의 인덱스를 저장하고 리로드
+        selectedIndexPath = indexPath
+        collectionView.reloadItems(at: [indexPath])
         
     }
-    
-    
 }
