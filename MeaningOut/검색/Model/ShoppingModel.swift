@@ -33,7 +33,6 @@ struct Items: Decodable {
 }
 
 
-struct LikeCount {
-    var itemId: String  // 상품 고유 ID
-    var count: Int      // 좋아요 개수
+struct LikeStatus {
+    var isLiked: Bool = false // 좋아요 상태
 }

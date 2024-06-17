@@ -10,6 +10,8 @@ import WebKit
 
 class DetailProductViewController: UIViewController {
     
+    var likeButtonType: Bool = false
+    
     let webView = WKWebView()
     var productName: String = ""
     var link = ""
@@ -27,8 +29,9 @@ class DetailProductViewController: UIViewController {
         
         
         navigationItem.title = productName
-        let like = UIBarButtonItem(image: UIImage(named: "like_unselected"), style: .plain, target: self, action: #selector(likeButtonClicked))
-        like.tintColor = .white
+        var likeButtonImage = likeButtonType ? "like_selected" : "like_unselected"
+        let like = UIBarButtonItem(image: UIImage(named: likeButtonImage), style: .plain, target: self, action: #selector(likeButtonClicked))
+//        like.tintColor = .white
         
 //        navigationItem.rightBarButtonItem?.tintColor = .white
        

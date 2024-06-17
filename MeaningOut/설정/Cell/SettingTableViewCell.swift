@@ -9,8 +9,6 @@ import UIKit
 
 class SettingTableViewCell: UITableViewCell {
     
-    var stat: Bool = true
-    
     let settingLabel: UILabel = {
         let label = UILabel()
         label.text = "나의 장바구니 목록"
@@ -26,7 +24,7 @@ class SettingTableViewCell: UITableViewCell {
  
     let productLabel: UILabel = {
         let label = UILabel()
-        label.text = "18개의 상품"
+        label.text = "0개의 상품"
         label.font = .systemFont(ofSize: 15)
         return label
     }()
@@ -35,10 +33,16 @@ class SettingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
+        configureCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureCell() {
+        let likeCount = UserDefaults.standard.integer(forKey: "like")
+        productLabel.text = "\(likeCount)개의 상품"
     }
     
     func configureHierarchy() {

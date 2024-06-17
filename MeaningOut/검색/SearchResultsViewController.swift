@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class SearchResultsViewController: UIViewController {
+class SearchResultsViewController: UIViewController, likeButtonDelegate {
     
     var searchResult: String = "키보드"
     var searchResultCount: Int = 0 {
@@ -17,13 +17,12 @@ class SearchResultsViewController: UIViewController {
         }
     }
     
-//    var likeCount: [likeCount] = []
+    var likeStatuses: [LikeStatus] = []
     
     // 페이지네이션
     var page = 1
     
     var shoppingData: [Items] = []
-//    var shoppingSort: [Items] = []
     
     
     // MARK: - UI
@@ -91,9 +90,20 @@ class SearchResultsViewController: UIViewController {
 
     
     @objc func likeButtonTapped(_ sender: UIButton) {
-//        shoppingData[sender.tag].like.toggle()
-        print("좋아요 버튼이 클릭되었습니다.")
-//        likeCount[sender.tag].like.toggle()
+        
+        likeStatuses[sender.tag].isLiked.toggle() // 좋아요 상태 토글
+
+        let likeButtonImage = likeStatuses[sender.tag].isLiked ? "like_selected" : "like_unselected"
+        sender.setImage(UIImage(named: likeButtonImage), for: .normal)
+        
+
+        updateLikedItemCount()
+    }
+
+    // 선택된 좋아요 수 계산 및 표시
+    func updateLikedItemCount() {
+        let likedItemCount = likeStatuses.filter { $0.isLiked }.count
+        UserDefaults.standard.set(likedItemCount, forKey: "like")
     }
     
     @objc func accuracyButtonTapped() {
@@ -158,7 +168,7 @@ class SearchResultsViewController: UIViewController {
                     self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 }
                 
-        
+                self.likeStatuses = Array(repeating: LikeStatus(), count: self.shoppingData.count)
             case .failure(let error):
                 print(error)
             }
@@ -189,13 +199,14 @@ class SearchResultsViewController: UIViewController {
         
         navigationItem.title = searchResult
         navigationItem.backButtonTitle = ""
-//        navigationItem.backBarButtonItem?.tintColor = .white
         navigationController?.navigationBar.tintColor = .black
         
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
         collectionView.register(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultsCollectionViewCell.identifier)
+        
+        
     }
     
     func configureHierarchy() {
@@ -246,6 +257,9 @@ class SearchResultsViewController: UIViewController {
     }
 }
 
+// MARK: - CollectionView Delegate, DataSource
+
+
 extension SearchResultsViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for item in indexPaths {
@@ -268,9 +282,25 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         cell.likeButton.tag = indexPath.row
         
-//        let likeButtonImage = likeCount[indexPath.row].like ? "like_selected" : "like_unselected"
-//        cell.likeButton.setImage(UIImage(named: likeButtonImage), for: .normal)
+        
+        cell.delegate = self
+        cell.index = indexPath.row
+        
+        if likeStatuses[indexPath.row].isLiked == true {
+            cell.isTouched = true
+        } else {
+            cell.isTouched = false
+        }
+        
         return cell
+    }
+    
+    func didlikeButton(for index: Int, like: Bool) {
+        if like == true {
+            likeStatuses[index].isLiked = true
+        } else {
+            likeStatuses[index].isLiked = false
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

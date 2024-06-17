@@ -8,7 +8,15 @@
 import UIKit
 import Kingfisher
 
+protocol likeButtonDelegate {
+    func didlikeButton(for index:Int, like:Bool)
+}
+
 class SearchResultsCollectionViewCell: UICollectionViewCell {
+    
+    var delegate: likeButtonDelegate?
+    var index: Int?
+    
     
     let shoppingImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,8 +55,9 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton()
+//        let likeImage = mylike ? "like_unselected" : "like_unselected"
         button.setImage(UIImage(named: "like_unselected"), for: .normal)
         button.backgroundColor = .customMediumGray.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10
@@ -65,6 +74,30 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func didlikeButton(_ sender: UIButton) {
+            guard let index = index else {return}
+            if sender.isSelected {
+                isTouched = true
+                delegate?.didlikeButton(for: index, like: true)
+            }else {
+                isTouched = false
+                delegate?.didlikeButton(for: index, like: false)
+            }
+            sender.isSelected = !sender.isSelected
+        }
+        
+        var isTouched: Bool? {
+            didSet {
+                if isTouched == true {
+                    likeButton.setImage(UIImage(named: "like_selected"), for: .normal)
+                }else{
+                    likeButton.setImage(UIImage(named: "like_unselected"), for: .normal)
+                }
+            }
+        }
+        
+    
     
     func configureCell(_ data: Items) {
         let url = URL(string: data.image)
