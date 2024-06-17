@@ -31,3 +31,9 @@ struct Items: Decodable {
     let category3: String
     let category4: String
 }
+
+
+struct LikeCount {
+    var itemId: String  // 상품 고유 ID
+    var count: Int      // 좋아요 개수
+}

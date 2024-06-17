@@ -40,7 +40,7 @@ class SettingViewController: UIViewController {
     }
     
     // MARK: - View, TableView 구성
-
+    
     func configureView() {
         view.backgroundColor = .white
         navigationItem.title = "SETTING"
@@ -52,8 +52,19 @@ class SettingViewController: UIViewController {
         settingTableView.register(ProfileSettingTableViewCell.self, forCellReuseIdentifier: ProfileSettingTableViewCell.identifier)
     }
     
+    // updateProfileImage 메서드 추가
+    func updateProfileImage(_ imageName: String) {
+        // 현재 뷰컨트롤러가 보여주는 테이블뷰 셀을 업데이트
+        if let profileCell = settingTableView.cellForRow(at: [0, 0]) as? ProfileSettingTableViewCell {
+            profileCell.profileImageView.image = UIImage(named: imageName)
+            print("업데이트 프로필 이미지 \(imageName)")
+            
+        }
+    }
+    
+    
     // MARK: - 레이아웃 구성
-
+    
     func configureHierarchy() {
         view.addSubview(settingTableView)
     }
@@ -64,7 +75,6 @@ class SettingViewController: UIViewController {
         }
     }
 }
-
 
 // MARK: - 테이블뷰 : Delegate, DataSource
 
@@ -82,6 +92,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             return profileCell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingTableViewCell.identifier, for: indexPath) as! SettingTableViewCell
+            if settingCell != .mylikeList {
+                cell.likeImageView.isHidden = true
+                cell.productLabel.isHidden = true
+            }
             cell.settingLabel.text = settingCell.rawValue
             return cell
         }
@@ -99,16 +113,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             
             let ok = UIAlertAction(title: "확인", style: .destructive) { _ in
                 UserDefaults.standard.set(false, forKey: "isUser")
-                // 사용자 정보 초기화 및 온보딩으로 전환
-                UserDefaults.standard.removeObject(forKey: "nickname")
-                UserDefaults.standard.removeObject(forKey: "JoinDate")
-                UserDefaults.standard.removeObject(forKey: "profile")
-                
-                let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-                let sceneDelegate = windowScene?.delegate as? SceneDelegate
-                let rootViewController = OnboardingViewController()
-                sceneDelegate?.window?.rootViewController = rootViewController
-                sceneDelegate?.window?.makeKeyAndVisible()
+                resetUserDefaults()
+                OnboardingBegin()
             }
             let cancel = UIAlertAction(title: "취소", style: .cancel)
             alert.addAction(ok)
@@ -117,7 +123,24 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             present(alert, animated: true)
         }
         
+        // 셀 선택될 때 색상? reload
         tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+        
+        func resetUserDefaults() {
+            // 사용자 정보 초기화
+            for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                UserDefaults.standard.removeObject(forKey: key.description)
+            }
+        }
+        
+        func OnboardingBegin() {
+            // 온보딩으로 초기화 RootVC
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            let sceneDelegate = windowScene?.delegate as? SceneDelegate
+            let rootViewController = OnboardingViewController()
+            let navigationController = UINavigationController(rootViewController: rootViewController)
+            sceneDelegate?.window?.rootViewController = navigationController
+            sceneDelegate?.window?.makeKeyAndVisible()
+        }
     }
-    
 }

@@ -9,6 +9,8 @@ import UIKit
 
 class SettingTableViewCell: UITableViewCell {
     
+    var stat: Bool = true
+    
     let settingLabel: UILabel = {
         let label = UILabel()
         label.text = "나의 장바구니 목록"

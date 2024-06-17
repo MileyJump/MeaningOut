@@ -147,6 +147,11 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
         UserDefaults.standard.set(profileName, forKey: "profile")
         
+        print("========\(profileName)")
+        if let settingVC = navigationController?.viewControllers.first(where: { $0 is SettingViewController }) as? SettingViewController { // 네비게이션 컨트롤러의 스택에 있는 모든 뷰컨 중 첫 번째로 발견되는 SettingVC 찾기
+            settingVC.updateProfileImage(profileName)
+        }
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -192,7 +197,10 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     func didUpdateImage(_ image: String) {
         profileImageView.image = UIImage(named: image)
         profileName = image
-    }
+        
+       
+     }
+    
     
     
     // MARK: - 레이아웃

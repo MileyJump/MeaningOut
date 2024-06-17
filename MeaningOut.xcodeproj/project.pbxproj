@@ -156,6 +156,23 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		B048F7AD2C20128600196FB2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B0ECBBC62C1C770D00B86E80 /* SearchTableViewCell.swift */,
+				B0840DFA2C1D731D0064B1C0 /* SearchResultsCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B048F7AE2C20128C00196FB2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B0840DFC2C1D7BCF0064B1C0 /* ShoppingModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B0924C0F2C1BBF3400D3F22B = {
 			isa = PBXGroup;
 			children = (
@@ -238,11 +255,10 @@
 			isa = PBXGroup;
 			children = (
 				B0924C502C1C0B2400D3F22B /* SearchViewController.swift */,
-				B0ECBBC62C1C770D00B86E80 /* SearchTableViewCell.swift */,
 				B0840DF22C1D3DF90064B1C0 /* SearchResultsViewController.swift */,
-				B0840DFA2C1D731D0064B1C0 /* SearchResultsCollectionViewCell.swift */,
 				B03BD0F82C1DA859007FCB8D /* DetailProductViewController.swift */,
-				B0840DFC2C1D7BCF0064B1C0 /* ShoppingModel.swift */,
+				B048F7AE2C20128C00196FB2 /* Model */,
+				B048F7AD2C20128600196FB2 /* Cell */,
 			);
 			name = "검색";
 			path = "검색";
@@ -438,7 +454,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -495,7 +511,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -520,7 +536,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -553,7 +569,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

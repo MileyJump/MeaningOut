@@ -187,7 +187,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier , for: indexPath) as! SearchTableViewCell
-//        cell.delegate = self
         cell.configureCell(searchWord[indexPath.row])
         cell.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         cell.deleteButton.tag = indexPath.row
@@ -199,9 +198,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         let vc = SearchResultsViewController()
-        vc.searchResult = searchWord[indexPath.row]
+        let searchKeyword = searchWord[indexPath.row]
+        vc.searchResult = searchKeyword
+        
+        searchWord.remove(at: indexPath.row)
+        searchWord.insert(searchKeyword, at: 0)
         navigationController?.pushViewController(vc, animated: true)
-        tableView.reloadData() // 셀 클릭 표시(?) 제거
+        tableView.reloadData()
     }
 }
 

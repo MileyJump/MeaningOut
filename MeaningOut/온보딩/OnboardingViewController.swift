@@ -43,21 +43,9 @@ class OnboardingViewController: UIViewController {
 
     @objc func startButtonTapped() {
         print(#function)
-        
-        if navigationController == nil {
-            let vc = ProfileViewController()
-            //            let navigationVC = UINavigationController(rootViewController: vc)
-            //            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            //                if let window = windowScene.windows.first {
-            //                    window.rootViewController = navigationVC
-            //                }
-            print("네비게이션 컨트롤러가 nil입니다.")
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
             let vc = ProfileViewController()
             vc.profileType = .setting
             navigationController?.pushViewController(vc, animated: true)
-        }
     }
         
     

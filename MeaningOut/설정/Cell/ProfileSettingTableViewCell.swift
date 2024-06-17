@@ -10,6 +10,7 @@ import UIKit
 class ProfileSettingTableViewCell: UITableViewCell {
     
     
+    
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
@@ -47,7 +48,6 @@ class ProfileSettingTableViewCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
         configuraUI()
-        
     }
     
     

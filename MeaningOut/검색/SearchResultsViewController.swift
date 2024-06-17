@@ -17,9 +17,16 @@ class SearchResultsViewController: UIViewController {
         }
     }
     
+//    var likeCount: [likeCount] = []
+    
+    // 페이지네이션
     var page = 1
     
     var shoppingData: [Items] = []
+//    var shoppingSort: [Items] = []
+    
+    
+    // MARK: - UI
     
     lazy var searchResultLabel: UILabel = {
         let label = UILabel()
@@ -29,27 +36,31 @@ class SearchResultsViewController: UIViewController {
         return label
     }()
     
-    let accuracyButton: UIButton = {
+    lazy var accuracyButton: UIButton = {
         let button = UIButton()
         button.configureButton(title: "정확도", cornerRadius: 16)
+        button.addTarget(self, action: #selector(accuracyButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    let dateButton: UIButton = {
+    lazy var dateButton: UIButton = {
         let button = UIButton()
         button.configureButton(title: "날짜순", cornerRadius: 16)
+        button.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    let highPrice: UIButton = {
+    lazy var highPrice: UIButton = {
         let button = UIButton()
         button.configureButton(title: "가격높은순", cornerRadius: 16)
+        button.addTarget(self, action: #selector(highPriceButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    let lowestPrice: UIButton = {
+    lazy var lowestPrice: UIButton = {
         let button = UIButton()
         button.configureButton(title: "가격낮은순", cornerRadius: 16)
+        button.addTarget(self, action: #selector(lowestPriceButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -76,10 +87,51 @@ class SearchResultsViewController: UIViewController {
         callRequest(query: searchResult)
     }
     
+    // MARK: - SetUpAddTarget
+
+    
     @objc func likeButtonTapped(_ sender: UIButton) {
 //        shoppingData[sender.tag].like.toggle()
-        
+        print("좋아요 버튼이 클릭되었습니다.")
+//        likeCount[sender.tag].like.toggle()
+    }
+    
+    @objc func accuracyButtonTapped() {
+        print("정확도 버튼이 클릭되었습니다.")
+    }
+    
+    @objc func dateButtonTapped() {
+        print("날짜순 버튼이 클릭되었습니다.")
+    }
+    
+    @objc func highPriceButtonTapped() {
+        print("가격높은순 버튼이 클릭되었습니다.")
+
+        let sortedItems = shoppingData.sorted { item1, item2 in
+            if let price1 = Int(item1.lprice), let price2 = Int(item2.lprice) {
+                return price1 > price2
+            }
+            print("정렬이 안돼요")
+            return false
+        }
+        shoppingData = sortedItems
         collectionView.reloadData()
+    }
+    
+    @objc func lowestPriceButtonTapped () {
+        print("가격낮은순 버튼이 클릭되었습니다.")
+        
+        let sortedItems = shoppingData.sorted { item1, item2 in
+            if let price1 = Int(item1.lprice), let price2 = Int(item2.lprice) {
+                return price1 < price2
+            }
+            print("정렬이 안돼요")
+            return false
+        }
+        
+        shoppingData = sortedItems
+        collectionView.reloadData()
+        
     }
     
     func callRequest(query: String) {
@@ -215,6 +267,9 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.configureCell(shoppingData[indexPath.row])
         cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         cell.likeButton.tag = indexPath.row
+        
+//        let likeButtonImage = likeCount[indexPath.row].like ? "like_selected" : "like_unselected"
+//        cell.likeButton.setImage(UIImage(named: likeButtonImage), for: .normal)
         return cell
     }
     
