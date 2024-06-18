@@ -8,7 +8,6 @@
 import UIKit
 import Alamofire
 
-//likeButtonDelegate
 
 class SearchResultsViewController: UIViewController {
     
@@ -93,7 +92,9 @@ class SearchResultsViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         callRequest(query: searchResult, sortText: "sim")
+        loadLikeStatuses()
     }
+    
     
     // MARK: - SetUpAddTarget
     
@@ -106,7 +107,6 @@ class SearchResultsViewController: UIViewController {
         
         updateLikedItemCount()
     }
-    
     
     
     @objc func accuracyButtonTapped() {
@@ -164,8 +164,9 @@ class SearchResultsViewController: UIViewController {
         UserDefaults.standard.set(likedItemCount, forKey: "like")
     }
     
-    // 좋아요 상태 저장
+    // 좋아요 상태 저장 ,,
     func saveLikeStatuses() {
+        print("돼..?")
         do {
             let encoded = try JSONEncoder().encode(likeStatuses)
             UserDefaults.standard.set(encoded, forKey: "likeStatuses")
@@ -174,33 +175,28 @@ class SearchResultsViewController: UIViewController {
         }
     }
     
-//    // 좋아요 상태 불러오기
-//        func loadLikeStatuses() {
-//            let decoder = JSONDecoder()
-//            if let savedData = UserDefaults.standard.data(forKey: "likeStatuses"),
-//               let decoded = try? decoder.decode([LikeStatus].self, from: savedData) {
-//                likeStatuses = decoded
-//            }
-//        }
-    
     // 좋아요 상태 불러오기
     func loadLikeStatuses() {
+        print(#function)
         let decoder = JSONDecoder()
         do {
             if let savedData = UserDefaults.standard.data(forKey: "likeStatuses") {
                 let decoded = try decoder.decode([LikeStatus].self, from: savedData)
                 print(decoded)
                 likeStatuses = decoded
+            } else {
+                // 저장된 데이터가 없을 경우 초기화 혹은 기본값 설정
+                likeStatuses = Array(repeating: LikeStatus(), count: shoppingData.count)
+                print("데이터 없어요")
             }
         } catch {
-            print("Error decoding likeStatuses: \(error.localizedDescription)")
+            print("오류입니다! : \(error.localizedDescription)") // localizedDescription : 오류를 알아듣기 쉽게 해준다!
             // 여기서 필요한 추가적인 오류 처리를 할 수 있습니다.
         }
     }
     
     // URL 요청
     func callRequest(query: String, sortText: String) {
-//        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
         let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
         
         
@@ -250,7 +246,6 @@ class SearchResultsViewController: UIViewController {
     // MARK: - View
 
     
-    
     func configureView() {
         view.backgroundColor = .white
         collectionView.backgroundColor = .white
@@ -271,7 +266,6 @@ class SearchResultsViewController: UIViewController {
     }
     
     // MARK: - 레이아웃
-
     
     func configureHierarchy() {
         view.addSubview(searchResultLabel)
@@ -319,6 +313,7 @@ class SearchResultsViewController: UIViewController {
         }
     }
 }
+
 
 // MARK: - CollectionView Delegate, DataSource
 
