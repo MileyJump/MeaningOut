@@ -19,10 +19,17 @@ class SearchResultsViewController: UIViewController {
         }
     }
     
-    var likeStatuses: [LikeStatus] = []
+    var likeStatuses: [LikeStatus] = [] {
+        didSet {
+            saveLikeStatuses()
+        }
+    }
     
     // 페이지네이션
     var page = 1
+    
+    // 현재 선택된 버튼 저장
+    var selectedButton: UIButton?
     
     var shoppingData: [Items] = []
     var shoppingList: [Items] = []
@@ -52,14 +59,14 @@ class SearchResultsViewController: UIViewController {
         return button
     }()
     
-    lazy var highPrice: UIButton = {
+    lazy var highPriceButton: UIButton = {
         let button = UIButton()
         button.configureButton(title: "가격높은순", cornerRadius: 16)
         button.addTarget(self, action: #selector(highPriceButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    lazy var lowestPrice: UIButton = {
+    lazy var lowestPriceButton: UIButton = {
         let button = UIButton()
         button.configureButton(title: "가격낮은순", cornerRadius: 16)
         button.addTarget(self, action: #selector(lowestPriceButtonTapped), for: .touchUpInside)
@@ -85,7 +92,7 @@ class SearchResultsViewController: UIViewController {
         configureView()
         configureHierarchy()
         configureLayout()
-        callRequest(query: searchResult)
+        callRequest(query: searchResult, sortText: "sim")
     }
     
     // MARK: - SetUpAddTarget
@@ -104,41 +111,47 @@ class SearchResultsViewController: UIViewController {
     
     @objc func accuracyButtonTapped() {
         print("정확도 버튼이 클릭되었습니다.")
-        shoppingData = shoppingList
+        updateButtonState(button: accuracyButton)
+        callRequest(query: searchResult, sortText: "sim")
         collectionView.reloadData()
     }
     
     @objc func dateButtonTapped() {
         print("날짜순 버튼이 클릭되었습니다.")
+        updateButtonState(button: dateButton)
+        callRequest(query: searchResult, sortText: "date")
     }
     
     @objc func highPriceButtonTapped() {
         print("가격높은순 버튼이 클릭되었습니다.")
         
-        let sortedItems = shoppingData.sorted { item1, item2 in
-            if let price1 = Int(item1.lprice), let price2 = Int(item2.lprice) {
-                return price1 > price2
-            }
-            print("정렬이 안돼요")
-            return false
-        }
-        shoppingData = sortedItems
+        callRequest(query: searchResult, sortText: "dsc")
+        updateButtonState(button: highPriceButton)
         collectionView.reloadData()
     }
     
     @objc func lowestPriceButtonTapped () {
         print("가격낮은순 버튼이 클릭되었습니다.")
         
-        let sortedItems = shoppingData.sorted { item1, item2 in
-            if let price1 = Int(item1.lprice), let price2 = Int(item2.lprice) {
-                return price1 < price2
-            }
-            print("정렬이 안돼요")
-            return false
-        }
-        
-        shoppingData = sortedItems
+        callRequest(query: searchResult , sortText: "asc")
+        updateButtonState(button: lowestPriceButton)
         collectionView.reloadData()
+    }
+    
+    
+    func updateButtonState(button: UIButton) {
+        guard button != selectedButton else { return } // 이미 선택된 버튼이면 리턴
+        
+        // 선택된 버튼의 색상 변경
+        button.backgroundColor = .customDarkGray
+        button.setTitleColor(.white, for: .normal)
+        
+        // 이전에 선택된 버튼의 색상 원래대로 변경
+        selectedButton?.backgroundColor = .white
+        selectedButton?.setTitleColor(.black, for: .normal)
+        
+        // 선택된 버튼 업데이트
+        selectedButton = button
     }
     
     // MARK: - 기능
@@ -146,12 +159,50 @@ class SearchResultsViewController: UIViewController {
     
     // 선택된 좋아요 수 계산 및 표시
     func updateLikedItemCount() {
+        
         let likedItemCount = likeStatuses.filter { $0.isLiked }.count
         UserDefaults.standard.set(likedItemCount, forKey: "like")
     }
     
-    func callRequest(query: String) {
-        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30"
+    // 좋아요 상태 저장
+    func saveLikeStatuses() {
+        do {
+            let encoded = try JSONEncoder().encode(likeStatuses)
+            UserDefaults.standard.set(encoded, forKey: "likeStatuses")
+        } catch {
+            print(" 오류입니다 : \(error.localizedDescription)") // 오류를 알아듣기 쉽게 만들어줌ㅎ
+        }
+    }
+    
+//    // 좋아요 상태 불러오기
+//        func loadLikeStatuses() {
+//            let decoder = JSONDecoder()
+//            if let savedData = UserDefaults.standard.data(forKey: "likeStatuses"),
+//               let decoded = try? decoder.decode([LikeStatus].self, from: savedData) {
+//                likeStatuses = decoded
+//            }
+//        }
+    
+    // 좋아요 상태 불러오기
+    func loadLikeStatuses() {
+        let decoder = JSONDecoder()
+        do {
+            if let savedData = UserDefaults.standard.data(forKey: "likeStatuses") {
+                let decoded = try decoder.decode([LikeStatus].self, from: savedData)
+                print(decoded)
+                likeStatuses = decoded
+            }
+        } catch {
+            print("Error decoding likeStatuses: \(error.localizedDescription)")
+            // 여기서 필요한 추가적인 오류 처리를 할 수 있습니다.
+        }
+    }
+    
+    // URL 요청
+    func callRequest(query: String, sortText: String) {
+//        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
+        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
+        
         
         let headers: HTTPHeaders = [
             "X-Naver-Client-Id": APIKey.naverId,
@@ -159,17 +210,22 @@ class SearchResultsViewController: UIViewController {
         ]
         
         AF.request(url, method: .get, headers: headers).responseDecodable(of: ShoppingModel.self) { response in
+            
             switch response.result {
             case .success(let value):
-                
-                self.searchResultCount = value.total
-                self.shoppingData.append(contentsOf: value.items)
-                self.shoppingList.append(contentsOf: value.items)
-                self.collectionView.reloadData()
+
                 
                 if self.page == 1 {
+                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
+                } else {
                     self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
+                    self.shoppingData.append(contentsOf: value.items) // 다음 페이지일 경우 데이터 추가
+                    
                 }
+                self.searchResultCount = value.total
+                self.collectionView.reloadData() // UI 업데이트
+                         
                 
                 self.likeStatuses = Array(repeating: LikeStatus(), count: self.shoppingData.count)
             case .failure(let error):
@@ -221,8 +277,8 @@ class SearchResultsViewController: UIViewController {
         view.addSubview(searchResultLabel)
         view.addSubview(accuracyButton)
         view.addSubview(dateButton)
-        view.addSubview(highPrice)
-        view.addSubview(lowestPrice)
+        view.addSubview(highPriceButton)
+        view.addSubview(lowestPriceButton)
         view.addSubview(collectionView)
     }
     
@@ -245,15 +301,15 @@ class SearchResultsViewController: UIViewController {
             make.leading.equalTo(accuracyButton.snp.trailing).offset(10)
         }
         
-        highPrice.snp.makeConstraints { make in
+        highPriceButton.snp.makeConstraints { make in
             make.height.verticalEdges.equalTo(accuracyButton)
             make.width.equalTo(80)
             make.leading.equalTo(dateButton.snp.trailing).offset(10)
         }
         
-        lowestPrice.snp.makeConstraints { make in
-            make.size.verticalEdges.equalTo(highPrice)
-            make.leading.equalTo(highPrice.snp.trailing).offset(10)
+        lowestPriceButton.snp.makeConstraints { make in
+            make.size.verticalEdges.equalTo(highPriceButton)
+            make.leading.equalTo(highPriceButton.snp.trailing).offset(10)
         }
         
         collectionView.snp.makeConstraints { make in
@@ -271,7 +327,7 @@ extension SearchResultsViewController: UICollectionViewDataSourcePrefetching {
         for item in indexPaths {
             if shoppingData.count - 2 == item.row {
                 page += 1
-                callRequest(query: searchResult)
+                callRequest(query: searchResult, sortText: "sim")
             }
         }
     }

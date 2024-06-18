@@ -18,7 +18,6 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: - UI
-
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -58,7 +57,6 @@ class SearchViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
     
     let emptyLabel: UILabel = {
         let label = UILabel()

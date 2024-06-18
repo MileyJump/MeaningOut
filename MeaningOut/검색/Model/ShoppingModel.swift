@@ -33,6 +33,6 @@ struct Items: Decodable {
 }
 
 
-struct LikeStatus {
+struct LikeStatus: Codable { // 유저디폴트에 구조체 저장하기 위해..
     var isLiked: Bool = false // 좋아요 상태
 }
