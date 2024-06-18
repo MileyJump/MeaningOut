@@ -58,7 +58,6 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-        //        let likeImage = mylike ? "like_unselected" : "like_unselected"
         button.setImage(UIImage(named: "like_unselected"), for: .normal)
         button.backgroundColor = .customMediumGray.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10
@@ -79,18 +78,6 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - 기능
-    
-//    func didlikeButton(_ sender: UIButton) {
-        //        guard let index = index else {return}
-        //        if sender.isSelected {
-        //            isTouched = true
-        //            delegate?.didlikeButton(for: index, like: true)
-        //        }else {
-        //            isTouched = false
-        //            delegate?.didlikeButton(for: index, like: false)
-        //        }
-        //        sender.isSelected = !sender.isSelected
-//    }
     
     var isTouched: Bool? {
         didSet {

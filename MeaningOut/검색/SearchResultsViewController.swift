@@ -80,18 +80,15 @@ class SearchResultsViewController: UIViewController {
         return layout
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         configureHierarchy()
         configureLayout()
         callRequest(query: searchResult)
-        shoppingList = shoppingData
     }
     
     // MARK: - SetUpAddTarget
-    
     
     @objc func likeButtonTapped(_ sender: UIButton) {
         
@@ -100,19 +97,15 @@ class SearchResultsViewController: UIViewController {
         let likeButtonImage = likeStatuses[sender.tag].isLiked ? "like_selected" : "like_unselected"
         sender.setImage(UIImage(named: likeButtonImage), for: .normal)
         
-        
         updateLikedItemCount()
     }
     
-    // 선택된 좋아요 수 계산 및 표시
-    func updateLikedItemCount() {
-        let likedItemCount = likeStatuses.filter { $0.isLiked }.count
-        UserDefaults.standard.set(likedItemCount, forKey: "like")
-        
-    }
+    
     
     @objc func accuracyButtonTapped() {
         print("정확도 버튼이 클릭되었습니다.")
+        shoppingData = shoppingList
+        collectionView.reloadData()
     }
     
     @objc func dateButtonTapped() {
@@ -146,7 +139,15 @@ class SearchResultsViewController: UIViewController {
         
         shoppingData = sortedItems
         collectionView.reloadData()
-        
+    }
+    
+    // MARK: - 기능
+
+    
+    // 선택된 좋아요 수 계산 및 표시
+    func updateLikedItemCount() {
+        let likedItemCount = likeStatuses.filter { $0.isLiked }.count
+        UserDefaults.standard.set(likedItemCount, forKey: "like")
     }
     
     func callRequest(query: String) {
@@ -163,6 +164,7 @@ class SearchResultsViewController: UIViewController {
                 
                 self.searchResultCount = value.total
                 self.shoppingData.append(contentsOf: value.items)
+                self.shoppingList.append(contentsOf: value.items)
                 self.collectionView.reloadData()
                 
                 if self.page == 1 {
@@ -176,6 +178,7 @@ class SearchResultsViewController: UIViewController {
         }
     }
     
+    
     func updateSearchtotal() {
         
         let count = Int(searchResultCount)
@@ -187,6 +190,9 @@ class SearchResultsViewController: UIViewController {
             searchResultLabel.text = result + "개의 검색 결과"
         }
     }
+    
+    // MARK: - View
+
     
     
     func configureView() {
@@ -206,9 +212,10 @@ class SearchResultsViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
         collectionView.register(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultsCollectionViewCell.identifier)
-        
-        
     }
+    
+    // MARK: - 레이아웃
+
     
     func configureHierarchy() {
         view.addSubview(searchResultLabel)
@@ -218,6 +225,7 @@ class SearchResultsViewController: UIViewController {
         view.addSubview(lowestPrice)
         view.addSubview(collectionView)
     }
+    
     
     func configureLayout() {
         searchResultLabel.snp.makeConstraints { make in
@@ -280,8 +288,6 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         cell.likeButton.tag = indexPath.row
         
-        
-//        cell.delegate = self
         cell.index = indexPath.row
         
         if likeStatuses[indexPath.row].isLiked == true {
@@ -289,17 +295,8 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         } else {
             cell.isTouched = false
         }
-        
         return cell
     }
-    
-//    func didlikeButton(for index: Int, like: Bool) {
-//        if like == true {
-//            likeStatuses[index].isLiked = true
-//        } else {
-//            likeStatuses[index].isLiked = false
-//        }
-//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(#function)
