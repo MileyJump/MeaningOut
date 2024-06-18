@@ -47,7 +47,7 @@ class DetailProductViewController: UIViewController {
     func updateLikeButtonImage() {
         let likeButtonImage = likeButtonType ? UIImage(named: "like_selected") : UIImage(named: "like_unselected")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: likeButtonImage, style: .plain, target: self, action: #selector(likeButtonClicked))
-        }
+    }
     
     func callRequest() {
         guard let url = URL(string: link) else { return }

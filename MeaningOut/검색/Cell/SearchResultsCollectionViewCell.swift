@@ -14,7 +14,7 @@ protocol likeButtonDelegate {
 
 class SearchResultsCollectionViewCell: UICollectionViewCell {
     
-    var delegate: likeButtonDelegate?
+//    var delegate: likeButtonDelegate?
     var index: Int?
     
     
@@ -58,7 +58,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-//        let likeImage = mylike ? "like_unselected" : "like_unselected"
+        //        let likeImage = mylike ? "like_unselected" : "like_unselected"
         button.setImage(UIImage(named: "like_unselected"), for: .normal)
         button.backgroundColor = .customMediumGray.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10
@@ -80,28 +80,28 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     // MARK: - 기능
     
-    func didlikeButton(_ sender: UIButton) {
-            guard let index = index else {return}
-            if sender.isSelected {
-                isTouched = true
-                delegate?.didlikeButton(for: index, like: true)
-            }else {
-                isTouched = false
-                delegate?.didlikeButton(for: index, like: false)
+//    func didlikeButton(_ sender: UIButton) {
+        //        guard let index = index else {return}
+        //        if sender.isSelected {
+        //            isTouched = true
+        //            delegate?.didlikeButton(for: index, like: true)
+        //        }else {
+        //            isTouched = false
+        //            delegate?.didlikeButton(for: index, like: false)
+        //        }
+        //        sender.isSelected = !sender.isSelected
+//    }
+    
+    var isTouched: Bool? {
+        didSet {
+            if isTouched == true {
+                likeButton.setImage(UIImage(named: "like_selected"), for: .normal)
+            }else{
+                likeButton.setImage(UIImage(named: "like_unselected"), for: .normal)
             }
-            sender.isSelected = !sender.isSelected
         }
-        
-        var isTouched: Bool? {
-            didSet {
-                if isTouched == true {
-                    likeButton.setImage(UIImage(named: "like_selected"), for: .normal)
-                }else{
-                    likeButton.setImage(UIImage(named: "like_unselected"), for: .normal)
-                }
-            }
-        }
-        
+    }
+    
     // MARK: - 셀 구성
     
     
@@ -111,7 +111,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         
         titleLabel.text = data.mallName
         subTitleLabel.text = data.title
-    
+        
         if let price = Int(data.lprice) {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal // 3자리마다 콤마를 추가하는 형식
@@ -120,7 +120,6 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
                 priceLabel.text = result + "원"
             }
         }
-
     }
     
     // MARK: - 레이아웃

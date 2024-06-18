@@ -8,7 +8,9 @@
 import UIKit
 import Alamofire
 
-class SearchResultsViewController: UIViewController, likeButtonDelegate {
+//likeButtonDelegate
+
+class SearchResultsViewController: UIViewController {
     
     var searchResult: String = "키보드"
     var searchResultCount: Int = 0 {
@@ -23,6 +25,7 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
     var page = 1
     
     var shoppingData: [Items] = []
+    var shoppingList: [Items] = []
     
     
     // MARK: - UI
@@ -84,22 +87,23 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
         configureHierarchy()
         configureLayout()
         callRequest(query: searchResult)
+        shoppingList = shoppingData
     }
     
     // MARK: - SetUpAddTarget
-
+    
     
     @objc func likeButtonTapped(_ sender: UIButton) {
         
         likeStatuses[sender.tag].isLiked.toggle() // 좋아요 상태 토글
-
+        
         let likeButtonImage = likeStatuses[sender.tag].isLiked ? "like_selected" : "like_unselected"
         sender.setImage(UIImage(named: likeButtonImage), for: .normal)
         
-
+        
         updateLikedItemCount()
     }
-
+    
     // 선택된 좋아요 수 계산 및 표시
     func updateLikedItemCount() {
         let likedItemCount = likeStatuses.filter { $0.isLiked }.count
@@ -117,7 +121,7 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
     
     @objc func highPriceButtonTapped() {
         print("가격높은순 버튼이 클릭되었습니다.")
-
+        
         let sortedItems = shoppingData.sorted { item1, item2 in
             if let price1 = Int(item1.lprice), let price2 = Int(item2.lprice) {
                 return price1 > price2
@@ -157,12 +161,8 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
             switch response.result {
             case .success(let value):
                 
-//                if self.page == 1 {
-//                    self.shoppingData = value.items
-                    self.searchResultCount = value.total
-//                } else {
-                    self.shoppingData.append(contentsOf: value.items)
-//                }
+                self.searchResultCount = value.total
+                self.shoppingData.append(contentsOf: value.items)
                 self.collectionView.reloadData()
                 
                 if self.page == 1 {
@@ -241,7 +241,7 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
             make.height.verticalEdges.equalTo(accuracyButton)
             make.width.equalTo(80)
             make.leading.equalTo(dateButton.snp.trailing).offset(10)
-        } 
+        }
         
         lowestPrice.snp.makeConstraints { make in
             make.size.verticalEdges.equalTo(highPrice)
@@ -253,13 +253,10 @@ class SearchResultsViewController: UIViewController, likeButtonDelegate {
             make.top.equalTo(accuracyButton.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
         }
-        
-        
     }
 }
 
 // MARK: - CollectionView Delegate, DataSource
-
 
 extension SearchResultsViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
@@ -284,7 +281,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.likeButton.tag = indexPath.row
         
         
-        cell.delegate = self
+//        cell.delegate = self
         cell.index = indexPath.row
         
         if likeStatuses[indexPath.row].isLiked == true {
@@ -296,13 +293,13 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         return cell
     }
     
-    func didlikeButton(for index: Int, like: Bool) {
-        if like == true {
-            likeStatuses[index].isLiked = true
-        } else {
-            likeStatuses[index].isLiked = false
-        }
-    }
+//    func didlikeButton(for index: Int, like: Bool) {
+//        if like == true {
+//            likeStatuses[index].isLiked = true
+//        } else {
+//            likeStatuses[index].isLiked = false
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(#function)
@@ -313,8 +310,4 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         print(vc.likeButtonType)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    
-    
 }
