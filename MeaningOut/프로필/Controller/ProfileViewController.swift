@@ -24,7 +24,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     // MARK: - UI
     
-    lazy var profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
         imageView.contentMode = .scaleAspectFill
@@ -33,7 +33,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         return imageView
     }()
                                          
-    let cameraButton: UIButton = {
+    private let cameraButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
         button.backgroundColor = .customMainColor
@@ -48,27 +48,27 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
         return button
     }()
     
-    let nicknameTextField: UITextField = {
+    private let nicknameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "닉네임을 입력해주세요 :)"
         textField.font = .systemFont(ofSize: 14)
         return textField
     }()
     
-    let lineView: UIView = {
+    private let lineView: UIView = {
         let view = UIView()
         view.backgroundColor = .customLightGray
         return view
     }()
     
-    let nicknameLabel: UILabel = {
+    private let nicknameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .customMainColor
         label.font = .systemFont(ofSize: 13)
         return label
     }()
 
-    let doneButton = NextButton(title: "완료")
+    private let doneButton = NextButton(title: "완료")
     
     // MARK: - LifeCycle
 
@@ -89,7 +89,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     // MARK: - 타입에 따른 화면 구성
 
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .white
         nicknameTextField.delegate = self
         
@@ -197,10 +197,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     func didUpdateImage(_ image: String) {
         profileImageView.image = UIImage(named: image)
         profileName = image
-        
-       
      }
-    
     
     
     // MARK: - 레이아웃

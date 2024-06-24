@@ -10,12 +10,14 @@
 		B03BD0F92C1DA859007FCB8D /* DetailProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03BD0F82C1DA859007FCB8D /* DetailProductViewController.swift */; };
 		B03BD0FB2C1DD30B007FCB8D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03BD0FA2C1DD30B007FCB8D /* SettingTableViewCell.swift */; };
 		B03BD0FD2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03BD0FC2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift */; };
+		B07B0AB62C2567A9005C282F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07B0AB52C2567A9005C282F /* APIManager.swift */; };
 		B0840DF32C1D3DF90064B1C0 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0840DF22C1D3DF90064B1C0 /* SearchResultsViewController.swift */; };
 		B0840DF52C1D67AE0064B1C0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B0840DF42C1D67AE0064B1C0 /* .gitignore */; };
 		B0840DF72C1D67DE0064B1C0 /* APIURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0840DF62C1D67DE0064B1C0 /* APIURL.swift */; };
 		B0840DF92C1D6FEB0064B1C0 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0840DF82C1D6FEB0064B1C0 /* UIButton+Extension.swift */; };
 		B0840DFB2C1D731D0064B1C0 /* SearchResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0840DFA2C1D731D0064B1C0 /* SearchResultsCollectionViewCell.swift */; };
 		B0840DFD2C1D7BCF0064B1C0 /* ShoppingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0840DFC2C1D7BCF0064B1C0 /* ShoppingModel.swift */; };
+		B0842AB62C294E6900323C09 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842AB52C294E6900323C09 /* UIViewController+Extension.swift */; };
 		B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */; };
 		B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */; };
 		B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */; };
@@ -48,12 +50,14 @@
 		B03BD0F82C1DA859007FCB8D /* DetailProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductViewController.swift; sourceTree = "<group>"; };
 		B03BD0FA2C1DD30B007FCB8D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		B03BD0FC2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
+		B07B0AB52C2567A9005C282F /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		B0840DF22C1D3DF90064B1C0 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		B0840DF42C1D67AE0064B1C0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B0840DF62C1D67DE0064B1C0 /* APIURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIURL.swift; sourceTree = "<group>"; };
 		B0840DF82C1D6FEB0064B1C0 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		B0840DFA2C1D731D0064B1C0 /* SearchResultsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCollectionViewCell.swift; sourceTree = "<group>"; };
 		B0840DFC2C1D7BCF0064B1C0 /* ShoppingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingModel.swift; sourceTree = "<group>"; };
+		B0842AB52C294E6900323C09 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		B0924C182C1BBF3400D3F22B /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				B0840DFC2C1D7BCF0064B1C0 /* ShoppingModel.swift */,
+				B07B0AB52C2567A9005C282F /* APIManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				B0924C362C1BC73500D3F22B /* UIColor+Extension.swift */,
+				B0842AB52C294E6900323C09 /* UIViewController+Extension.swift */,
 				B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */,
 				B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */,
 				B0840DF82C1D6FEB0064B1C0 /* UIButton+Extension.swift */,
@@ -352,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0842AB62C294E6900323C09 /* UIViewController+Extension.swift in Sources */,
 				B03BD0F92C1DA859007FCB8D /* DetailProductViewController.swift in Sources */,
 				B0924C552C1C12A400D3F22B /* ProfileImageViewController.swift in Sources */,
 				B0924C512C1C0B2400D3F22B /* SearchViewController.swift in Sources */,
@@ -362,6 +369,7 @@
 				B0924C4D2C1BE1B700D3F22B /* UIImageView+Extension.swift in Sources */,
 				B0ECBBC92C1C782700B86E80 /* SearchView.swift in Sources */,
 				B0840DF32C1D3DF90064B1C0 /* SearchResultsViewController.swift in Sources */,
+				B07B0AB62C2567A9005C282F /* APIManager.swift in Sources */,
 				B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */,
 				B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */,
 				B03BD0FD2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift in Sources */,
@@ -531,6 +539,7 @@
 				DEVELOPMENT_TEAM = Q35ZG4845H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeaningOut/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "최민경";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -564,6 +573,7 @@
 				DEVELOPMENT_TEAM = Q35ZG4845H;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MeaningOut/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "최민경";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

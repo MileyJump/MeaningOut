@@ -19,7 +19,7 @@ class SearchViewController: UIViewController {
     
     // MARK: - UI
     
-    let searchBar: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         let searBarImage = UIImage()
         searchBar.backgroundImage = searBarImage
@@ -30,20 +30,20 @@ class SearchViewController: UIViewController {
         return searchBar
     }()
     
-    let lineView: UIView = {
+    private let lineView: UIView = {
         let view = UIView()
         view.backgroundColor = .customLightGray
         return view
     }()
     
-    let recentsearchLabel: UILabel = {
+    private let recentsearchLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색"
         label.font = .boldSystemFont(ofSize: 14)
         return label
     }()
     
-    let alldeleteButton: UIButton = {
+    private let alldeleteButton: UIButton = {
         let button = UIButton()
         button.setTitle("전체 삭제", for: .normal)
         button.setTitleColor(.customMainColor, for: .normal)
@@ -51,14 +51,14 @@ class SearchViewController: UIViewController {
         return button
     }()
     
-    let emptyImageView: UIImageView = {
+    private let emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    let emptyLabel: UILabel = {
+    private let emptyLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색어가 없어요"
         label.font = .boldSystemFont(ofSize: 15)
@@ -66,7 +66,7 @@ class SearchViewController: UIViewController {
         return label
     }()
     
-    let searchTableView: UITableView = {
+    private let searchTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         return tableView
@@ -97,22 +97,22 @@ class SearchViewController: UIViewController {
     // MARK: - SetUpAddTarget
     
     
-    func setUpAddTarget() {
+    private func setUpAddTarget() {
         alldeleteButton.addTarget(self, action: #selector(alldeleteButtonTapped), for: .touchUpInside)
     }
     
-    @objc func alldeleteButtonTapped() {
+    @objc private func alldeleteButtonTapped() {
         searchWord.removeAll()
     }
     
-    @objc func deleteButtonTapped(_ sender: UIButton) {
+    @objc private func deleteButtonTapped(_ sender: UIButton) {
         searchWord.remove(at: sender.tag)
     }
     
     
     // MARK: - 기능
     
-    func searchWordState() {
+    private func searchWordState() {
         let isEmpty = searchWord.isEmpty
         emptyImageView.isHidden = !isEmpty
         emptyLabel.isHidden = !isEmpty
@@ -121,14 +121,14 @@ class SearchViewController: UIViewController {
         UserDefaults.standard.set(searchWord, forKey: "keyword")
     }
     
-    func loadSearchWords() {
+    private func loadSearchWords() {
         if let keyword = UserDefaults.standard.stringArray(forKey: "keyword") {
             searchWord = keyword
         }
     }
     
     // MARK: - view 구성
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .white
         
         
@@ -147,7 +147,7 @@ class SearchViewController: UIViewController {
     
     // MARK: - 레이아웃
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         view.addSubview(searchBar)
         view.addSubview(lineView)
         view.addSubview(recentsearchLabel)
@@ -157,7 +157,7 @@ class SearchViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(5)

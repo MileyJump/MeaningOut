@@ -13,7 +13,7 @@ class OnboardingViewController: UIViewController {
     // MARK: - UI
 
     
-    let serviceName: UILabel = {
+    private let serviceName: UILabel = {
         let label = UILabel()
         label.text = "MeaningOut"
         label.textAlignment = .center
@@ -22,14 +22,14 @@ class OnboardingViewController: UIViewController {
         return label
     }()
     
-    let serviceImageView: UIImageView = {
+    private let serviceImageView: UIImageView = {
         let imageview = UIImageView()
         imageview.image = UIImage(named: "launch")
         imageview.contentMode = .scaleAspectFit
         return imageview
     }()
     
-    let startButton = NextButton(title: "시작하기")
+    private let startButton = NextButton(title: "시작하기")
     
     // MARK: - life cycle
 
@@ -45,11 +45,11 @@ class OnboardingViewController: UIViewController {
     
     // MARK: - SetUpAddTarget
 
-    func setUpAddTarget() {
+    private func setUpAddTarget() {
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
 
-    @objc func startButtonTapped() {
+    @objc private func startButtonTapped() {
         print(#function)
             let vc = ProfileViewController()
             vc.profileType = .setting
@@ -59,7 +59,7 @@ class OnboardingViewController: UIViewController {
     // MARK: - View 구성
 
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .white
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .black
@@ -69,13 +69,13 @@ class OnboardingViewController: UIViewController {
     // MARK: - 레이아웃
 
     
-    func configureHierarchy() {
+    private func configureHierarchy() {
         view.addSubview(serviceName)
         view.addSubview(serviceImageView)
         view.addSubview(startButton)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         serviceName.snp.makeConstraints { make in
             make.bottom.equalTo(serviceImageView.snp.top).offset(-20)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
