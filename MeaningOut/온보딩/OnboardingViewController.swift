@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: BaseViewController {
     
     // MARK: - UI
 
@@ -36,9 +36,6 @@ class OnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        configureHierarchy()
-        configureLayout()
         setUpAddTarget()
        
     }
@@ -59,7 +56,7 @@ class OnboardingViewController: UIViewController {
     // MARK: - View 구성
 
     
-    private func configureView() {
+     override func configureView() {
         view.backgroundColor = .white
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .black
@@ -69,13 +66,13 @@ class OnboardingViewController: UIViewController {
     // MARK: - 레이아웃
 
     
-    private func configureHierarchy() {
+     override func configureHierarchy() {
         view.addSubview(serviceName)
         view.addSubview(serviceImageView)
         view.addSubview(startButton)
     }
     
-    private func configureLayout() {
+     override func configureLayout() {
         serviceName.snp.makeConstraints { make in
             make.bottom.equalTo(serviceImageView.snp.top).offset(-20)
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
