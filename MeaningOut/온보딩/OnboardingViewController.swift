@@ -10,40 +10,23 @@ import SnapKit
 
 class OnboardingViewController: BaseViewController {
     
-    // MARK: - UI
-
-    
-    private let serviceName: UILabel = {
-        let label = UILabel()
-        label.text = "MeaningOut"
-        label.textAlignment = .center
-        label.textColor = .customMainColor
-        label.font = .boldSystemFont(ofSize: 40)
-        return label
-    }()
-    
-    private let serviceImageView: UIImageView = {
-        let imageview = UIImageView()
-        imageview.image = UIImage(named: "launch")
-        imageview.contentMode = .scaleAspectFit
-        return imageview
-    }()
-    
-    private let startButton = NextButton(title: "시작하기")
+   private let onboardingView = OnboardingView()
     
     // MARK: - life cycle
-
-
+    
+    override func loadView() {
+        view = onboardingView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpAddTarget()
-       
     }
     
     // MARK: - SetUpAddTarget
 
     private func setUpAddTarget() {
-        startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        onboardingView.startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
     }
 
     @objc private func startButtonTapped() {
@@ -55,41 +38,10 @@ class OnboardingViewController: BaseViewController {
         
     // MARK: - View 구성
 
-    
      override func configureView() {
-        view.backgroundColor = .white
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .black
         
     }
-    
-    // MARK: - 레이아웃
-
-    
-     override func configureHierarchy() {
-        view.addSubview(serviceName)
-        view.addSubview(serviceImageView)
-        view.addSubview(startButton)
-    }
-    
-     override func configureLayout() {
-        serviceName.snp.makeConstraints { make in
-            make.bottom.equalTo(serviceImageView.snp.top).offset(-20)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        serviceImageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.height.equalTo(serviceImageView.snp.width).multipliedBy(1)
-        }
-        
-        startButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(30)
-            make.height.equalTo(45)
-        }
-    }
-
 }
 

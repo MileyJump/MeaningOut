@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class DetailProductViewController: UIViewController {
+class DetailProductViewController: BaseViewController {
     
     var likeButtonType: Bool = false
     
@@ -20,16 +20,13 @@ class DetailProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
         callRequest()
-        configureHierarchy()
-        configureLayout()
         updateLikeButtonImage()
     }
     
     // MARK: - view 구성
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .white
         navigationItem.title = productName
     }
@@ -57,11 +54,11 @@ class DetailProductViewController: UIViewController {
     
     // MARK: - 레이아웃
     
-    func configureHierarchy() {
+    override func configureHierarchy() {
         view.addSubview(webView)
     }
     
-    func configureLayout() {
+    override func configureLayout() {
         webView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }

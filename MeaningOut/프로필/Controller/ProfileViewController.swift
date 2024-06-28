@@ -16,85 +16,39 @@ protocol ImageUpdateDelegate: AnyObject {
     func didUpdateImage(_ image: String)
 }
 
-class ProfileViewController: UIViewController, ImageUpdateDelegate {
+class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     
     var profileType: ProfileViewType = .setting
     
     var profileName = ""
     
+    let profileView = ProfileView()
+    
     // MARK: - UI
     
-    private lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.configureImageView(backgroundColor: .clear, borderWidth: 3, borderColor: UIColor.customMainColor.cgColor)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
-                                         
-    private let cameraButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
-        button.backgroundColor = .customMainColor
-        button.imageView?.contentMode = .scaleAspectFit // 이미지를 버튼 크기에 맞게 조절하기 위해
-        
-        // 이미지 여백 설정
-        let inset: CGFloat = 6
-        button.imageEdgeInsets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-        button.setTitleColor(.white, for: .normal)
-        button.tintColor = .white
-        button.clipsToBounds = true
-        return button
-    }()
-    
-    private let nicknameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "닉네임을 입력해주세요 :)"
-        textField.font = .systemFont(ofSize: 14)
-        return textField
-    }()
-    
-    private let lineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .customLightGray
-        return view
-    }()
-    
-    private let nicknameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .customMainColor
-        label.font = .systemFont(ofSize: 13)
-        return label
-    }()
-
-    private let doneButton = NextButton(title: "완료")
+   
     
     // MARK: - LifeCycle
+    
+    override func loadView() {
+        view = profileView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        configureHierarchy()
-        configureLayout()
         setUpAddTarget()
     }
     
-    // cornerRadius : 프로필, 카메라 이미지뷰 원형으로 레이아웃 잡기
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
-        cameraButton.layer.cornerRadius = cameraButton.frame.height / 2
-    }
+    
     
     // MARK: - 타입에 따른 화면 구성
 
-    private func configureView() {
+     override func configureView() {
         view.backgroundColor = .white
-        nicknameTextField.delegate = self
+        profileView.nicknameTextField.delegate = self
         
         // 완료버튼 기본으로 비활성화
-        doneButton.isEnabled = false
+        profileView.doneButton.isEnabled = false
         
         // 열거형 타입에 따른 네비게이션 타이틀
         navigationItem.title = profileType.rawValue
@@ -109,18 +63,18 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
             else {
                 profileName = "profile_\(Int.random(in: 0...11))"
             }
-            profileImageView.image = UIImage(named: profileName)
+            profileView.profileImageView.image = UIImage(named: profileName)
         }
         
         // 타입에 따른 화면 UI 설정
         switch profileType {
         case .setting:
-            doneButton.isHidden = false
+            profileView.doneButton.isHidden = false
         case .edit:
-            doneButton.isHidden = true
+            profileView.doneButton.isHidden = true
             setUpRightBarButton()
             if let nickName = UserDefaults.standard.string(forKey: "nickname") {
-                nicknameTextField.text = nickName
+                profileView.nicknameTextField.text = nickName
             }
         }
     }
@@ -136,15 +90,15 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     
     func setUpAddTarget() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
-        profileImageView.addGestureRecognizer(tap)
+        profileView.profileImageView.addGestureRecognizer(tap)
         
-        cameraButton.addTarget(self, action: #selector(profileTapped), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
+        profileView.cameraButton.addTarget(self, action: #selector(profileTapped), for: .touchUpInside)
+        profileView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
     @objc func saveButtonTapped() {
         // 유저 닉네임, 프로필 이미지 저장
-        guard let name = nicknameTextField.text else { return }
+        guard let name = profileView.nicknameTextField.text else { return }
         UserDefaults.standard.set(name, forKey: "nickname")
         UserDefaults.standard.set(profileName, forKey: "profile")
         
@@ -158,7 +112,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     @objc func profileTapped() {
         print(#function)
         
-        let vc = ProfileImageViewController()
+        let vc = ProfileSelectViewController()
         vc.navibartitle = profileType.rawValue
         // 현재 랜덤 이미지를 vc 이미지뷰에도 표시
         vc.profileImage = profileName
@@ -170,7 +124,7 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     @objc func doneButtonTapped() {
         print(#function) 
         // 유저 닉네임, 프로필 이미지 저장
-        UserDefaults.standard.set(nicknameTextField.text, forKey: "nickname")
+        UserDefaults.standard.set(profileView.nicknameTextField.text, forKey: "nickname")
         UserDefaults.standard.set(profileName, forKey: "profile")
         
         // 가입 날짜 저장하기
@@ -195,61 +149,12 @@ class ProfileViewController: UIViewController, ImageUpdateDelegate {
     // MARK: - Delegate
 
     func didUpdateImage(_ image: String) {
-        profileImageView.image = UIImage(named: image)
+        profileView.profileImageView.image = UIImage(named: image)
         profileName = image
      }
     
     
-    // MARK: - 레이아웃
-    
-    func configureHierarchy() {
-        view.addSubview(profileImageView)
-        view.addSubview(cameraButton)
-        view.addSubview(nicknameTextField)
-        view.addSubview(lineView)
-        view.addSubview(nicknameLabel)
-        view.addSubview(doneButton)
-    }
-    
-    func configureLayout() {
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.centerX.equalTo(view.safeAreaLayoutGuide)
-            make.size.equalTo(view.snp.width).multipliedBy(0.25)
-        }
-        
-        cameraButton.snp.makeConstraints { make in
-            make.bottom.equalTo(profileImageView.snp.bottom)
-            make.trailing.equalTo(profileImageView.snp.trailing)
-            make.size.equalTo(30)
-        }
-        
-        
-        nicknameTextField.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(30)
-            make.top.equalTo(profileImageView.snp.bottom).offset(30)
-            make.height.equalTo(40)
-        }
-        
-        lineView.snp.makeConstraints { make in
-            make.top.equalTo(nicknameTextField.snp.bottom)
-            make.trailing.equalTo(nicknameTextField.snp.trailing).offset(5)
-            make.leading.equalTo(nicknameTextField.snp.leading).offset(-5)
-            make.height.equalTo(1)
-        }
-        
-        nicknameLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalTo(nicknameTextField)
-            make.top.equalTo(lineView.snp.bottom).offset(15)
-        }
-        
-        doneButton.snp.makeConstraints { make in
-            make.top.equalTo(nicknameLabel.snp.bottom).offset(40)
-            make.horizontalEdges.equalTo(nicknameTextField)
-            make.height.equalTo(45)
-            
-        }
-    }
+   
 }
 
 // MARK: - 닉네임 입력 설정
@@ -261,10 +166,10 @@ extension ProfileViewController: UITextFieldDelegate {
         
         // 텍스트가 비어있으면 lineView 색상 및 nicknameLabel 빈문자열
         if text.isEmpty {
-            lineView.backgroundColor = .customLightGray
-            nicknameLabel.text = ""
+            profileView.lineView.backgroundColor = .customLightGray
+            profileView.nicknameLabel.text = ""
         } else {
-            lineView.backgroundColor = .customDarkGray
+            profileView.lineView.backgroundColor = .customDarkGray
         }
     }
     
@@ -301,12 +206,12 @@ extension ProfileViewController: UITextFieldDelegate {
        
         // 결과 처리
         if let message = errorMessage { // errorMessage 설정 여부 확인 후 nicknameLabel 표시
-                   nicknameLabel.text = message
+            profileView.nicknameLabel.text = message
                } else {
-                   nicknameLabel.text = "사용할 수 있는 닉네임이에요"
+                   profileView.nicknameLabel.text = "사용할 수 있는 닉네임이에요"
                }
         
-        doneButton.isEnabled = isValid
+        profileView.doneButton.isEnabled = isValid
         
         return true // 입력을 허용
     }

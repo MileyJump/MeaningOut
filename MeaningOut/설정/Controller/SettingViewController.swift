@@ -16,46 +16,34 @@ enum SettingOptions: String, CaseIterable {
     case secession = "탈퇴하기"
 }
 
-class SettingViewController: UIViewController {
+class SettingViewController: BaseViewController {
     
-    // MARK: - UI
+    let settingView = SettingView()
     
-    let settingTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        tableView.separatorColor = .customDarkGray
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
-        return tableView
-    }()
     
     // MARK: - life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        configureHierarchy()
-        configureLayout()
-        
     }
     
     // MARK: - View, TableView 구성
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .white
         navigationItem.title = "SETTING"
         navigationItem.backButtonTitle = ""
         
-        settingTableView.delegate = self
-        settingTableView.dataSource = self
-        settingTableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
-        settingTableView.register(ProfileSettingTableViewCell.self, forCellReuseIdentifier: ProfileSettingTableViewCell.identifier)
+        settingView.settingTableView.delegate = self
+        settingView.settingTableView.dataSource = self
+        settingView.settingTableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+        settingView.settingTableView.register(ProfileSettingTableViewCell.self, forCellReuseIdentifier: ProfileSettingTableViewCell.identifier)
     }
     
     // updateProfileImage 메서드 추가
     func updateProfileImage(_ imageName: String, nickname: String) {
         // 현재 뷰컨트롤러가 보여주는 테이블뷰 셀을 업데이트
-        if let profileCell = settingTableView.cellForRow(at: [0, 0]) as? ProfileSettingTableViewCell {
+        if let profileCell = settingView.settingTableView.cellForRow(at: [0, 0]) as? ProfileSettingTableViewCell {
             profileCell.profileImageView.image = UIImage(named: imageName)
             print("업데이트 프로필 이미지 \(imageName)")
             profileCell.nicknameLabel.text = nickname
@@ -64,17 +52,7 @@ class SettingViewController: UIViewController {
     }
     
     
-    // MARK: - 레이아웃 구성
-    
-    func configureHierarchy() {
-        view.addSubview(settingTableView)
-    }
-    
-    func configureLayout() {
-        settingTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
+   
 }
 
 // MARK: - 테이블뷰 : Delegate, DataSource

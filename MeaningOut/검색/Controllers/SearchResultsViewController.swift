@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 
-class SearchResultsViewController: UIViewController {
+class SearchResultsViewController: BaseViewController {
     
     var searchResult: String = "키보드"
     var searchResultCount: Int = 0 {
@@ -33,64 +33,12 @@ class SearchResultsViewController: UIViewController {
     var shoppingData: [Items] = []
     var shoppingList: [Items] = []
     
+    let searchResultView = ShoppingSearchResultsView()
     
-    // MARK: - UI
-    
-    lazy var searchResultLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .customMainColor
-        label.text = "\(searchResultCount)개의 검색 결과"
-        label.font = .boldSystemFont(ofSize: 14)
-        return label
-    }()
-    
-    lazy var accuracyButton: UIButton = {
-        let button = UIButton()
-        button.configureButton(title: "정확도", cornerRadius: 16)
-        button.addTarget(self, action: #selector(accuracyButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var dateButton: UIButton = {
-        let button = UIButton()
-        button.configureButton(title: "날짜순", cornerRadius: 16)
-        button.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var highPriceButton: UIButton = {
-        let button = UIButton()
-        button.configureButton(title: "가격높은순", cornerRadius: 16)
-        button.addTarget(self, action: #selector(highPriceButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var lowestPriceButton: UIButton = {
-        let button = UIButton()
-        button.configureButton(title: "가격낮은순", cornerRadius: 16)
-        button.addTarget(self, action: #selector(lowestPriceButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
-    
-    func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let sectionSpacing: CGFloat = 15
-        let cellSpacing: CGFloat = 15
-        let width = UIScreen.main.bounds.width - (sectionSpacing * 2) - (cellSpacing)
-        layout.itemSize = CGSize(width: width/2, height: width)
-        layout.minimumLineSpacing = cellSpacing - 10
-        layout.minimumInteritemSpacing = cellSpacing
-        layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
-        return layout
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        configureHierarchy()
-        configureLayout()
         callRequest(query: searchResult, sortText: "sim")
         loadLikeStatuses()
     }
@@ -109,35 +57,35 @@ class SearchResultsViewController: UIViewController {
     }
     
     
-    @objc func accuracyButtonTapped() {
-        print("정확도 버튼이 클릭되었습니다.")
-        updateButtonState(button: accuracyButton)
-        callRequest(query: searchResult, sortText: "sim")
-        collectionView.reloadData()
-    }
+//    @objc func accuracyButtonTapped() {
+//        print("정확도 버튼이 클릭되었습니다.")
+//        updateButtonState(button: searchResultView.accuracyButton)
+//        callRequest(query: searchResult, sortText: "sim")
+//        searchResultView.collectionView.reloadData()
+//    }
+//    
+//    @objc func dateButtonTapped() {
+//        print("날짜순 버튼이 클릭되었습니다.")
+//        updateButtonState(button: dateButton)
+//        callRequest(query: searchResult, sortText: "date")
+//    }
+//    
+//    @objc func highPriceButtonTapped() {
+//        print("가격높은순 버튼이 클릭되었습니다.")
+//        
+//        callRequest(query: searchResult, sortText: "dsc")
+//        updateButtonState(button: highPriceButton)
+//        collectionView.reloadData()
+//    }
     
-    @objc func dateButtonTapped() {
-        print("날짜순 버튼이 클릭되었습니다.")
-        updateButtonState(button: dateButton)
-        callRequest(query: searchResult, sortText: "date")
-    }
-    
-    @objc func highPriceButtonTapped() {
-        print("가격높은순 버튼이 클릭되었습니다.")
-        
-        callRequest(query: searchResult, sortText: "dsc")
-        updateButtonState(button: highPriceButton)
-        collectionView.reloadData()
-    }
-    
-    @objc func lowestPriceButtonTapped () {
-        print("가격낮은순 버튼이 클릭되었습니다.")
-        
-        callRequest(query: searchResult , sortText: "asc")
-        updateButtonState(button: lowestPriceButton)
-        collectionView.reloadData()
-    }
-    
+//    @objc func lowestPriceButtonTapped () {
+//        print("가격낮은순 버튼이 클릭되었습니다.")
+//        
+//        callRequest(query: searchResult , sortText: "asc")
+//        updateButtonState(button: lowestPriceButton)
+//        collectionView.reloadData()
+//    }
+//    
     
     func updateButtonState(button: UIButton) {
         guard button != selectedButton else { return } // 이미 선택된 버튼이면 리턴
@@ -214,13 +162,13 @@ class SearchResultsViewController: UIViewController {
                 if self.page == 1 {
                     self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
                 } else {
-                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                     self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
                     self.shoppingData.append(contentsOf: value.items) // 다음 페이지일 경우 데이터 추가
                     
                 }
                 self.searchResultCount = value.total
-                self.collectionView.reloadData() // UI 업데이트
+                self.searchResultView.collectionView.reloadData() // UI 업데이트
                          
                 
                 self.likeStatuses = Array(repeating: LikeStatus(), count: self.shoppingData.count)
@@ -239,16 +187,16 @@ class SearchResultsViewController: UIViewController {
         formatter.numberStyle = .decimal // 3자리마다 콤마를 추가하는 형식
         
         if let result = formatter.string(for: count) {
-            searchResultLabel.text = result + "개의 검색 결과"
+            searchResultView.searchResultLabel.text = result + "개의 검색 결과"
         }
     }
     
     // MARK: - View
 
     
-    func configureView() {
+    override func configureView() {
         view.backgroundColor = .white
-        collectionView.backgroundColor = .white
+        searchResultView.collectionView.backgroundColor = .white
         
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .customLightGray
@@ -259,59 +207,13 @@ class SearchResultsViewController: UIViewController {
         navigationItem.backButtonTitle = ""
         navigationController?.navigationBar.tintColor = .black
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.prefetchDataSource = self
-        collectionView.register(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultsCollectionViewCell.identifier)
+        searchResultView.collectionView.delegate = self
+        searchResultView.collectionView.dataSource = self
+        searchResultView.collectionView.prefetchDataSource = self
+        searchResultView.collectionView.register(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultsCollectionViewCell.identifier)
     }
     
-    // MARK: - 레이아웃
-    
-    func configureHierarchy() {
-        view.addSubview(searchResultLabel)
-        view.addSubview(accuracyButton)
-        view.addSubview(dateButton)
-        view.addSubview(highPriceButton)
-        view.addSubview(lowestPriceButton)
-        view.addSubview(collectionView)
-    }
-    
-    
-    func configureLayout() {
-        searchResultLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(15)
-        }
-        
-        accuracyButton.snp.makeConstraints { make in
-            make.top.equalTo(searchResultLabel.snp.bottom).offset(15)
-            make.leading.equalTo(searchResultLabel.snp.leading)
-            make.height.equalTo(35)
-            make.width.equalTo(55)
-        }
-        
-        dateButton.snp.makeConstraints { make in
-            make.size.verticalEdges.equalTo(accuracyButton)
-            make.leading.equalTo(accuracyButton.snp.trailing).offset(10)
-        }
-        
-        highPriceButton.snp.makeConstraints { make in
-            make.height.verticalEdges.equalTo(accuracyButton)
-            make.width.equalTo(80)
-            make.leading.equalTo(dateButton.snp.trailing).offset(10)
-        }
-        
-        lowestPriceButton.snp.makeConstraints { make in
-            make.size.verticalEdges.equalTo(highPriceButton)
-            make.leading.equalTo(highPriceButton.snp.trailing).offset(10)
-        }
-        
-        collectionView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.top.equalTo(accuracyButton.snp.bottom).offset(10)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
+
 }
 
 

@@ -15,12 +15,25 @@ class NextButton: UIButton {
         setTitle(title, for: .normal)
         setTitleColor(CustomColor.ButtonColor.nextTitle, for: .normal)
         backgroundColor = CustomColor.ButtonColor.background
-        titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        titleLabel?.font = FontType.pretendardBold.pretendardFont(ofsize: 15)
         layer.cornerRadius = 20
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+class CameraButton: UIButton {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+   
     
 }
