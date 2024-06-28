@@ -39,8 +39,5 @@ enum FontType {
         case .pretendardSemiBold:
             return UIFont(name: "Pretendard-SemiBold", size: fontSize)
         }
-        
-    }
-        
     }
 }

@@ -12,14 +12,19 @@ class ShoppingTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let search = ShoppingSearchViewController()
-        let nav1 = UINavigationController(rootViewController: search)
-        nav1.tabBarItem = UITabBarItem(title: "검색", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+        let tabs: [ShoppingTabBar] = [.searchTabBar, .likeTabBar, .SettingTabBar]
         
-        let setting = SettingViewController()
-        let nav2 = UINavigationController(rootViewController: setting)
-        nav2.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "person"), tag: 1)
+        var viewControllers: [UINavigationController] = []
         
-        setViewControllers([nav1, nav2], animated: true)
+        for (index, tabBar) in tabs.enumerated() {
+            let vc = tabBar.viewController
+            let nav = UINavigationController(rootViewController: vc)
+            nav.tabBarItem = UITabBarItem(title: tabBar.title, image: tabBar.image, tag: index)
+            nav.tabBarItem.selectedImage = tabBar.selectImage
+            viewControllers.append(nav)
+        }
+        
+        setViewControllers(viewControllers, animated: true)
+        tabBar.tintColor = .customMainColor
     }
 }

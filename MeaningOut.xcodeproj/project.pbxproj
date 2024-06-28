@@ -36,6 +36,7 @@
 		B0842B182C2EF43400323C09 /* ShoppingSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B172C2EF43400323C09 /* ShoppingSearchResultsView.swift */; };
 		B0842B1A2C2EF59500323C09 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B192C2EF59500323C09 /* SettingView.swift */; };
 		B0842B1F2C2F05BD00323C09 /* ShoppingTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */; };
+		B0842B222C2F0CE300323C09 /* LikeViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B212C2F0CE300323C09 /* LikeViewControllers.swift */; };
 		B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */; };
 		B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */; };
 		B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */; };
@@ -94,6 +95,7 @@
 		B0842B172C2EF43400323C09 /* ShoppingSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingSearchResultsView.swift; sourceTree = "<group>"; };
 		B0842B192C2EF59500323C09 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTabBar.swift; sourceTree = "<group>"; };
+		B0842B212C2F0CE300323C09 /* LikeViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewControllers.swift; sourceTree = "<group>"; };
 		B0924C182C1BBF3400D3F22B /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -294,6 +296,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		B0842B202C2F0CD200323C09 /* Like */ = {
+			isa = PBXGroup;
+			children = (
+				B0842B212C2F0CE300323C09 /* LikeViewControllers.swift */,
+			);
+			path = Like;
+			sourceTree = "<group>";
+		};
 		B0924C0F2C1BBF3400D3F22B = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +332,7 @@
 				B03BD1002C1F0A5E007FCB8D /* Settings */,
 				B0924C322C1BC57900D3F22B /* Enum */,
 				B0924C2F2C1BC4C100D3F22B /* CustomView */,
+				B0842B202C2F0CD200323C09 /* Like */,
 				B0842AEB2C2CE5E400323C09 /* Base */,
 				B0924C352C1BC71D00D3F22B /* Extension */,
 				B0924C4E2C1C0AB400D3F22B /* ShoppingTabBarController.swift */,
@@ -490,6 +501,7 @@
 				B03BD0F92C1DA859007FCB8D /* DetailProductViewController.swift in Sources */,
 				B0842B1F2C2F05BD00323C09 /* ShoppingTabBar.swift in Sources */,
 				B0842B1A2C2EF59500323C09 /* SettingView.swift in Sources */,
+				B0842B222C2F0CE300323C09 /* LikeViewControllers.swift in Sources */,
 				B0842AF32C2EBB6500323C09 /* OnboardingView.swift in Sources */,
 				B0924C552C1C12A400D3F22B /* ProfileSelectViewController.swift in Sources */,
 				B0924C512C1C0B2400D3F22B /* ShoppingSearchViewController.swift in Sources */,
