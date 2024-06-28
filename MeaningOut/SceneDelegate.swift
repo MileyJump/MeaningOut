@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         
         if data {
-            window?.rootViewController = TabBarController()
+            window?.rootViewController = ShoppingTabBarController()
         } else {
             
             let navigationController = UINavigationController(rootViewController: OnboardingViewController())

@@ -22,6 +22,9 @@ class ShoppingSearchViewController: BaseViewController {
     
     // MARK: - life cycle
 
+    override func loadView() {
+        view = shoppingSearchView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

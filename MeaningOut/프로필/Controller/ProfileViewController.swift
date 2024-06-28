@@ -140,7 +140,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         // rootVC 변경
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let rootViewController = TabBarController()
+        let rootViewController = ShoppingTabBarController()
         sceneDelegate?.window?.rootViewController = rootViewController
         sceneDelegate?.window?.makeKeyAndVisible()
     }

@@ -23,6 +23,10 @@ class SettingViewController: BaseViewController {
     
     // MARK: - life Cycle
     
+    override func loadView() {
+        view = settingView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

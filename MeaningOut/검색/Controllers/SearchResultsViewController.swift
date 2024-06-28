@@ -36,6 +36,10 @@ class SearchResultsViewController: BaseViewController {
     let searchResultView = ShoppingSearchResultsView()
     
     
+    override func loadView() {
+        view = searchResultView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()

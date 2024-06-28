@@ -30,13 +30,12 @@
 		B0842B042C2EE3FA00323C09 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0842AFB2C2EE3FA00323C09 /* Pretendard-Medium.ttf */; };
 		B0842B052C2EE3FA00323C09 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0842AFC2C2EE3FA00323C09 /* Pretendard-Light.ttf */; };
 		B0842B062C2EE3FA00323C09 /* Pretendard-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0842AFD2C2EE3FA00323C09 /* Pretendard-Regular.ttf */; };
-		B0842B082C2EE51400323C09 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B072C2EE51400323C09 /* UIFont+Extension.swift */; };
-		B0842B0A2C2EEA5400323C09 /* FontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B092C2EEA5400323C09 /* FontType.swift */; };
 		B0842B0E2C2EED6300323C09 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B0D2C2EED6300323C09 /* ProfileView.swift */; };
 		B0842B122C2EF0CD00323C09 /* ProfileSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B112C2EF0CD00323C09 /* ProfileSelectView.swift */; };
 		B0842B142C2EF2DF00323C09 /* ShoppingSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B132C2EF2DF00323C09 /* ShoppingSearchView.swift */; };
 		B0842B182C2EF43400323C09 /* ShoppingSearchResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B172C2EF43400323C09 /* ShoppingSearchResultsView.swift */; };
 		B0842B1A2C2EF59500323C09 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B192C2EF59500323C09 /* SettingView.swift */; };
+		B0842B1F2C2F05BD00323C09 /* ShoppingTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */; };
 		B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */; };
 		B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */; };
 		B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */; };
@@ -54,7 +53,7 @@
 		B0924C482C1BD36900D3F22B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C472C1BD36900D3F22B /* ProfileViewController.swift */; };
 		B0924C4B2C1BDDF000D3F22B /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = B0924C4A2C1BDDF000D3F22B /* TextFieldEffects */; };
 		B0924C4D2C1BE1B700D3F22B /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */; };
-		B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */; };
+		B0924C4F2C1C0AB400D3F22B /* ShoppingTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C4E2C1C0AB400D3F22B /* ShoppingTabBarController.swift */; };
 		B0924C512C1C0B2400D3F22B /* ShoppingSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C502C1C0B2400D3F22B /* ShoppingSearchViewController.swift */; };
 		B0924C532C1C0B8300D3F22B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C522C1C0B8300D3F22B /* SettingViewController.swift */; };
 		B0924C552C1C12A400D3F22B /* ProfileSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C542C1C12A400D3F22B /* ProfileSelectViewController.swift */; };
@@ -89,13 +88,12 @@
 		B0842AFB2C2EE3FA00323C09 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		B0842AFC2C2EE3FA00323C09 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.ttf"; sourceTree = "<group>"; };
 		B0842AFD2C2EE3FA00323C09 /* Pretendard-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.ttf"; sourceTree = "<group>"; };
-		B0842B072C2EE51400323C09 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
-		B0842B092C2EEA5400323C09 /* FontType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontType.swift; sourceTree = "<group>"; };
 		B0842B0D2C2EED6300323C09 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B0842B112C2EF0CD00323C09 /* ProfileSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectView.swift; sourceTree = "<group>"; };
 		B0842B132C2EF2DF00323C09 /* ShoppingSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingSearchView.swift; sourceTree = "<group>"; };
 		B0842B172C2EF43400323C09 /* ShoppingSearchResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingSearchResultsView.swift; sourceTree = "<group>"; };
 		B0842B192C2EF59500323C09 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTabBar.swift; sourceTree = "<group>"; };
 		B0924C182C1BBF3400D3F22B /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +107,7 @@
 		B0924C362C1BC73500D3F22B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B0924C472C1BD36900D3F22B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
-		B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		B0924C4E2C1C0AB400D3F22B /* ShoppingTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTabBarController.swift; sourceTree = "<group>"; };
 		B0924C502C1C0B2400D3F22B /* ShoppingSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingSearchViewController.swift; sourceTree = "<group>"; };
 		B0924C522C1C0B8300D3F22B /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		B0924C542C1C12A400D3F22B /* ProfileSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectViewController.swift; sourceTree = "<group>"; };
@@ -169,8 +167,8 @@
 		B03BD1022C1F0AC4007FCB8D /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				B0842AF22C2EBB6500323C09 /* OnboardingView.swift */,
-				B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */,
+				B0842B1C2C2EF78D00323C09 /* View */,
+				B0842B1D2C2EF79500323C09 /* Controller */,
 			);
 			name = Onboarding;
 			path = "온보딩";
@@ -280,6 +278,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B0842B1C2C2EF78D00323C09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B0842AF22C2EBB6500323C09 /* OnboardingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B0842B1D2C2EF79500323C09 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		B0924C0F2C1BBF3400D3F22B = {
 			isa = PBXGroup;
 			children = (
@@ -310,7 +324,7 @@
 				B0924C2F2C1BC4C100D3F22B /* CustomView */,
 				B0842AEB2C2CE5E400323C09 /* Base */,
 				B0924C352C1BC71D00D3F22B /* Extension */,
-				B0924C4E2C1C0AB400D3F22B /* TabBarController.swift */,
+				B0924C4E2C1C0AB400D3F22B /* ShoppingTabBarController.swift */,
 				B0842AF42C2EE3E200323C09 /* Font */,
 				B0840DF62C1D67DE0064B1C0 /* APIURL.swift */,
 				B0924C242C1BBF3600D3F22B /* Assets.xcassets */,
@@ -334,7 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				B0924C332C1BC59000D3F22B /* Resource.swift */,
-				B0842B092C2EEA5400323C09 /* FontType.swift */,
+				B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -347,7 +361,6 @@
 				B0924C582C1C21C500D3F22B /* ReuseProtocol.swift */,
 				B0924C4C2C1BE1B700D3F22B /* UIImageView+Extension.swift */,
 				B0840DF82C1D6FEB0064B1C0 /* UIButton+Extension.swift */,
-				B0842B072C2EE51400323C09 /* UIFont+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -474,8 +487,8 @@
 			files = (
 				B0842AEF2C2D068D00323C09 /* BaseView.swift in Sources */,
 				B0842AB62C294E6900323C09 /* UIViewController+Extension.swift in Sources */,
-				B0842B0A2C2EEA5400323C09 /* FontType.swift in Sources */,
 				B03BD0F92C1DA859007FCB8D /* DetailProductViewController.swift in Sources */,
+				B0842B1F2C2F05BD00323C09 /* ShoppingTabBar.swift in Sources */,
 				B0842B1A2C2EF59500323C09 /* SettingView.swift in Sources */,
 				B0842AF32C2EBB6500323C09 /* OnboardingView.swift in Sources */,
 				B0924C552C1C12A400D3F22B /* ProfileSelectViewController.swift in Sources */,
@@ -490,8 +503,7 @@
 				B0ECBBC92C1C782700B86E80 /* SearchView.swift in Sources */,
 				B0840DF32C1D3DF90064B1C0 /* SearchResultsViewController.swift in Sources */,
 				B07B0AB62C2567A9005C282F /* APIManager.swift in Sources */,
-				B0924C4F2C1C0AB400D3F22B /* TabBarController.swift in Sources */,
-				B0842B082C2EE51400323C09 /* UIFont+Extension.swift in Sources */,
+				B0924C4F2C1C0AB400D3F22B /* ShoppingTabBarController.swift in Sources */,
 				B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */,
 				B03BD0FD2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift in Sources */,
 				B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */,

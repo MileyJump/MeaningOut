@@ -45,7 +45,8 @@ class ShoppingSearchView: BaseView {
     
      let emptyImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "empty")
+//        imageView.image = UIImage(named: "empty")
+        imageView.image = UIImage(named: "heartHand")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
