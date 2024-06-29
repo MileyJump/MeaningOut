@@ -32,14 +32,14 @@ class ShoppingSearchResultsView: BaseView {
         return button
     }()
     
-    lazy var highPriceButton: UIButton = {
+    lazy var descendingButton: UIButton = {
         let button = UIButton()
         button.configureButton(title: "가격높은순", cornerRadius: 16)
 //        button.addTarget(self, action: #selector(highPriceButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    lazy var lowestPriceButton: UIButton = {
+    lazy var ascendingButton: UIButton = {
         let button = UIButton()
         button.configureButton(title: "가격낮은순", cornerRadius: 16)
 //        button.addTarget(self, action: #selector(lowestPriceButtonTapped), for: .touchUpInside)
@@ -71,8 +71,8 @@ class ShoppingSearchResultsView: BaseView {
         addSubview(searchResultLabel)
         addSubview(accuracyButton)
         addSubview(dateButton)
-        addSubview(highPriceButton)
-        addSubview(lowestPriceButton)
+        addSubview(descendingButton)
+        addSubview(ascendingButton)
         addSubview(collectionView)
     }
     
@@ -95,15 +95,15 @@ class ShoppingSearchResultsView: BaseView {
             make.leading.equalTo(accuracyButton.snp.trailing).offset(10)
         }
         
-        highPriceButton.snp.makeConstraints { make in
+        descendingButton.snp.makeConstraints { make in
             make.height.verticalEdges.equalTo(accuracyButton)
             make.width.equalTo(80)
             make.leading.equalTo(dateButton.snp.trailing).offset(10)
         }
         
-        lowestPriceButton.snp.makeConstraints { make in
-            make.size.verticalEdges.equalTo(highPriceButton)
-            make.leading.equalTo(highPriceButton.snp.trailing).offset(10)
+        ascendingButton.snp.makeConstraints { make in
+            make.size.verticalEdges.equalTo(descendingButton)
+            make.leading.equalTo(descendingButton.snp.trailing).offset(10)
         }
         
         collectionView.snp.makeConstraints { make in

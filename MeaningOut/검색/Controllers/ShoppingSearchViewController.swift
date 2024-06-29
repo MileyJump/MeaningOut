@@ -9,7 +9,11 @@ import UIKit
 
 class ShoppingSearchViewController: BaseViewController {
     
-    var nickname = UserDefaults.standard.string(forKey: "nickname")
+    // MARK: - Properties
+    
+    let shoppingSearchView = ShoppingSearchView()
+    
+    var nickname = UserDatas.shared.nickname
     
     var searchWord: [String] = [] {
         didSet {
@@ -17,33 +21,20 @@ class ShoppingSearchViewController: BaseViewController {
         }
     }
     
-    let shoppingSearchView = ShoppingSearchView()
-    
-    
     // MARK: - life cycle
-
+    
     override func loadView() {
         view = shoppingSearchView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpAddTarget()
         loadSearchWords()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.shadowColor = .clear
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-    }
-    
     
     // MARK: - SetUpAddTarget
-    
     
     private func setUpAddTarget() {
         shoppingSearchView.alldeleteButton.addTarget(self, action: #selector(alldeleteButtonTapped), for: .touchUpInside)
@@ -58,7 +49,7 @@ class ShoppingSearchViewController: BaseViewController {
     }
     
     
-    // MARK: - 기능
+    // MARK: - Method
     
     private func searchWordState() {
         let isEmpty = searchWord.isEmpty
@@ -66,24 +57,22 @@ class ShoppingSearchViewController: BaseViewController {
         shoppingSearchView.emptyLabel.isHidden = !isEmpty
         shoppingSearchView.searchTableView.reloadData()
         
-        UserDefaults.standard.set(searchWord, forKey: "keyword")
+        UserDatas.shared.shoppingSearchKeyword = searchWord
     }
     
     private func loadSearchWords() {
-        if let keyword = UserDefaults.standard.stringArray(forKey: "keyword") {
+        if let keyword = UserDatas.shared.shoppingSearchKeyword {
             searchWord = keyword
         }
     }
     
-    // MARK: - view 구성
-     override func configureView() {
-        view.backgroundColor = .white
-        
+    // MARK: - ConfigureView
+    
+    override func configureView() {
         
         guard let nickname = nickname else { return }
         navigationItem.title = "\(nickname)님의 MEANING OUT"
         navigationItem.backButtonTitle = ""
-        
         
         shoppingSearchView.searchTableView.separatorStyle = .none
         shoppingSearchView.searchTableView.delegate = self
@@ -92,8 +81,6 @@ class ShoppingSearchViewController: BaseViewController {
         
         shoppingSearchView.searchBar.delegate = self
     }
-    
-   
 }
 
 
@@ -118,13 +105,14 @@ extension ShoppingSearchViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(#function)
         
-        
         let vc = SearchResultsViewController()
         let searchKeyword = searchWord[indexPath.row]
         vc.searchResult = searchKeyword
         
+        // 선택한 검색어 최근 검색어로 올리기
         searchWord.remove(at: indexPath.row)
         searchWord.insert(searchKeyword, at: 0)
+        
         navigationController?.pushViewController(vc, animated: true)
         tableView.reloadData()
     }

@@ -53,6 +53,15 @@ class UserDatas {
         }
     }
     
+    // 검색 키워드 저장
+    var shoppingSearchKeyword: [String]? {
+        get {
+            return UserDefaults.standard.stringArray(forKey: "keyword")
+        }
+        set {
+            return UserDefaults.standard.set(newValue, forKey: "keyword")
+        }
+    }
     
     
     

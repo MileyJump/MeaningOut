@@ -11,18 +11,14 @@ import Alamofire
 
 class SearchResultsViewController: BaseViewController {
     
-    var searchResult: String = "키보드"
+    var searchResult: String = ""
     var searchResultCount: Int = 0 {
         didSet {
             updateSearchtotal()
         }
     }
     
-    var likeStatuses: [LikeStatus] = [] {
-        didSet {
-            saveLikeStatuses()
-        }
-    }
+    var sortType: SortType = .accuracy
     
     // 페이지네이션
     var page = 1
@@ -36,6 +32,8 @@ class SearchResultsViewController: BaseViewController {
     let searchResultView = ShoppingSearchResultsView()
     
     
+    // MARK: - life cycle
+    
     override func loadView() {
         view = searchResultView
     }
@@ -43,21 +41,81 @@ class SearchResultsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        callRequest(query: searchResult, sortText: "sim")
-        loadLikeStatuses()
+        shoppingDataReqeust()
+        setUpAddTarget()
+    }
+    
+    func shoppingDataReqeust() {
+        
+        ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "sim") { shopping in
+            if self.page == 1 {
+                self.shoppingData = shopping.items
+                //                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            } else {
+                self.shoppingData.append(contentsOf: shopping.items)
+            }
+            
+            self.searchResultCount = shopping.total
+            self.searchResultView.collectionView.reloadData()
+            
+//            if self.page == 1 {
+//                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+//            }
+        }
     }
     
     
     // MARK: - SetUpAddTarget
     
-    @objc func likeButtonTapped(_ sender: UIButton) {
+    func setUpAddTarget() {
+        searchResultView.accuracyButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        searchResultView.dateButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        searchResultView.descendingButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        searchResultView.ascendingButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+    }
+    
+  
+    
+    @objc func sortButtonTapped(_ sender: UIButton) {
+        print("돼")
+        switch sender {
+        case searchResultView.dateButton:
+            sortType = .date
+        case searchResultView.accuracyButton:
+            sortType = .accuracy
+        case searchResultView.descendingButton:
+            sortType = .descending
+        case searchResultView.ascendingButton:
+            sortType = .ascending
+        default:
+            break
+        }
         
-        likeStatuses[sender.tag].isLiked.toggle() // 좋아요 상태 토글
+        shoppingSort()
+    }
+    
+    func shoppingSort() {
         
-        let likeButtonImage = likeStatuses[sender.tag].isLiked ? "like_selected" : "like_unselected"
-        sender.setImage(UIImage(named: likeButtonImage), for: .normal)
-        
-        updateLikedItemCount()
+        switch sortType {
+        case .accuracy:
+            ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "sim") { shopping in
+                self.shoppingData = shopping.items
+            }
+        case .date:
+            ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "date") { shopping in
+                self.shoppingData = shopping.items
+            }
+        case .descending:
+            ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "dsc") { shopping in
+                self.shoppingData = shopping.items
+            }
+        case .ascending:
+            ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "asc") { shopping in
+                self.shoppingData = shopping.items
+            }
+        }
+
+        searchResultView.collectionView.reloadData()
     }
     
     
@@ -109,78 +167,41 @@ class SearchResultsViewController: BaseViewController {
     // MARK: - 기능
 
     
-    // 선택된 좋아요 수 계산 및 표시
-    func updateLikedItemCount() {
-        
-        let likedItemCount = likeStatuses.filter { $0.isLiked }.count
-        UserDefaults.standard.set(likedItemCount, forKey: "like")
-    }
-    
-    // 좋아요 상태 저장 ,,
-    func saveLikeStatuses() {
-        print("돼..?")
-        do {
-            let encoded = try JSONEncoder().encode(likeStatuses)
-            UserDefaults.standard.set(encoded, forKey: "likeStatuses")
-        } catch {
-            print(" 오류입니다 : \(error.localizedDescription)") // 오류를 알아듣기 쉽게 만들어줌ㅎ
-        }
-    }
-    
-    // 좋아요 상태 불러오기
-    func loadLikeStatuses() {
-        print(#function)
-        let decoder = JSONDecoder()
-        do {
-            if let savedData = UserDefaults.standard.data(forKey: "likeStatuses") {
-                let decoded = try decoder.decode([LikeStatus].self, from: savedData)
-                print(decoded)
-                likeStatuses = decoded
-            } else {
-                // 저장된 데이터가 없을 경우 초기화 혹은 기본값 설정
-                likeStatuses = Array(repeating: LikeStatus(), count: shoppingData.count)
-                print("데이터 없어요")
-            }
-        } catch {
-            print("오류입니다! : \(error.localizedDescription)") // localizedDescription : 오류를 알아듣기 쉽게 해준다!
-            // 여기서 필요한 추가적인 오류 처리를 할 수 있습니다.
-        }
-    }
-    
+  
     // URL 요청
-    func callRequest(query: String, sortText: String) {
-        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
-        
-        
-        let headers: HTTPHeaders = [
-            "X-Naver-Client-Id": APIKey.naverId,
-            "X-Naver-Client-Secret": APIKey.naverKey
-        ]
-        
-        AF.request(url, method: .get, headers: headers).responseDecodable(of: ShoppingModel.self) { response in
-            
-            switch response.result {
-            case .success(let value):
-
-                
-                if self.page == 1 {
-                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
-                } else {
-                    self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
-                    self.shoppingData.append(contentsOf: value.items) // 다음 페이지일 경우 데이터 추가
-                    
-                }
-                self.searchResultCount = value.total
-                self.searchResultView.collectionView.reloadData() // UI 업데이트
-                         
-                
-                self.likeStatuses = Array(repeating: LikeStatus(), count: self.shoppingData.count)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+//    func callRequest(query: String, sortText: String) {
+//        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
+//        
+//        
+//        let headers: HTTPHeaders = [
+//            "X-Naver-Client-Id": APIKey.naverId,
+//            "X-Naver-Client-Secret": APIKey.naverKey
+//        ]
+//        
+//        AF.request(url, method: .get, headers: headers).responseDecodable(of: ShoppingModel.self) { response in
+//            
+//            switch response.result {
+//            case .success(let value):
+//
+//                
+//                if self.page == 1 {
+//                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
+//                } else {
+//                    self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+//                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
+//                    self.shoppingData.append(contentsOf: value.items) // 다음 페이지일 경우 데이터 추가
+//                    
+//                }
+//                self.searchResultCount = value.total
+//                self.searchResultView.collectionView.reloadData() // UI 업데이트
+//                         
+//                
+////                self.likeStatuses = Array(repeating: LikeStatus(), count: self.shoppingData.count)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
     
     
     func updateSearchtotal() {
@@ -228,7 +249,7 @@ extension SearchResultsViewController: UICollectionViewDataSourcePrefetching {
         for item in indexPaths {
             if shoppingData.count - 2 == item.row {
                 page += 1
-                callRequest(query: searchResult, sortText: "sim")
+                shoppingDataReqeust()
             }
         }
     }
@@ -242,16 +263,15 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultsCollectionViewCell.identifier, for: indexPath) as! SearchResultsCollectionViewCell
         cell.configureCell(shoppingData[indexPath.row])
-        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         cell.likeButton.tag = indexPath.row
         
         cell.index = indexPath.row
         
-        if likeStatuses[indexPath.row].isLiked == true {
-            cell.isTouched = true
-        } else {
-            cell.isTouched = false
-        }
+//        if likeStatuses[indexPath.row].isLiked == true {
+//            cell.isTouched = true
+//        } else {
+//            cell.isTouched = false
+//        }
         return cell
     }
     
@@ -260,7 +280,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         let vc = DetailProductViewController()
         vc.link = shoppingData[indexPath.row].link
         vc.productName = shoppingData[indexPath.row].title
-        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
+//        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
         print(vc.likeButtonType)
         navigationController?.pushViewController(vc, animated: true)
     }
