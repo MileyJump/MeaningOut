@@ -11,17 +11,17 @@ class ShoppingSearchView: BaseView {
     
     // MARK: - UI
     
-     let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        let searBarImage = UIImage()
-        searchBar.backgroundImage = searBarImage
-        searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
-        searchBar.autocorrectionType = .no
-        searchBar.spellCheckingType = .no
-        searchBar.searchTextField.font = .systemFont(ofSize: 15)
-//         searchBar.isHidden = true
-        return searchBar
-    }()
+//     let searchBar: UISearchBar = {
+//        let searchBar = UISearchBar()
+//        let searBarImage = UIImage()
+//        searchBar.backgroundImage = searBarImage
+//        searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
+//        searchBar.autocorrectionType = .no
+//        searchBar.spellCheckingType = .no
+//        searchBar.searchTextField.font = .systemFont(ofSize: 15)
+////         searchBar.isHidden = true
+//        return searchBar
+//    }()
     
     private let lineView: UIView = {
         let view = UIView()
@@ -85,7 +85,7 @@ class ShoppingSearchView: BaseView {
     // MARK: - 레이아웃
     
     override func configureHierarchy() {
-        addSubview(searchBar)
+//        addSubview(searchBar)
         addSubview(lineView)
         addSubview(recentsearchLabel)
         addSubview(alldeleteButton)
@@ -96,14 +96,15 @@ class ShoppingSearchView: BaseView {
     }
     
     override func configureLayout() {
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(5)
-//            make.height.equalTo(40)
-        }
+//        searchBar.snp.makeConstraints { make in
+//            make.top.equalTo(safeAreaLayoutGuide)
+//            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(5)
+////            make.height.equalTo(40)
+//        }
         
         lineView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(3)
+//            make.top.equalTo(searchBar.snp.bottom).offset(3)
+            make.top.equalTo(safeAreaLayoutGuide).offset(3)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(1)
         }

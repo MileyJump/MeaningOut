@@ -91,12 +91,11 @@ class ShoppingSearchViewController: BaseViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         
         
-        
-        
         let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
         
         navigationItem.rightBarButtonItem = search
+        navigationItem.rightBarButtonItem?.tintColor = .black
         
         
         shoppingSearchView.searchTableView.separatorStyle = .none
@@ -104,7 +103,7 @@ class ShoppingSearchViewController: BaseViewController {
         shoppingSearchView.searchTableView.dataSource = self
         shoppingSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
         
-        shoppingSearchView.searchBar.delegate = self
+//        shoppingSearchView.searchBar.delegate = self
         
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .clear
@@ -118,7 +117,16 @@ class ShoppingSearchViewController: BaseViewController {
     }
     
     @objc func searchButtonTapped() {
+        let vc = SearchResultsViewController()
+//        let searchKeyword = searchWord[indexPath.row]
+//        vc.searchResult = searchKeyword
         
+        // 선택한 검색어 최근 검색어로 올리기
+//        searchWord.remove(at: indexPath.row)
+//        searchWord.insert(searchKeyword, at: 0)
+        
+        navigationController?.pushViewController(vc, animated: true)
+//        tableView.reloadData()
     }
 }
 
