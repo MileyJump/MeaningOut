@@ -16,7 +16,6 @@ class ProfileSelectViewController: BaseViewController {
     
     var navibartitle: String = ""
     var profileImage: String = ""
-//    var imageData: [Profile] = ProfileInfo().profile
     
     var selectedIndexPath: IndexPath?
     
@@ -44,9 +43,8 @@ class ProfileSelectViewController: BaseViewController {
         profileSelectView.collectionView.dataSource = self
         profileSelectView.collectionView.delegate = self
         profileSelectView.collectionView.register(ProfileImageCollectionViewCell.self, forCellWithReuseIdentifier: ProfileImageCollectionViewCell.identifier)
+        profileSelectView.profileImageView.image = UIImage(named: profileImage)
     }
-    
-    
 }
 
 // MARK: - 컬렉션뷰
@@ -60,7 +58,7 @@ extension ProfileSelectViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileImageCollectionViewCell.identifier , for: indexPath) as! ProfileImageCollectionViewCell
         let isSelected = indexPath == selectedIndexPath
-//        cell.configureCell(profileImage[indexPath.row], isSelected: isSelected)
+        cell.configureCell(ProfileImageType.allCases[indexPath.row].rawValue, isSelected: isSelected)
         return cell
     }
     

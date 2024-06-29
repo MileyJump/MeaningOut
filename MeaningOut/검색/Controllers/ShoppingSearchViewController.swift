@@ -106,7 +106,9 @@ extension ShoppingSearchViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier , for: indexPath) as! SearchTableViewCell
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier , for: indexPath) as? SearchTableViewCell else { fatalError("SearchTableViewCell 다운캐스팅 실패") }
+        
         cell.configureCell(searchWord[indexPath.row])
         cell.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         cell.deleteButton.tag = indexPath.row
@@ -135,17 +137,17 @@ extension ShoppingSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(#function)
         guard let text = searchBar.text else { return }
-        
-        if !text.isEmpty {
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedText.isEmpty {
             searchWord.insert(text, at: 0)
             shoppingSearchView.searchTableView.reloadData()
+            let vc = SearchResultsViewController()
+            vc.searchResult = text
+            navigationController?.pushViewController(vc, animated: true)
+            searchBar.text = ""
+        } else {
+            print(#function, "검색어를 입력하세요")
         }
-        
-        let vc = SearchResultsViewController()
-        vc.searchResult = text
-        navigationController?.pushViewController(vc, animated: true)
-        searchBar.text = ""
     }
-    
 }
 

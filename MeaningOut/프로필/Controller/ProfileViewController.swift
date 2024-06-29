@@ -52,6 +52,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         // UserDefaults에서 저장된 프로필 이미지 로드 또는 랜덤 이미지 설정
         let profileName = UserDatas.shared.profileImageString ?? ProfileImageType.randomProfile
         profileView.profileImageView.image = UIImage(named: profileName)
+        self.profileName = profileName
         
         // 타입에 따른 화면 UI 설정
         switch profileType {
@@ -88,7 +89,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         // 유저 닉네임, 프로필 이미지 저장
         guard let name = profileView.nicknameTextField.text else { return }
         UserDatas.shared.nickname = name
-        UserDefaults.standard.set(profileName, forKey: "profile")
+        UserDatas.shared.profileImageString = profileName
         
         if let settingVC = navigationController?.viewControllers.first(where: { $0 is SettingViewController }) as? SettingViewController { // 네비게이션 컨트롤러의 스택에 있는 모든 뷰컨 중 첫 번째로 발견되는 SettingVC 찾기
             settingVC.updateProfileImage(profileName, nickname: name)
@@ -102,8 +103,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         print(#function)
         // 유저 닉네임, 프로필 이미지 저장
         UserDatas.shared.nickname = profileView.nicknameTextField.text
-        
-        UserDefaults.standard.set(profileName, forKey: "profile")
+        UserDatas.shared.profileImageString = profileName
         
         // 가입 날짜 저장하기
         let currentDate = Date()
@@ -125,7 +125,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     
     @objc func profileTapped() {
         print(#function)
-        
+        print(self.profileName)
         let vc = ProfileSelectViewController()
         vc.navibartitle = profileType.rawValue
         // 현재 랜덤 이미지를 vc 이미지뷰에도 표시

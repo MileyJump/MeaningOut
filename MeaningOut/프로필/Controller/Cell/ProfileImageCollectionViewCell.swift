@@ -44,11 +44,11 @@ class ProfileImageCollectionViewCell: UICollectionViewCell {
     // MARK: - 셀 구성
 
     
-//    func configureCell(_ data: Profile, isSelected: Bool) {
-//        profileImageView.image = UIImage(named: data.image_name)
-//        profileImageView.alpha = isSelected ? 1.0 : 0.5 
-//        profileImageView.layer.borderColor = isSelected ? UIColor.orange.cgColor : UIColor.lightGray.cgColor //
-//    }
+    func configureCell(_ data: String, isSelected: Bool) {
+        profileImageView.image = UIImage(named: data)
+        profileImageView.alpha = isSelected ? 1.0 : 0.5 
+        profileImageView.layer.borderColor = isSelected ? UIColor.customMainColor.cgColor : UIColor.lightGray.cgColor
+    }
     
     
     // MARK: - 레이아웃
