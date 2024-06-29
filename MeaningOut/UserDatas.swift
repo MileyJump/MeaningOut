@@ -13,6 +13,27 @@ class UserDatas {
     
     static let shared = UserDatas()
     
+    // 회원가입 날짜
+    var joinDate: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "JoinDate")
+        }
+        set {
+            return UserDefaults.standard.set(newValue, forKey: "JoinDate")
+        }
+    }
+    
+    // 회원가입 여부 (온보딩, 메인화면 조건에 해당)
+    var membershipStatus: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: "isUser")
+        }
+        set {
+            return UserDefaults.standard.set(true, forKey: "isUser")
+        }
+    }
+    
+    // 닉네임 저장
     var nickname: String? {
         get {
             return UserDefaults.standard.string(forKey: "nickname")
@@ -22,6 +43,7 @@ class UserDatas {
         }
     }
     
+    // 프로필 이미지 저장
     var profileImageString: String? {
         get {
             return UserDefaults.standard.string(forKey: "profile")
@@ -30,6 +52,8 @@ class UserDatas {
             return UserDefaults.standard.set(newValue, forKey: "profile")
         }
     }
+    
+    
     
     
 }

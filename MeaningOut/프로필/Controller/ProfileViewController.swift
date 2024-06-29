@@ -30,6 +30,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureProfile()
         setUpAddTarget()
     }
     
@@ -45,7 +46,9 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         
         // 완료버튼 기본으로 비활성화
         profileView.doneButton.isEnabled = false
-        
+    }
+    
+    func configureProfile() {
         // UserDefaults에서 저장된 프로필 이미지 로드 또는 랜덤 이미지 설정
         let profileName = UserDatas.shared.profileImageString ?? ProfileImageType.randomProfile
         profileView.profileImageView.image = UIImage(named: profileName)
@@ -75,15 +78,16 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     func setUpAddTarget() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
         profileView.profileImageView.addGestureRecognizer(tap)
-        
         profileView.cameraButton.addTarget(self, action: #selector(profileTapped), for: .touchUpInside)
+        
         profileView.doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
+    
     
     @objc func saveButtonTapped() {
         // 유저 닉네임, 프로필 이미지 저장
         guard let name = profileView.nicknameTextField.text else { return }
-        UserDefaults.standard.set(name, forKey: "nickname")
+        UserDatas.shared.nickname = name
         UserDefaults.standard.set(profileName, forKey: "profile")
         
         if let settingVC = navigationController?.viewControllers.first(where: { $0 is SettingViewController }) as? SettingViewController { // 네비게이션 컨트롤러의 스택에 있는 모든 뷰컨 중 첫 번째로 발견되는 SettingVC 찾기
@@ -91,6 +95,32 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         }
         
         navigationController?.popViewController(animated: true)
+    }
+    
+  
+    @objc func doneButtonTapped() {
+        print(#function)
+        // 유저 닉네임, 프로필 이미지 저장
+        UserDatas.shared.nickname = profileView.nicknameTextField.text
+        
+        UserDefaults.standard.set(profileName, forKey: "profile")
+        
+        // 가입 날짜 저장하기
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy. MM. dd"
+        let now = formatter.string(from: currentDate)
+        UserDatas.shared.joinDate = now
+        
+        // 프로필 설정 여부 저장 (온보딩, 메인화면 조건에 해당)
+        UserDatas.shared.membershipStatus = true
+        
+        // rootVC 변경
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let sceneDelegate = windowScene?.delegate as? SceneDelegate
+        let rootViewController = ShoppingTabBarController()
+        sceneDelegate?.window?.rootViewController = rootViewController
+        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     @objc func profileTapped() {
@@ -103,30 +133,6 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         // 델리게이트를 통해 프로필 이미지 받아오기
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @objc func doneButtonTapped() {
-        print(#function)
-        // 유저 닉네임, 프로필 이미지 저장
-        UserDefaults.standard.set(profileView.nicknameTextField.text, forKey: "nickname")
-        UserDefaults.standard.set(profileName, forKey: "profile")
-        
-        // 가입 날짜 저장하기
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy. MM. dd"
-        let now = formatter.string(from: currentDate)
-        UserDefaults.standard.set(now, forKey: "JoinDate")
-        
-        // 프로필 설정 여부 저장 (온보딩, 메인화면 조건에 해당)
-        UserDefaults.standard.set(true, forKey: "isUser")
-        
-        // rootVC 변경
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let sceneDelegate = windowScene?.delegate as? SceneDelegate
-        let rootViewController = ShoppingTabBarController()
-        sceneDelegate?.window?.rootViewController = rootViewController
-        sceneDelegate?.window?.makeKeyAndVisible()
     }
     
     
@@ -188,8 +194,10 @@ extension ProfileViewController: UITextFieldDelegate {
         // 결과 처리
         if let message = errorMessage { // errorMessage 설정 여부 확인 후 nicknameLabel 표시
             profileView.nicknameLabel.text = message
+            profileView.nicknameLabel.textColor = .customMainColor
         } else {
             profileView.nicknameLabel.text = "사용할 수 있는 닉네임이에요"
+            profileView.nicknameLabel.textColor = .black
         }
         
         profileView.doneButton.isEnabled = isValid
