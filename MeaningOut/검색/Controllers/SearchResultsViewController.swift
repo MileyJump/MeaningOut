@@ -27,7 +27,8 @@ class SearchResultsViewController: BaseViewController {
     var selectedButton: UIButton?
     
     var shoppingData: [Items] = []
-    var shoppingList: [Items] = []
+    
+    let formatter = NumberFormatter()
     
     let searchResultView = ShoppingSearchResultsView()
     
@@ -40,7 +41,6 @@ class SearchResultsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
         shoppingDataReqeust()
         setUpAddTarget()
     }
@@ -58,9 +58,9 @@ class SearchResultsViewController: BaseViewController {
             self.searchResultCount = shopping.total
             self.searchResultView.collectionView.reloadData()
             
-//            if self.page == 1 {
-//                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-//            }
+            //            if self.page == 1 {
+            //                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+            //            }
         }
     }
     
@@ -74,7 +74,7 @@ class SearchResultsViewController: BaseViewController {
         searchResultView.ascendingButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
     }
     
-  
+    
     
     @objc func sortButtonTapped(_ sender: UIButton) {
         print("돼")
@@ -95,59 +95,35 @@ class SearchResultsViewController: BaseViewController {
     }
     
     func shoppingSort() {
-        
+        let group = DispatchGroup()
+        group.enter()
         switch sortType {
         case .accuracy:
             ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "sim") { shopping in
                 self.shoppingData = shopping.items
+                print("accurary")
+                group.leave()
             }
         case .date:
             ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "date") { shopping in
                 self.shoppingData = shopping.items
+                group.leave()
             }
         case .descending:
             ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "dsc") { shopping in
                 self.shoppingData = shopping.items
+                group.leave()
             }
         case .ascending:
             ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "asc") { shopping in
                 self.shoppingData = shopping.items
+                group.leave()
             }
         }
-
-        searchResultView.collectionView.reloadData()
+        group.notify(queue: .main) {
+            self.searchResultView.collectionView.reloadData()
+        }
     }
-    
-    
-//    @objc func accuracyButtonTapped() {
-//        print("정확도 버튼이 클릭되었습니다.")
-//        updateButtonState(button: searchResultView.accuracyButton)
-//        callRequest(query: searchResult, sortText: "sim")
-//        searchResultView.collectionView.reloadData()
-//    }
-//    
-//    @objc func dateButtonTapped() {
-//        print("날짜순 버튼이 클릭되었습니다.")
-//        updateButtonState(button: dateButton)
-//        callRequest(query: searchResult, sortText: "date")
-//    }
-//    
-//    @objc func highPriceButtonTapped() {
-//        print("가격높은순 버튼이 클릭되었습니다.")
-//        
-//        callRequest(query: searchResult, sortText: "dsc")
-//        updateButtonState(button: highPriceButton)
-//        collectionView.reloadData()
-//    }
-    
-//    @objc func lowestPriceButtonTapped () {
-//        print("가격낮은순 버튼이 클릭되었습니다.")
-//        
-//        callRequest(query: searchResult , sortText: "asc")
-//        updateButtonState(button: lowestPriceButton)
-//        collectionView.reloadData()
-//    }
-//    
     
     func updateButtonState(button: UIButton) {
         guard button != selectedButton else { return } // 이미 선택된 버튼이면 리턴
@@ -165,72 +141,37 @@ class SearchResultsViewController: BaseViewController {
     }
     
     // MARK: - 기능
-
-    
-  
-    // URL 요청
-//    func callRequest(query: String, sortText: String) {
-//        let url = "\(APIURL.naverShoppingURL)query=\(query)&display=30&sort=\(sortText)"
-//        
-//        
-//        let headers: HTTPHeaders = [
-//            "X-Naver-Client-Id": APIKey.naverId,
-//            "X-Naver-Client-Secret": APIKey.naverKey
-//        ]
-//        
-//        AF.request(url, method: .get, headers: headers).responseDecodable(of: ShoppingModel.self) { response in
-//            
-//            switch response.result {
-//            case .success(let value):
-//
-//                
-//                if self.page == 1 {
-//                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
-//                } else {
-//                    self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-//                    self.shoppingData = value.items // 첫 페이지 요청일 경우 데이터 초기화
-//                    self.shoppingData.append(contentsOf: value.items) // 다음 페이지일 경우 데이터 추가
-//                    
-//                }
-//                self.searchResultCount = value.total
-//                self.searchResultView.collectionView.reloadData() // UI 업데이트
-//                         
-//                
-////                self.likeStatuses = Array(repeating: LikeStatus(), count: self.shoppingData.count)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-    
     
     func updateSearchtotal() {
         
         let count = Int(searchResultCount)
-        
-        let formatter = NumberFormatter()
+
         formatter.numberStyle = .decimal // 3자리마다 콤마를 추가하는 형식
         
         if let result = formatter.string(for: count) {
-            searchResultView.searchResultLabel.text = result + "개의 검색 결과"
-        }
+            let boldText = "상품"
+            let normalText = result
+            
+            // 볼드체 텍스트와 일반 텍스트를 NSAttributedString으로 변환
+            guard let font = FontType.pretendardMedium.pretendardFont(ofsize: 16) else { return }
+            let attributedString = NSMutableAttributedString(string: boldText, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black.cgColor ])
+                  attributedString.append(NSAttributedString(string: " " + normalText))
+                  
+                  // searchResultLabel에 적용
+                  searchResultView.searchResultLabel.attributedText = attributedString
+              }
+//            searchResultView.searchResultLabel.text = "상품 " + result
+        
     }
     
     // MARK: - View
-
+    
     
     override func configureView() {
-        view.backgroundColor = .white
-        searchResultView.collectionView.backgroundColor = .white
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.shadowColor = .customLightGray
-        appearance.backgroundColor = .white
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        
+        super.configureView()
+
         navigationItem.title = searchResult
-        navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .black
+        navigationItem.backButtonTitle = "상품 목록"
         
         searchResultView.collectionView.delegate = self
         searchResultView.collectionView.dataSource = self
@@ -238,7 +179,7 @@ class SearchResultsViewController: BaseViewController {
         searchResultView.collectionView.register(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultsCollectionViewCell.identifier)
     }
     
-
+    
 }
 
 
@@ -267,11 +208,11 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         
         cell.index = indexPath.row
         
-//        if likeStatuses[indexPath.row].isLiked == true {
-//            cell.isTouched = true
-//        } else {
-//            cell.isTouched = false
-//        }
+        //        if likeStatuses[indexPath.row].isLiked == true {
+        //            cell.isTouched = true
+        //        } else {
+        //            cell.isTouched = false
+        //        }
         return cell
     }
     
@@ -280,7 +221,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         let vc = DetailProductViewController()
         vc.link = shoppingData[indexPath.row].link
         vc.productName = shoppingData[indexPath.row].title
-//        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
+        //        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
         print(vc.likeButtonType)
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -16,13 +16,11 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
 //    var delegate: likeButtonDelegate?
     var index: Int?
-    
+    let formatter = NumberFormatter()
     
     let shoppingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -37,7 +35,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "아이폰 15 프로 256GB 우리집 강아지 해피는 너무너무 귀여워 포메라니안 최고야 아주 귀여워"
+        label.text = ""
         label.font = .systemFont(ofSize: 15)
         label.textColor = .black
         label.textAlignment = .left
@@ -58,8 +56,10 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "like_unselected"), for: .normal)
-        button.backgroundColor = .customMediumGray.withAlphaComponent(0.3)
+//        button.setImage(UIImage(named: "like_unselected"), for: .normal)
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .lightGray.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -75,6 +75,12 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        shoppingImageView.layer.cornerRadius = 4
+        shoppingImageView.clipsToBounds = true
     }
     
     // MARK: - 기능
@@ -97,10 +103,29 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         shoppingImageView.kf.setImage(with: url)
         
         titleLabel.text = data.mallName
-        subTitleLabel.text = data.title
+        
+//        subTitleLabel.text = data.title
+//        guard let font = FontType.pretendardBold.pretendardFont(ofsize: 15) else { return }
+//        subTitleLabel.attributedText = data.title.htmlEscaped(font: font,
+//                                                                   colorHex: "#ff6347",
+//                                                                   lineSpacing: 1.5)
+        
+        
+        let titleWithTags = data.title
+           
+           let font = UIFont.systemFont(ofSize: 15)
+           let defaultColorHex = "#000000" // Black color
+           let tagColorHex = "#FF0000" // Red color
+           
+           if let attributedString = titleWithTags.htmlToAttributedString(defaultFont: font, defaultColorHex: defaultColorHex, tagColorHex: tagColorHex) {
+               subTitleLabel.attributedText = attributedString
+           } else {
+               subTitleLabel.text = data.title
+           }
+        
         
         if let price = Int(data.lprice) {
-            let formatter = NumberFormatter()
+            
             formatter.numberStyle = .decimal // 3자리마다 콤마를 추가하는 형식
             
             if let result: String = formatter.string(for: price) {
@@ -122,7 +147,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     func configureLayout() {
         shoppingImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.height.equalTo(shoppingImageView.snp.width).multipliedBy(1.3)
+            make.height.equalTo(shoppingImageView.snp.width).multipliedBy(1.2)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -141,8 +166,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         }
         
         likeButton.snp.makeConstraints { make in
-            make.trailing.equalTo(shoppingImageView.snp.trailing).inset(10)
-            make.bottom.equalTo(shoppingImageView.snp.bottom).inset(15)
+            make.trailing.equalTo(shoppingImageView.snp.trailing).inset(5)
+            make.bottom.equalTo(shoppingImageView.snp.bottom).inset(5)
             make.size.equalTo(35)
         }
         

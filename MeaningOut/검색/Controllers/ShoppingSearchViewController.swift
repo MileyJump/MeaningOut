@@ -55,6 +55,8 @@ class ShoppingSearchViewController: BaseViewController {
         let isEmpty = searchWord.isEmpty
         shoppingSearchView.emptyImageView.isHidden = !isEmpty
         shoppingSearchView.emptyLabel.isHidden = !isEmpty
+        shoppingSearchView.alldeleteButton.isHidden = isEmpty
+        shoppingSearchView.recentsearchLabel.isHidden = isEmpty
         shoppingSearchView.searchTableView.reloadData()
         
         UserDatas.shared.shoppingSearchKeyword = searchWord
@@ -71,7 +73,7 @@ class ShoppingSearchViewController: BaseViewController {
     override func configureView() {
         
         guard let nickname = nickname else { return }
-        navigationItem.title = "\(nickname)님의 MEANING OUT"
+        navigationItem.title = "\(nickname)님의 TrendyStyle"
         navigationItem.backButtonTitle = ""
         
         shoppingSearchView.searchTableView.separatorStyle = .none
@@ -80,6 +82,16 @@ class ShoppingSearchViewController: BaseViewController {
         shoppingSearchView.searchTableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
         
         shoppingSearchView.searchBar.delegate = self
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = .white
+        if let customFont = FontType.pretendardMedium.pretendardFont(ofsize: 16) {
+            appearance.titleTextAttributes = [.font : customFont, .foregroundColor: UIColor.black]
+        }
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
     }
 }
 
@@ -121,6 +133,11 @@ extension ShoppingSearchViewController: UITableViewDelegate, UITableViewDataSour
 // MARK: - SearchBar Delegate
 
 extension ShoppingSearchViewController: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        print("여기야 여기")
+        return true
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(#function)

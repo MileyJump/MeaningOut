@@ -27,8 +27,7 @@ class DetailProductViewController: BaseViewController {
     // MARK: - view 구성
     
     override func configureView() {
-        view.backgroundColor = .white
-        navigationItem.title = productName
+        super.configureView()
     }
     
     // MARK: - SetUpAddTarget

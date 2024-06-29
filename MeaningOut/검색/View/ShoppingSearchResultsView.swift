@@ -12,37 +12,32 @@ class ShoppingSearchResultsView: BaseView {
     
     lazy var searchResultLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .customMainColor
-//        label.text = "\(searchResultCount)개의 검색 결과"
-        label.font = .boldSystemFont(ofSize: 14)
+        label.textColor = .customLightGray
+        label.font = FontType.pretendardMedium.pretendardFont(ofsize: 14)
         return label
     }()
     
     lazy var accuracyButton: UIButton = {
         let button = UIButton()
-        button.configureButton(title: "정확도", cornerRadius: 16)
-//        button.addTarget(self, action: #selector(accuracyButtonTapped), for: .touchUpInside)
+        button.configureButton(title: SortType.accuracy.title, cornerRadius: 16)
         return button
     }()
     
     lazy var dateButton: UIButton = {
         let button = UIButton()
-        button.configureButton(title: "날짜순", cornerRadius: 16)
-//        button.addTarget(self, action: #selector(dateButtonTapped), for: .touchUpInside)
+        button.configureButton(title: SortType.date.title, cornerRadius: 16)
         return button
     }()
     
     lazy var descendingButton: UIButton = {
         let button = UIButton()
-        button.configureButton(title: "가격높은순", cornerRadius: 16)
-//        button.addTarget(self, action: #selector(highPriceButtonTapped), for: .touchUpInside)
+        button.configureButton(title: SortType.descending.title, cornerRadius: 16)
         return button
     }()
     
     lazy var ascendingButton: UIButton = {
         let button = UIButton()
-        button.configureButton(title: "가격낮은순", cornerRadius: 16)
-//        button.addTarget(self, action: #selector(lowestPriceButtonTapped), for: .touchUpInside)
+        button.configureButton(title: SortType.ascending.title, cornerRadius: 16)
         return button
     }()
     
@@ -50,8 +45,8 @@ class ShoppingSearchResultsView: BaseView {
     
     func collectionViewLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let sectionSpacing: CGFloat = 15
-        let cellSpacing: CGFloat = 15
+        let sectionSpacing: CGFloat = 10
+        let cellSpacing: CGFloat = 8
         let width = UIScreen.main.bounds.width - (sectionSpacing * 2) - (cellSpacing)
         layout.itemSize = CGSize(width: width/2, height: width)
         layout.minimumLineSpacing = cellSpacing - 10

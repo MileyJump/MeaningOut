@@ -28,7 +28,7 @@ class ShoppingSearchView: BaseView {
         return view
     }()
     
-    private let recentsearchLabel: UILabel = {
+     let recentsearchLabel: UILabel = {
         let label = UILabel()
         label.text = "최근 검색"
         label.font = .boldSystemFont(ofSize: 14)
@@ -53,11 +53,21 @@ class ShoppingSearchView: BaseView {
     
      let emptyLabel: UILabel = {
         let label = UILabel()
-        label.text = "최근 검색어가 없어요"
-        label.font = .boldSystemFont(ofSize: 15)
+        label.text = "최근 검색어 내역이 없어요"
+         label.font = FontType.pretendardSemiBold.pretendardFont(ofsize: 16)
         label.textAlignment = .center
         return label
     }()
+    let emptyDescripsionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "원하는 상품을 검색해 보세요!"
+         label.font = FontType.pretendardMedium.pretendardFont(ofsize: 13)
+        label.textColor = .customMediumGray
+        label.textAlignment = .center
+        return label
+    }()
+    
+    
     
      let searchTableView: UITableView = {
         let tableView = UITableView()
@@ -80,6 +90,7 @@ class ShoppingSearchView: BaseView {
         addSubview(alldeleteButton)
         addSubview(emptyImageView)
         addSubview(emptyLabel)
+        addSubview(emptyDescripsionLabel)
         addSubview(searchTableView)
     }
     
@@ -108,7 +119,8 @@ class ShoppingSearchView: BaseView {
         }
         
         emptyImageView.snp.makeConstraints { make in
-            make.center.equalTo(safeAreaLayoutGuide)
+            make.centerY.equalTo(safeAreaLayoutGuide).offset(-30)
+            make.centerX.equalTo(safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(50)
             make.height.equalTo(emptyImageView.snp.width).multipliedBy(1)
         }
@@ -117,6 +129,12 @@ class ShoppingSearchView: BaseView {
             make.top.equalTo(emptyImageView.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(emptyImageView)
             make.centerX.equalTo(safeAreaLayoutGuide)
+        }
+        
+        emptyDescripsionLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyLabel.snp.bottom).offset(5)
+            make.horizontalEdges.equalTo(emptyLabel)
+            make.centerX.equalTo(emptyLabel)
         }
         
         searchTableView.snp.makeConstraints { make in

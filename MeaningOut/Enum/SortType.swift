@@ -12,4 +12,17 @@ enum SortType {
     case date
     case descending
     case ascending
+    
+    var title: String {
+        switch self {
+        case .accuracy:
+            "정확도"
+        case .date:
+            "날짜순"
+        case .descending:
+            "가격높은순"
+        case .ascending:
+            "가격낮은순"
+        }
+    }
 }
