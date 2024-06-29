@@ -37,6 +37,8 @@
 		B0842B1A2C2EF59500323C09 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B192C2EF59500323C09 /* SettingView.swift */; };
 		B0842B1F2C2F05BD00323C09 /* ShoppingTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */; };
 		B0842B222C2F0CE300323C09 /* LikeViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B212C2F0CE300323C09 /* LikeViewControllers.swift */; };
+		B0842B242C2FE3E800323C09 /* UserDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B232C2FE3E800323C09 /* UserDatas.swift */; };
+		B0842B262C2FE64900323C09 /* ProfileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0842B252C2FE64900323C09 /* ProfileType.swift */; };
 		B0924C1C2C1BBF3400D3F22B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */; };
 		B0924C1E2C1BBF3400D3F22B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */; };
 		B0924C202C1BBF3400D3F22B /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0924C1F2C1BBF3400D3F22B /* OnboardingViewController.swift */; };
@@ -96,6 +98,8 @@
 		B0842B192C2EF59500323C09 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingTabBar.swift; sourceTree = "<group>"; };
 		B0842B212C2F0CE300323C09 /* LikeViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewControllers.swift; sourceTree = "<group>"; };
+		B0842B232C2FE3E800323C09 /* UserDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDatas.swift; sourceTree = "<group>"; };
+		B0842B252C2FE64900323C09 /* ProfileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileType.swift; sourceTree = "<group>"; };
 		B0924C182C1BBF3400D3F22B /* MeaningOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeaningOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0924C1B2C1BBF3400D3F22B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0924C1D2C1BBF3400D3F22B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 				B0924C4E2C1C0AB400D3F22B /* ShoppingTabBarController.swift */,
 				B0842AF42C2EE3E200323C09 /* Font */,
 				B0840DF62C1D67DE0064B1C0 /* APIURL.swift */,
+				B0842B232C2FE3E800323C09 /* UserDatas.swift */,
 				B0924C242C1BBF3600D3F22B /* Assets.xcassets */,
 				B0924C262C1BBF3600D3F22B /* LaunchScreen.storyboard */,
 				B0924C212C1BBF3400D3F22B /* Main.storyboard */,
@@ -360,6 +365,7 @@
 			children = (
 				B0924C332C1BC59000D3F22B /* Resource.swift */,
 				B0842B1E2C2F05BD00323C09 /* ShoppingTabBar.swift */,
+				B0842B252C2FE64900323C09 /* ProfileType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -504,6 +510,7 @@
 				B0842B222C2F0CE300323C09 /* LikeViewControllers.swift in Sources */,
 				B0842AF32C2EBB6500323C09 /* OnboardingView.swift in Sources */,
 				B0924C552C1C12A400D3F22B /* ProfileSelectViewController.swift in Sources */,
+				B0842B262C2FE64900323C09 /* ProfileType.swift in Sources */,
 				B0924C512C1C0B2400D3F22B /* ShoppingSearchViewController.swift in Sources */,
 				B0924C532C1C0B8300D3F22B /* SettingViewController.swift in Sources */,
 				B0842AED2C2CE5F800323C09 /* BaseViewController.swift in Sources */,
@@ -518,6 +525,7 @@
 				B0924C4F2C1C0AB400D3F22B /* ShoppingTabBarController.swift in Sources */,
 				B0924C312C1BC50300D3F22B /* NextButton.swift in Sources */,
 				B03BD0FD2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift in Sources */,
+				B0842B242C2FE3E800323C09 /* UserDatas.swift in Sources */,
 				B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */,
 				B0924C372C1BC73500D3F22B /* UIColor+Extension.swift in Sources */,
 				B0924C572C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift in Sources */,

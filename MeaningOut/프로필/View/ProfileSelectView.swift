@@ -18,7 +18,6 @@ class ProfileSelectView: BaseView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
-
         return imageView
     }()
     

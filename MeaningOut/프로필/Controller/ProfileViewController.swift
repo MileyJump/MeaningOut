@@ -7,64 +7,48 @@
 
 import UIKit
 
-enum ProfileViewType: String {
-    case setting = "PROFILE SETTING"
-    case edit = "EDIT PROFILE"
-}
-
 protocol ImageUpdateDelegate: AnyObject {
     func didUpdateImage(_ image: String)
 }
 
 class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     
-    var profileType: ProfileViewType = .setting
-    
-    var profileName = ""
+    // MARK: - Properties
     
     let profileView = ProfileView()
     
-    // MARK: - UI
+    var profileType: ProfileScreenType = .setting
     
-   
+    var profileName: String = ""
+    
     
     // MARK: - LifeCycle
     
     override func loadView() {
         view = profileView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpAddTarget()
     }
     
-    
-    
     // MARK: - 타입에 따른 화면 구성
-
-     override func configureView() {
-        view.backgroundColor = .white
+    
+    override func configureView() {
+        super.configureView()
+        
+        // 열거형 타입에 따른 네비게이션 타이틀
+        navigationItem.title = profileType.rawValue
+        
         profileView.nicknameTextField.delegate = self
         
         // 완료버튼 기본으로 비활성화
         profileView.doneButton.isEnabled = false
         
-        // 열거형 타입에 따른 네비게이션 타이틀
-        navigationItem.title = profileType.rawValue
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.backButtonTitle = ""
-        
         // UserDefaults에서 저장된 프로필 이미지 로드 또는 랜덤 이미지 설정
-        if UserDefaults.standard.string(forKey: "profile") != "" {
-            if let savedProfileName = UserDefaults.standard.string(forKey: "profile") {
-                profileName = savedProfileName
-            }
-            else {
-                profileName = "profile_\(Int.random(in: 0...11))"
-            }
-            profileView.profileImageView.image = UIImage(named: profileName)
-        }
+        let profileName = UserDatas.shared.profileImageString ?? ProfileImageType.randomProfile
+        profileView.profileImageView.image = UIImage(named: profileName)
         
         // 타입에 따른 화면 UI 설정
         switch profileType {
@@ -73,7 +57,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         case .edit:
             profileView.doneButton.isHidden = true
             setUpRightBarButton()
-            if let nickName = UserDefaults.standard.string(forKey: "nickname") {
+            if let nickName = UserDatas.shared.nickname {
                 profileView.nicknameTextField.text = nickName
             }
         }
@@ -120,9 +104,9 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     @objc func doneButtonTapped() {
-        print(#function) 
+        print(#function)
         // 유저 닉네임, 프로필 이미지 저장
         UserDefaults.standard.set(profileView.nicknameTextField.text, forKey: "nickname")
         UserDefaults.standard.set(profileName, forKey: "profile")
@@ -147,14 +131,11 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     
     
     // MARK: - Delegate
-
+    
     func didUpdateImage(_ image: String) {
         profileView.profileImageView.image = UIImage(named: image)
         profileName = image
-     }
-    
-    
-   
+    }
 }
 
 // MARK: - 닉네임 입력 설정
@@ -203,13 +184,13 @@ extension ProfileViewController: UITextFieldDelegate {
             errorMessage = "닉네임에 숫자는 포함할 수 없어요"
             isValid = false // Done 버튼 비활성화
         }
-       
+        
         // 결과 처리
         if let message = errorMessage { // errorMessage 설정 여부 확인 후 nicknameLabel 표시
             profileView.nicknameLabel.text = message
-               } else {
-                   profileView.nicknameLabel.text = "사용할 수 있는 닉네임이에요"
-               }
+        } else {
+            profileView.nicknameLabel.text = "사용할 수 있는 닉네임이에요"
+        }
         
         profileView.doneButton.isEnabled = isValid
         

@@ -22,6 +22,18 @@ class BaseViewController: UIViewController {
     
     func configureView() { 
         view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .black
+        navigationItem.backButtonTitle = ""
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.shadowColor = .customLightGray
+        appearance.backgroundColor = .white
+        if let customFont = FontType.pretendardMedium.pretendardFont(ofsize: 16) {
+            appearance.titleTextAttributes = [.font : customFont, .foregroundColor: UIColor.black]
+        }
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
     }
 }
 
