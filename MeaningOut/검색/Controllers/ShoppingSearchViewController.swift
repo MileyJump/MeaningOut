@@ -55,6 +55,7 @@ class ShoppingSearchViewController: BaseViewController {
         let isEmpty = searchWord.isEmpty
         shoppingSearchView.emptyImageView.isHidden = !isEmpty
         shoppingSearchView.emptyLabel.isHidden = !isEmpty
+        shoppingSearchView.emptyDescripsionLabel.isHidden = !isEmpty
         shoppingSearchView.alldeleteButton.isHidden = isEmpty
         shoppingSearchView.recentsearchLabel.isHidden = isEmpty
         shoppingSearchView.searchTableView.reloadData()
@@ -73,8 +74,30 @@ class ShoppingSearchViewController: BaseViewController {
     override func configureView() {
         
         guard let nickname = nickname else { return }
-        navigationItem.title = "\(nickname)님의 TrendyStyle"
+        //        navigationItem.title = "\(nickname)님의 TrendyStyle"
+        //        navigationItem.title = "TrendyStyle"
         navigationItem.backButtonTitle = ""
+        // 타이틀 라벨 생성
+        let titleLabel = UILabel()
+        titleLabel.text = "TrendyStyle"
+        if let customFont = FontType.pretendardBold.pretendardFont(ofsize: 20) {
+            titleLabel.font = customFont
+        }
+        titleLabel.textColor = .customMainColor
+        titleLabel.sizeToFit() // 라벨 크기에 맞게 조정
+        
+        
+        // 네비게이션 아이템에 타이틀 라벨을 설정
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+        
+        
+        
+        
+        let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
+        
+        
+        navigationItem.rightBarButtonItem = search
+        
         
         shoppingSearchView.searchTableView.separatorStyle = .none
         shoppingSearchView.searchTableView.delegate = self
@@ -86,12 +109,16 @@ class ShoppingSearchViewController: BaseViewController {
         let appearance = UINavigationBarAppearance()
         appearance.shadowColor = .clear
         appearance.backgroundColor = .white
-        if let customFont = FontType.pretendardMedium.pretendardFont(ofsize: 16) {
-            appearance.titleTextAttributes = [.font : customFont, .foregroundColor: UIColor.black]
+        if let customFont = FontType.pretendardBold.pretendardFont(ofsize: 20) {
+            appearance.titleTextAttributes = [.font : customFont, .foregroundColor: UIColor.customMainColor]
         }
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
+    }
+    
+    @objc func searchButtonTapped() {
+        
     }
 }
 

@@ -10,6 +10,8 @@ import UIKit
 class ShoppingSearchResultsView: BaseView {
     // MARK: - UI
     
+ 
+    
     lazy var searchResultLabel: UILabel = {
         let label = UILabel()
         label.textColor = .customLightGray
@@ -73,6 +75,7 @@ class ShoppingSearchResultsView: BaseView {
     
     
     override func configureLayout() {
+        
         searchResultLabel.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(15)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(15)

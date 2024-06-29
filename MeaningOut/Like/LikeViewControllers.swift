@@ -13,4 +13,10 @@ class LikeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func configureView() {
+        super.configureView()
+        
+        navigationItem.title = "찜"
+    }
 }

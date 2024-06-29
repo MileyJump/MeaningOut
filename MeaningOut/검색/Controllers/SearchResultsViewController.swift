@@ -11,6 +11,18 @@ import Alamofire
 
 class SearchResultsViewController: BaseViewController {
     
+    let searchBar: UISearchBar = {
+       let searchBar = UISearchBar()
+       let searBarImage = UIImage()
+       searchBar.backgroundImage = searBarImage
+       searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
+       searchBar.autocorrectionType = .no
+       searchBar.spellCheckingType = .no
+       searchBar.searchTextField.font = .systemFont(ofSize: 15)
+//         searchBar.isHidden = true
+       return searchBar
+   }()
+    
     var searchResult: String = ""
     var searchResultCount: Int = 0 {
         didSet {
@@ -170,7 +182,8 @@ class SearchResultsViewController: BaseViewController {
     override func configureView() {
         super.configureView()
 
-        navigationItem.title = searchResult
+//        navigationItem.title = searchResult
+        navigationItem.titleView = searchBar
         navigationItem.backButtonTitle = "상품 목록"
         
         searchResultView.collectionView.delegate = self

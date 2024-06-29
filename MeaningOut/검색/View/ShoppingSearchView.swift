@@ -19,6 +19,7 @@ class ShoppingSearchView: BaseView {
         searchBar.autocorrectionType = .no
         searchBar.spellCheckingType = .no
         searchBar.searchTextField.font = .systemFont(ofSize: 15)
+//         searchBar.isHidden = true
         return searchBar
     }()
     
@@ -98,6 +99,7 @@ class ShoppingSearchView: BaseView {
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(5)
+//            make.height.equalTo(40)
         }
         
         lineView.snp.makeConstraints { make in
