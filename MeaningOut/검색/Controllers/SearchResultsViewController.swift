@@ -10,19 +10,7 @@ import Alamofire
 
 
 class SearchResultsViewController: BaseViewController {
-    
-    let searchBar: UISearchBar = {
-       let searchBar = UISearchBar()
-       let searBarImage = UIImage()
-       searchBar.backgroundImage = searBarImage
-       searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
-       searchBar.autocorrectionType = .no
-       searchBar.spellCheckingType = .no
-       searchBar.searchTextField.font = .systemFont(ofSize: 15)
-//         searchBar.isHidden = true
-       return searchBar
-   }()
-    
+
     var searchResult: String = ""
     var searchResultCount: Int = 0 {
         didSet {
@@ -30,6 +18,7 @@ class SearchResultsViewController: BaseViewController {
         }
     }
     
+    var searchWord: [String] = []
     var sortType: SortType = .accuracy
     
     // 페이지네이션
@@ -43,6 +32,8 @@ class SearchResultsViewController: BaseViewController {
     let formatter = NumberFormatter()
     
     let searchResultView = ShoppingSearchResultsView()
+    
+    var delegate: SearchwordProfotocl?
     
     
     // MARK: - life cycle
@@ -63,12 +54,14 @@ class SearchResultsViewController: BaseViewController {
             if self.page == 1 {
                 self.shoppingData = shopping.items
                 //                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                print("추가")
             } else {
                 self.shoppingData.append(contentsOf: shopping.items)
             }
             
             self.searchResultCount = shopping.total
             self.searchResultView.collectionView.reloadData()
+            print("리로드")
             
             //            if self.page == 1 {
             //                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
@@ -183,9 +176,10 @@ class SearchResultsViewController: BaseViewController {
         super.configureView()
 
 //        navigationItem.title = searchResult
-        navigationItem.titleView = searchBar
+        navigationItem.titleView = searchResultView.searchBar
         navigationItem.backButtonTitle = "상품 목록"
         
+        searchResultView.searchBar.delegate = self
         searchResultView.collectionView.delegate = self
         searchResultView.collectionView.dataSource = self
         searchResultView.collectionView.prefetchDataSource = self
@@ -237,5 +231,28 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         //        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
         print(vc.likeButtonType)
         navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension SearchResultsViewController: UISearchBarDelegate {
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        print("여기야 여기")
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(#function)
+        guard let text = searchBar.text else { return }
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedText.isEmpty {
+            searchWord.insert(text, at: 0)
+            searchResult = text
+            shoppingDataReqeust()
+            delegate?.searchwordDelegate(searchwrod: text)
+            
+        } else {
+            print(#function, "검색어를 입력하세요")
+        }
     }
 }

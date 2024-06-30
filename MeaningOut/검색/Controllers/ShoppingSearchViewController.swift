@@ -7,7 +7,13 @@
 
 import UIKit
 
-class ShoppingSearchViewController: BaseViewController {
+protocol SearchwordProfotocl {
+    func searchwordDelegate(searchwrod: String)
+}
+
+class ShoppingSearchViewController: BaseViewController, SearchwordProfotocl {
+    
+    
     
     // MARK: - Properties
     
@@ -33,6 +39,11 @@ class ShoppingSearchViewController: BaseViewController {
         loadSearchWords()
     }
     
+    func searchwordDelegate(searchwrod: String) {
+        self.searchWord.append(searchwrod)
+        shoppingSearchView.searchTableView.reloadData()
+        print(searchWord)
+    }
     
     // MARK: - SetUpAddTarget
     
@@ -118,6 +129,8 @@ class ShoppingSearchViewController: BaseViewController {
     
     @objc func searchButtonTapped() {
         let vc = SearchResultsViewController()
+        vc.searchWord = searchWord
+        vc.delegate = self
 //        let searchKeyword = searchWord[indexPath.row]
 //        vc.searchResult = searchKeyword
         
@@ -167,27 +180,27 @@ extension ShoppingSearchViewController: UITableViewDelegate, UITableViewDataSour
 
 // MARK: - SearchBar Delegate
 
-extension ShoppingSearchViewController: UISearchBarDelegate {
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        print("여기야 여기")
-        return true
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print(#function)
-        guard let text = searchBar.text else { return }
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !trimmedText.isEmpty {
-            searchWord.insert(text, at: 0)
-            shoppingSearchView.searchTableView.reloadData()
-            let vc = SearchResultsViewController()
-            vc.searchResult = text
-            navigationController?.pushViewController(vc, animated: true)
-            searchBar.text = ""
-        } else {
-            print(#function, "검색어를 입력하세요")
-        }
-    }
-}
+//extension ShoppingSearchViewController: UISearchBarDelegate {
+//    
+//    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+//        print("여기야 여기")
+//        return true
+//    }
+//    
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        print(#function)
+//        guard let text = searchBar.text else { return }
+//        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+//        if !trimmedText.isEmpty {
+//            searchWord.insert(text, at: 0)
+//            shoppingSearchView.searchTableView.reloadData()
+//            let vc = SearchResultsViewController()
+//            vc.searchResult = text
+//            navigationController?.pushViewController(vc, animated: true)
+//            searchBar.text = ""
+//        } else {
+//            print(#function, "검색어를 입력하세요")
+//        }
+//    }
+//}
 
