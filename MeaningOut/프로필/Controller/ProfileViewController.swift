@@ -21,6 +21,8 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
     
     var profileName: String = ""
     
+    let viewModel = ProfileViewModel()
+    
     
     // MARK: - LifeCycle
     
@@ -32,6 +34,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         super.viewDidLoad()
         configureProfile()
         setUpAddTarget()
+        bindData()
     }
     
     // MARK: - 타입에 따른 화면 구성
@@ -42,10 +45,30 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         // 열거형 타입에 따른 네비게이션 타이틀
         navigationItem.title = profileType.rawValue
         
-        profileView.nicknameTextField.delegate = self
+//        profileView.nicknameTextField.delegate = self
+        profileView.nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         
         // 완료버튼 기본으로 비활성화
         profileView.doneButton.isEnabled = false
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+           guard let text = textField.text else { return }
+           viewModel.inputNickname.value = text
+       }
+    
+    func bindData() {
+        viewModel.outputNickname.bind { value in
+            self.profileView.nicknameLabel.text = value
+        }
+        
+        viewModel.outputValid.bind { value in
+            self.profileView.nicknameLabel.textColor = value ? .customMainColor : .black
+        }
+        
+        viewModel.outputButtonValid.bind { value in
+            self.profileView.doneButton.isEnabled = value
+        }
     }
     
     func configureProfile() {
@@ -159,52 +182,53 @@ extension ProfileViewController: UITextFieldDelegate {
             profileView.lineView.backgroundColor = .customDarkGray
         }
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return true }
-        let special = ["@" ,"#", "$", "%"]
-        
-        // 새로 입력될 전체 텍스트 계산
-        let newText = (text as NSString).replacingCharacters(in: range, with: string)
-        
-        // 조건 확인
-        var errorMessage: String?
-        var isValid = true
-        
-        // '#' 문자 포함 여부 체크
-        for item in special {
-            if newText.contains(item) {
-                errorMessage = "닉네임에 @,#,$,% 는 포함할 수 없어요"
-                isValid = false
-            }
-        }
-        
-        // 글자 수 조건 체크
-        if text.count < 2 || text.count > 10 {
-            errorMessage = "2글자 이상 10글자 미만으로 설정해주세요"
-            isValid = false // Done 버튼 비활성화
-        }
-        
-        // 숫자 포함 여부 체크
-        if newText.contains(where: { $0.isNumber }) { // 문자열의 각 문자를 순회하면서 문자가 숫자인지 확인
-            errorMessage = "닉네임에 숫자는 포함할 수 없어요"
-            isValid = false // Done 버튼 비활성화
-        }
-        
-        // 결과 처리
-        if let message = errorMessage { // errorMessage 설정 여부 확인 후 nicknameLabel 표시
-            profileView.nicknameLabel.text = message
-            profileView.nicknameLabel.textColor = .customMainColor
-        } else {
-            profileView.nicknameLabel.text = "사용할 수 있는 닉네임이에요"
-            profileView.nicknameLabel.textColor = .black
-        }
-        
-        profileView.doneButton.isEnabled = isValid
-        
-        return true // 입력을 허용
-    }
 }
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        guard let text = textField.text else { return true }
+//        let special = ["@" ,"#", "$", "%"]
+//        
+//        // 새로 입력될 전체 텍스트 계산
+//        let newText = (text as NSString).replacingCharacters(in: range, with: string)
+//        
+//        // 조건 확인
+//        var errorMessage: String?
+//        var isValid = true
+//        
+//        // '#' 문자 포함 여부 체크
+//        for item in special {
+//            if newText.contains(item) {
+//                errorMessage = "닉네임에 @,#,$,% 는 포함할 수 없어요"
+//                isValid = false
+//            }
+//        }
+//        
+//        // 글자 수 조건 체크
+//        if text.count < 2 || text.count > 10 {
+//            errorMessage = "2글자 이상 10글자 미만으로 설정해주세요"
+//            isValid = false // Done 버튼 비활성화
+//        }
+//        
+//        // 숫자 포함 여부 체크
+//        if newText.contains(where: { $0.isNumber }) { // 문자열의 각 문자를 순회하면서 문자가 숫자인지 확인
+//            errorMessage = "닉네임에 숫자는 포함할 수 없어요"
+//            isValid = false // Done 버튼 비활성화
+//        }
+//        
+//        // 결과 처리
+//        if let message = errorMessage { // errorMessage 설정 여부 확인 후 nicknameLabel 표시
+//            profileView.nicknameLabel.text = message
+//            profileView.nicknameLabel.textColor = .customMainColor
+//        } else {
+//            profileView.nicknameLabel.text = "사용할 수 있는 닉네임이에요"
+//            profileView.nicknameLabel.textColor = .black
+//        }
+//        
+//        profileView.doneButton.isEnabled = isValid
+//        
+//        return true // 입력을 허용
+//    }
+//}
 
 
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01B2DBC2C3D4F2100B981FC /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2DBB2C3D4F2100B981FC /* ProfileViewModel.swift */; };
+		B01B2DBE2C3D535400B981FC /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2DBD2C3D535400B981FC /* Observable.swift */; };
 		B03BD0F92C1DA859007FCB8D /* DetailProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03BD0F82C1DA859007FCB8D /* DetailProductViewController.swift */; };
 		B03BD0FB2C1DD30B007FCB8D /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03BD0FA2C1DD30B007FCB8D /* SettingTableViewCell.swift */; };
 		B03BD0FD2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03BD0FC2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift */; };
@@ -71,6 +73,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B01B2DBB2C3D4F2100B981FC /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		B01B2DBD2C3D535400B981FC /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		B03BD0F82C1DA859007FCB8D /* DetailProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductViewController.swift; sourceTree = "<group>"; };
 		B03BD0FA2C1DD30B007FCB8D /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		B03BD0FC2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				B0842B0D2C2EED6300323C09 /* ProfileView.swift */,
+				B01B2DBB2C3D4F2100B981FC /* ProfileViewModel.swift */,
 				B0842B112C2EF0CD00323C09 /* ProfileSelectView.swift */,
 			);
 			path = View;
@@ -354,6 +359,7 @@
 				B0924C262C1BBF3600D3F22B /* LaunchScreen.storyboard */,
 				B0924C212C1BBF3400D3F22B /* Main.storyboard */,
 				B0924C292C1BBF3600D3F22B /* Info.plist */,
+				B01B2DBD2C3D535400B981FC /* Observable.swift */,
 			);
 			path = MeaningOut;
 			sourceTree = "<group>";
@@ -511,6 +517,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01B2DBE2C3D535400B981FC /* Observable.swift in Sources */,
 				B0842AEF2C2D068D00323C09 /* BaseView.swift in Sources */,
 				B0842AB62C294E6900323C09 /* UIViewController+Extension.swift in Sources */,
 				B03BD0F92C1DA859007FCB8D /* DetailProductViewController.swift in Sources */,
@@ -539,6 +546,7 @@
 				B03BD0FD2C1DD393007FCB8D /* ProfileSettingTableViewCell.swift in Sources */,
 				B0842B242C2FE3E800323C09 /* UserDatas.swift in Sources */,
 				B0924C592C1C21C500D3F22B /* ReuseProtocol.swift in Sources */,
+				B01B2DBC2C3D4F2100B981FC /* ProfileViewModel.swift in Sources */,
 				B0924C372C1BC73500D3F22B /* UIColor+Extension.swift in Sources */,
 				B0924C572C1C20BB00D3F22B /* ProfileImageCollectionViewCell.swift in Sources */,
 				B0840DF92C1D6FEB0064B1C0 /* UIButton+Extension.swift in Sources */,
