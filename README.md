@@ -6,7 +6,7 @@
 
   
 
-<img src="https://github.com/user-attachments/assets/948aa887-a3ae-4b84-b850-fc2ee25ed7df" alt="Simulator Screenshot - iPhone 15 - 2024-07-20 at 22 11 15" width="200" height="550"/>
+<img src="https://github.com/user-attachments/assets/948aa887-a3ae-4b84-b850-fc2ee25ed7df" alt="Simulator Screenshot - iPhone 15 - 2024-07-20 at 22 11 15" width="150" height="450"/>
 
 <img src="https://github.com/user-attachments/assets/b6d72779-bb58-4bd1-8bb9-4a57148428fa" alt="Simulator Screenshot - iPhone 15 - 2024-07-20 at 22 02 32" width="200" height="600"/>
 
