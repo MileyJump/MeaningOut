@@ -7,9 +7,14 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 
 class SearchResultsViewController: BaseViewController {
+    
+    let realm = try! Realm() // 렘 주소 알려고 해놓음!
+    
+    let repository = ShoppingTableRepository()
 
     var searchResult: String = ""
     var searchResultCount: Int = 0 {
@@ -29,11 +34,13 @@ class SearchResultsViewController: BaseViewController {
     
     var shoppingData: [Items] = []
     
+    
     let formatter = NumberFormatter()
     
     let searchResultView = ShoppingSearchResultsView()
     
     var delegate: SearchwordProfotocl?
+    
     
     
     // MARK: - life cycle
@@ -46,6 +53,7 @@ class SearchResultsViewController: BaseViewController {
         super.viewDidLoad()
         shoppingDataReqeust()
         setUpAddTarget()
+        print(realm.configuration.fileURL)
     }
     
     func shoppingDataReqeust() {
@@ -186,6 +194,13 @@ class SearchResultsViewController: BaseViewController {
         searchResultView.collectionView.register(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: SearchResultsCollectionViewCell.identifier)
     }
     
+    @objc func likeButtonTapped(_ sender: UIButton) {
+        print(#function)
+        print(sender.tag)
+        let data = shoppingData[sender.tag]
+        var likeItemList = LikeItemTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, mallName: data.mallName)
+        repository.createItem(likeItem: likeItemList)
+    }
     
 }
 
@@ -212,7 +227,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultsCollectionViewCell.identifier, for: indexPath) as! SearchResultsCollectionViewCell
         cell.configureCell(shoppingData[indexPath.row])
         cell.likeButton.tag = indexPath.row
-        
+        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         cell.index = indexPath.row
         
         //        if likeStatuses[indexPath.row].isLiked == true {
