@@ -37,7 +37,7 @@ class SettingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureHierarchy()
         configureLayout()
-        configureCell()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -46,8 +46,7 @@ class SettingTableViewCell: UITableViewCell {
     
     // MARK: - cell 구성
     
-    func configureCell() {
-        let likeCount = UserDefaults.standard.integer(forKey: "like")
+    func configureCell(likeCount: Int) {
         productLabel.text = "\(likeCount)개의 상품"
     }
     
@@ -63,19 +62,24 @@ class SettingTableViewCell: UITableViewCell {
         settingLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(10)
             make.leading.equalToSuperview().inset(15)
-            make.height.equalTo(30)
+//            make.height.equalTo(30)
         }
+        settingLabel.backgroundColor = .red
         
         productLabel.snp.makeConstraints { make in
             make.verticalEdges.equalTo(settingLabel)
             make.trailing.equalToSuperview().inset(15)
         }
         
+        productLabel.backgroundColor = .blue
+        
         likeImageView.snp.makeConstraints { make in
             make.centerY.equalTo(settingLabel)
             make.trailing.equalTo(productLabel.snp.leading).offset(-3)
             make.size.equalTo(22)
         }
+        
+        likeImageView.backgroundColor = .yellow
     }
     
     

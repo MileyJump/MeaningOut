@@ -53,19 +53,19 @@ class ShoppingSearchResultsView: BaseView {
         return button
     }()
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.collectionViewLayout())
     
-    func collectionViewLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        let sectionSpacing: CGFloat = 10
-        let cellSpacing: CGFloat = 8
-        let width = UIScreen.main.bounds.width - (sectionSpacing * 2) - (cellSpacing)
-        layout.itemSize = CGSize(width: width/2, height: width)
-        layout.minimumLineSpacing = cellSpacing - 10
-        layout.minimumInteritemSpacing = cellSpacing
-        layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
-        return layout
-    }
+//    func collectionViewLayout() -> UICollectionViewLayout {
+//        let layout = UICollectionViewFlowLayout()
+//        let sectionSpacing: CGFloat = 10
+//        let cellSpacing: CGFloat = 8
+//        let width = UIScreen.main.bounds.width - (sectionSpacing * 2) - (cellSpacing)
+//        layout.itemSize = CGSize(width: width/2, height: width)
+//        layout.minimumLineSpacing = cellSpacing - 10
+//        layout.minimumInteritemSpacing = cellSpacing
+//        layout.sectionInset = UIEdgeInsets(top: sectionSpacing, left: sectionSpacing, bottom: sectionSpacing, right: sectionSpacing)
+//        return layout
+//    }
     
     
     override init(frame: CGRect) {

@@ -19,7 +19,7 @@ enum SettingOptions: String, CaseIterable {
 class SettingViewController: BaseViewController {
     
     let settingView = SettingView()
-    
+    private let repository = ShoppingTableRepository()
     
     // MARK: - life Cycle
     
@@ -79,7 +79,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.likeImageView.isHidden = true
                 cell.productLabel.isHidden = true
             }
+            let likeCount = repository.fetchLikeitem().count
+            cell.configureCell(likeCount: likeCount)
             cell.settingLabel.text = settingCell.rawValue
+            print(settingCell.rawValue)
             return cell
         }
     }
