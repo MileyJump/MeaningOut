@@ -104,7 +104,7 @@ class ShoppingSearchView: BaseView {
         
         lineView.snp.makeConstraints { make in
 //            make.top.equalTo(searchBar.snp.bottom).offset(3)
-            make.top.equalTo(safeAreaLayoutGuide).offset(3)
+            make.top.equalTo(safeAreaLayoutGuide).offset(5)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(1)
         }

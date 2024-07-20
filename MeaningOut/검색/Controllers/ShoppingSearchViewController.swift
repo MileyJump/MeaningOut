@@ -84,19 +84,17 @@ class ShoppingSearchViewController: BaseViewController, SearchwordProfotocl {
     
     override func configureView() {
         
-        guard let nickname = nickname else { return }
+//        guard let nickname = nickname else { return }
         //        navigationItem.title = "\(nickname)님의 TrendyStyle"
         //        navigationItem.title = "TrendyStyle"
         navigationItem.backButtonTitle = ""
         // 타이틀 라벨 생성
         let titleLabel = UILabel()
         titleLabel.text = "TrendyStyle"
-        if let customFont = FontType.pretendardBold.pretendardFont(ofsize: 20) {
-            titleLabel.font = customFont
-        }
+        titleLabel.font = FontType.pretendardBold.pretendardFont(ofsize: 25)
         titleLabel.textColor = .customMainColor
         titleLabel.sizeToFit() // 라벨 크기에 맞게 조정
-        
+    
         
         // 네비게이션 아이템에 타이틀 라벨을 설정
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
