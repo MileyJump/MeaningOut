@@ -16,6 +16,12 @@ class LikeViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+        collectionView.reloadData()
     }
     
     override func configureView() {
@@ -54,12 +60,12 @@ class LikeViewController: BaseViewController {
 
 extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return repository.fetchLikeitem().count
+        return repository.fetchLikeitems().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikeCollectionViewCell.identifier, for: indexPath) as? LikeCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(repository.fetchLikeitem()[indexPath.row])
+        cell.configureCell(repository.fetchLikeitems()[indexPath.row])
         return cell
     }
     

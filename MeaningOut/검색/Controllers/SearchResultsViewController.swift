@@ -29,8 +29,6 @@ class SearchResultsViewController: BaseViewController {
     // 페이지네이션
     var page = 1
     
-    // 현재 선택된 버튼 저장
-    var selectedButton: UIButton?
     
     var shoppingData: [Items] = []
     
@@ -61,7 +59,6 @@ class SearchResultsViewController: BaseViewController {
         ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "sim") { shopping in
             if self.page == 1 {
                 self.shoppingData = shopping.items
-                //                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
                 print("추가")
             } else {
                 self.shoppingData.append(contentsOf: shopping.items)
@@ -71,9 +68,7 @@ class SearchResultsViewController: BaseViewController {
             self.searchResultView.collectionView.reloadData()
             print("리로드")
             
-            //            if self.page == 1 {
-            //                self.searchResultView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
-            //            }
+            
         }
     }
     
@@ -138,20 +133,7 @@ class SearchResultsViewController: BaseViewController {
         }
     }
     
-    func updateButtonState(button: UIButton) {
-        guard button != selectedButton else { return } // 이미 선택된 버튼이면 리턴
-        
-        // 선택된 버튼의 색상 변경
-        button.backgroundColor = .customDarkGray
-        button.setTitleColor(.white, for: .normal)
-        
-        // 이전에 선택된 버튼의 색상 원래대로 변경
-        selectedButton?.backgroundColor = .white
-        selectedButton?.setTitleColor(.black, for: .normal)
-        
-        // 선택된 버튼 업데이트
-        selectedButton = button
-    }
+  
     
     // MARK: - 기능
     
@@ -173,8 +155,6 @@ class SearchResultsViewController: BaseViewController {
                   // searchResultLabel에 적용
                   searchResultView.searchResultLabel.attributedText = attributedString
               }
-//            searchResultView.searchResultLabel.text = "상품 " + result
-        
     }
     
     // MARK: - View
@@ -197,11 +177,20 @@ class SearchResultsViewController: BaseViewController {
     @objc func likeButtonTapped(_ sender: UIButton) {
         print(#function)
         print(sender.tag)
+        
+        
         let data = shoppingData[sender.tag]
-        var likeItemList = LikeItemTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, mallName: data.mallName)
-        repository.createItem(likeItem: likeItemList)
+        let likeItemList = LikeItemTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, mallName: data.mallName)
+        
+        if let existingItem = repository.fetchLikeItem(id: data.productId) {
+//            repository.createItem(likeItem: likeItemList)
+            repository.deleteItem(likeItem: existingItem)
+            print("\(data.productId)의 상품의 찜이 취소 되었습니다~")
+        } else {
+            repository.createItem(likeItem: likeItemList)
+            print("\(data.productId)의 상품을 찜 했습니다!")
+        }
     }
-    
 }
 
 
@@ -228,13 +217,9 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.configureCell(shoppingData[indexPath.row])
         cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        
         cell.index = indexPath.row
         
-        //        if likeStatuses[indexPath.row].isLiked == true {
-        //            cell.isTouched = true
-        //        } else {
-        //            cell.isTouched = false
-        //        }
         return cell
     }
     

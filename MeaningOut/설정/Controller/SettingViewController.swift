@@ -79,7 +79,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.likeImageView.isHidden = true
                 cell.productLabel.isHidden = true
             }
-            let likeCount = repository.fetchLikeitem().count
+            let likeCount = repository.fetchLikeitems().count
             cell.configureCell(likeCount: likeCount)
             cell.settingLabel.text = settingCell.rawValue
             print(settingCell.rawValue)

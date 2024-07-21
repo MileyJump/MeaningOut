@@ -11,15 +11,22 @@ import RealmSwift
 class ShoppingTableRepository {
     private let realm = try! Realm()
     
+   
+    
     // Realm 가져오기
     func fetchShopping() -> [ShoppingTable] {
         let value = realm.objects(ShoppingTable.self)
         return Array(value)
     }
     
-    func fetchLikeitem() -> [LikeItemTable] {
+    func fetchLikeitems() -> [LikeItemTable] {
         let value = realm.objects(LikeItemTable.self)
         return Array(value)
+    }
+    
+    func fetchLikeItem(id: String) -> LikeItemTable? {
+        let value = realm.object(ofType: LikeItemTable.self, forPrimaryKey: id)
+        return value
     }
     
     // Realm 추가하기
@@ -58,7 +65,7 @@ class ShoppingTableRepository {
     }
     
     // Realm 삭제하기
-    func deleteItem(shopping: ShoppingTable) {
+    func deleteShopping(shopping: ShoppingTable) {
         do {
             try realm.write {
                 realm.delete(shopping.userLikeItem)
@@ -69,4 +76,18 @@ class ShoppingTableRepository {
             print("Realm Error")
         }
     }
+    
+    func deleteItem(likeItem: LikeItemTable) {
+        if let item = fetchLikeItem(id: likeItem.productId) {
+            do {
+                try realm.write {
+                    realm.delete(item)
+                    print("Realm Delete Succeed")
+                }
+            } catch {
+                print("Realm Error")
+            }
+        }
+    }
+    
 }

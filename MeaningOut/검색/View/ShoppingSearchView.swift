@@ -11,18 +11,6 @@ class ShoppingSearchView: BaseView {
     
     // MARK: - UI
     
-//     let searchBar: UISearchBar = {
-//        let searchBar = UISearchBar()
-//        let searBarImage = UIImage()
-//        searchBar.backgroundImage = searBarImage
-//        searchBar.placeholder = "브랜드, 상품 등을 입력하세요."
-//        searchBar.autocorrectionType = .no
-//        searchBar.spellCheckingType = .no
-//        searchBar.searchTextField.font = .systemFont(ofSize: 15)
-////         searchBar.isHidden = true
-//        return searchBar
-//    }()
-    
     private let lineView: UIView = {
         let view = UIView()
         view.backgroundColor = .customLightGray

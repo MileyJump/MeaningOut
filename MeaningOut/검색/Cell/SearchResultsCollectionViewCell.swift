@@ -52,6 +52,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    var isLike = false
+    
     // MARK: - UI
     
     lazy var likeButton: UIButton = {
@@ -61,6 +63,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         button.tintColor = .white
         button.backgroundColor = .lightGray.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10
+        
         return button
     }()
     
@@ -103,6 +106,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         shoppingImageView.kf.setImage(with: url)
         
         titleLabel.text = data.mallName
+        
         
 //        subTitleLabel.text = data.title
 //        guard let font = FontType.pretendardBold.pretendardFont(ofsize: 15) else { return }
