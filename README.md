@@ -19,4 +19,4 @@
 
 <img src="https://github.com/user-attachments/assets/9462d240-ee25-4972-915f-d9f4027c663e" alt="Simulator Screenshot - iPhone 15 - 2024-07-20 at 22 15 42" width="150" height="350"/>
 
-<img src="https://github.com/user-attachments/assets/3e074e4b-3df5-449f-91ea-152cff998be5" alt="Simulator Screenshot - iPhone 15 - 2024-07-20 at 22 16 22" width="150" height="350"/>
+
