@@ -1,8 +1,13 @@
 # 🛍️ TrendStyle
 쇼핑 미니 프로젝트
 
-- UIKit, MVVM, CodeBase
--  SnpKit, RealmSwift, Kingfishe
+### 📱 기술 스택
+- UIKit
+- MVC -> MVVM (리팩토링)
+- CodeBased UI
+- Kingfishe
+- RealmSwift
+- SnpKit
 
   
 
