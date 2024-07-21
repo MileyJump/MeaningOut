@@ -15,7 +15,9 @@ protocol likeButtonDelegate {
 class SearchResultsCollectionViewCell: UICollectionViewCell {
     
 //    var delegate: likeButtonDelegate?
-    var index: Int?
+    
+    // MARK: - UI
+    
     let formatter = NumberFormatter()
     
     let shoppingImageView: UIImageView = {
@@ -52,13 +54,9 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    var isLike = false
-    
-    // MARK: - UI
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-//        button.setImage(UIImage(named: "like_unselected"), for: .normal)
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .lightGray.withAlphaComponent(0.3)
@@ -66,6 +64,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         
         return button
     }()
+    
     
     // MARK: - life cycle
     
@@ -86,17 +85,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         shoppingImageView.clipsToBounds = true
     }
     
-    // MARK: - 기능
-    
-    var isTouched: Bool? {
-        didSet {
-            if isTouched == true {
-                likeButton.setImage(UIImage(named: "like_selected"), for: .normal)
-            }else{
-                likeButton.setImage(UIImage(named: "like_unselected"), for: .normal)
-            }
-        }
-    }
+
     
     // MARK: - 셀 구성
     
@@ -104,17 +93,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     func configureCell(_ data: Items) {
         let url = URL(string: data.image)
         shoppingImageView.kf.setImage(with: url)
-        
         titleLabel.text = data.mallName
-        
-        
-//        subTitleLabel.text = data.title
-//        guard let font = FontType.pretendardBold.pretendardFont(ofsize: 15) else { return }
-//        subTitleLabel.attributedText = data.title.htmlEscaped(font: font,
-//                                                                   colorHex: "#ff6347",
-//                                                                   lineSpacing: 1.5)
-        
-        
+  
         let titleWithTags = data.title
            
            let font = UIFont.systemFont(ofSize: 15)

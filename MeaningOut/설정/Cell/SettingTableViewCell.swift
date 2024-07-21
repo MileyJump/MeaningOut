@@ -60,28 +60,19 @@ class SettingTableViewCell: UITableViewCell {
     
     func configureLayout() {
         settingLabel.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(10)
+            make.verticalEdges.equalToSuperview().inset(15)
             make.leading.equalToSuperview().inset(15)
-//            make.height.equalTo(30)
         }
-        settingLabel.backgroundColor = .red
         
         productLabel.snp.makeConstraints { make in
             make.verticalEdges.equalTo(settingLabel)
             make.trailing.equalToSuperview().inset(15)
         }
         
-        productLabel.backgroundColor = .blue
-        
         likeImageView.snp.makeConstraints { make in
             make.centerY.equalTo(settingLabel)
             make.trailing.equalTo(productLabel.snp.leading).offset(-3)
             make.size.equalTo(22)
         }
-        
-        likeImageView.backgroundColor = .yellow
     }
-    
-    
-    
 }

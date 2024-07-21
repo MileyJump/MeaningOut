@@ -183,13 +183,13 @@ class SearchResultsViewController: BaseViewController {
         let likeItemList = LikeItemTable(productId: data.productId, title: data.title, link: data.link, image: data.image, lprice: data.lprice, mallName: data.mallName)
         
         if let existingItem = repository.fetchLikeItem(id: data.productId) {
-//            repository.createItem(likeItem: likeItemList)
             repository.deleteItem(likeItem: existingItem)
             print("\(data.productId)의 상품의 찜이 취소 되었습니다~")
         } else {
             repository.createItem(likeItem: likeItemList)
             print("\(data.productId)의 상품을 찜 했습니다!")
         }
+        searchResultView.collectionView.reloadItems(at: [IndexPath(row: sender.tag, section: 0)])
     }
 }
 
@@ -217,9 +217,13 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.configureCell(shoppingData[indexPath.row])
         cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
-        
-        cell.index = indexPath.row
-        
+        if repository.fetchLikeItem(id: shoppingData[indexPath.row].productId) != nil {
+            cell.likeButton.tintColor = .red
+            cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            cell.likeButton.tintColor = .white
+            cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
         return cell
     }
     
@@ -228,7 +232,6 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         let vc = DetailProductViewController()
         vc.link = shoppingData[indexPath.row].link
         vc.productName = shoppingData[indexPath.row].title
-        //        vc.likeButtonType = likeStatuses[indexPath.row].isLiked
         print(vc.likeButtonType)
         navigationController?.pushViewController(vc, animated: true)
     }
