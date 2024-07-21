@@ -29,9 +29,9 @@ enum ShoppingTabBar {
         case .searchTabBar:
             return "검색"
         case .SettingTabBar:
-            return "설정"
+            return "마이페이지"
         case .likeTabBar:
-            return "찜"
+            return "좋아요"
         }
     }
     

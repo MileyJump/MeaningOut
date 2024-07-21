@@ -10,6 +10,8 @@ import UIKit
 
 class LikeCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - UI
+    
     let shoppingImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -44,13 +46,12 @@ class LikeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    // MARK: - UI
+    
     
     lazy var likeButton: UIButton = {
         let button = UIButton()
-//        button.setImage(UIImage(named: "like_unselected"), for: .normal)
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        button.tintColor = .white
+        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.tintColor = UIColor.customMainColor
         button.backgroundColor = .lightGray.withAlphaComponent(0.3)
         button.layer.cornerRadius = 10
         return button
@@ -87,6 +88,7 @@ class LikeCollectionViewCell: UICollectionViewCell {
         titleLabel.text = data.mallName
         subTitleLabel.text = data.title
         priceLabel.text = data.lprice
+        
     }
     
     // MARK: - 레이아웃

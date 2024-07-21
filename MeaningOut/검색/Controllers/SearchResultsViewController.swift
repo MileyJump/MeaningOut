@@ -54,6 +54,11 @@ class SearchResultsViewController: BaseViewController {
         print(realm.configuration.fileURL)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchResultView.collectionView.reloadData()
+    }
+    
     func shoppingDataReqeust() {
         
         ShoppingRequest.shared.shoppingService(query: searchResult, sortText: "sim") { shopping in
@@ -218,7 +223,7 @@ extension SearchResultsViewController: UICollectionViewDelegate, UICollectionVie
         cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
         if repository.fetchLikeItem(id: shoppingData[indexPath.row].productId) != nil {
-            cell.likeButton.tintColor = .red
+            cell.likeButton.tintColor = UIColor.customMainColor
             cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         } else {
             cell.likeButton.tintColor = .white

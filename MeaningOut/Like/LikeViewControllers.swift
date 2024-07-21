@@ -27,7 +27,7 @@ class LikeViewController: BaseViewController {
     override func configureView() {
         super.configureView()
         
-        navigationItem.title = "찜"
+        navigationItem.title = "좋아요"
         let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchButtonTapped))
         
         
@@ -54,7 +54,12 @@ class LikeViewController: BaseViewController {
         }
     }
     
-    
+    @objc func likeButtonTapped(_ sender: UIButton) {
+        let item = repository.fetchLikeitems()[sender.tag]
+        
+        repository.deleteItem(likeItem: item)
+        collectionView.reloadData()
+    }
     
 }
 
@@ -66,6 +71,8 @@ extension LikeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikeCollectionViewCell.identifier, for: indexPath) as? LikeCollectionViewCell else { return UICollectionViewCell() }
         cell.configureCell(repository.fetchLikeitems()[indexPath.row])
+        cell.likeButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        cell.likeButton.tag = indexPath.row
         return cell
     }
     
