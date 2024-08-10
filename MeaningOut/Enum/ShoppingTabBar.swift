@@ -10,16 +10,16 @@ import UIKit
 enum ShoppingTabBar {
     
     case searchTabBar
-    case SettingTabBar
     case likeTabBar
+    case SettingTabBar
     
     var viewController: UIViewController {
         switch self {
         case .searchTabBar:
-            return ShoppingSearchViewController()
-        case .SettingTabBar:
             return SettingViewController()
         case .likeTabBar:
+            return SearchResultsViewController()
+        case .SettingTabBar:
             return LikeViewController()
         }
     }
@@ -27,33 +27,34 @@ enum ShoppingTabBar {
     var title: String {
         switch self {
         case .searchTabBar:
-            return "검색"
-        case .SettingTabBar:
-            return "마이페이지"
+            "검색"
         case .likeTabBar:
-            return "좋아요"
+            "좋아요"
+        case .SettingTabBar:
+            "마이페이지"
         }
     }
+    
     
     var image: UIImage? {
         switch self {
         case .searchTabBar:
-            return UIImage(systemName: "magnifyingglass")
-        case .SettingTabBar:
-            return UIImage(systemName: "person")
+            return UIImage(systemName: "")
         case .likeTabBar:
-            return UIImage(systemName: "heart")
+            return UIImage(systemName: "")
+        case .SettingTabBar:
+            return UIImage(systemName: "")
         }
     }
     
     var selectImage: UIImage? {
         switch self {
         case .searchTabBar:
-            return UIImage(systemName: "magnifyingglass")
-        case .SettingTabBar:
-            return UIImage(systemName: "person.fill")
+            return UIImage(systemName:  "")
         case .likeTabBar:
-            return UIImage(systemName: "heart.fill")
+            return UIImage(systemName: "")
+        case .SettingTabBar:
+            return UIImage(systemName: "")
         }
     }
 }

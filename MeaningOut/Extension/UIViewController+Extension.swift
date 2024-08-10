@@ -23,4 +23,34 @@ extension UIViewController {
         
         present(alert, animated: true)
     }
-}
+    
+    
+    func changeRootViewController(rootViewController: UIViewController) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+        guard let window = (windowScene.delegate as? SceneDelegate)?.window else { return }
+        if let _ = rootViewController as? UITabBarController {
+            window.rootViewController = rootViewController
+        } else {
+            let navigationController = UINavigationController(rootViewController: rootViewController)
+            navigationController.navigationBar.tintColor = UIColor.black
+            configureNavigationBarAppearance(for: navigationController.navigationBar, font: UIFont.boldSystemFont(ofSize: 16), textColor: .black)
+            
+            window.rootViewController = navigationController
+        }
+        
+        window.makeKeyAndVisible()
+    }
+    
+    
+    func configureNavigationBarAppearance(for navigationBar: UINavigationBar, font: UIFont, textColor: UIColor) {
+         let navigationBarAppearance = UINavigationBarAppearance()
+         
+         navigationBarAppearance.titleTextAttributes = [
+             NSAttributedString.Key.font: font,
+             NSAttributedString.Key.foregroundColor: textColor
+         ]
+         
+         navigationBar.standardAppearance = navigationBarAppearance
+         navigationBar.scrollEdgeAppearance = navigationBarAppearance
+     }
+ }
