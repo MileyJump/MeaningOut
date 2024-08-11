@@ -139,6 +139,7 @@ class ProfileViewController: BaseViewController, ImageUpdateDelegate {
         UserDatas.shared.membershipStatus = true
         
         // rootVC 변경
+//        changeRootViewController(rootViewController: ShoppingTabBarController)
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let sceneDelegate = windowScene?.delegate as? SceneDelegate
         let rootViewController = ShoppingTabBarController()
